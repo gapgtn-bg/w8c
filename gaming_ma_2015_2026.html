@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Судьба поглощённых: крупнейшие M&A в игровой индустрии 2015–2026</title>
+<style>
+:root{
+  color-scheme: light;
+  --page:#f9f9f7; --surface:#fcfcfb;
+  --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,0.10);
+  --seq-250:#86b6ef; --seq-350:#5598e7; --seq-450:#2a78d6; --seq-550:#1c5cab; --seq-650:#104281;
+  --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#d03b3b;
+  --good-text:#006300;
+}
+@media (prefers-color-scheme: dark){
+  :root:where(:not([data-theme="light"])){
+    color-scheme: dark;
+    --page:#0d0d0d; --surface:#1a1a19;
+    --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,0.10);
+    --seq-250:#9ec5f4; --seq-350:#6da7ec; --seq-450:#3987e5; --seq-550:#256abf; --seq-650:#1c5cab;
+    --good-text:#0ca30c;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--page);color:var(--ink);line-height:1.55;font-size:15px;padding:32px 16px 64px}
+.wrap{max-width:980px;margin:0 auto}
+header.hero{margin-bottom:28px}
+h1{font-size:26px;line-height:1.25;margin-bottom:8px}
+.sub{color:var(--ink2);max-width:760px}
+.note{color:var(--muted);font-size:13px;margin-top:8px}
+section{margin-top:36px}
+h2{font-size:19px;margin-bottom:14px}
+h3{font-size:15px;margin-bottom:6px}
+
+/* KPI tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.tile{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.tile .v{font-size:26px;font-weight:700}
+.tile .l{color:var(--ink2);font-size:13px;margin-top:2px}
+
+/* chart card */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-top:14px}
+.card h3{margin-bottom:2px}
+.card .cap{color:var(--muted);font-size:12.5px;margin-bottom:12px}
+svg{display:block;width:100%;height:auto}
+.bar{rx:0}
+details{margin-top:10px}
+summary{cursor:pointer;color:var(--ink2);font-size:13px}
+table{border-collapse:collapse;width:100%;margin-top:8px;font-size:13px}
+th,td{text-align:left;padding:5px 10px 5px 0;border-bottom:1px solid var(--grid);font-variant-numeric:tabular-nums}
+th{color:var(--ink2);font-weight:600}
+td.num,th.num{text-align:right}
+
+/* tooltip */
+#tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--page);padding:6px 10px;border-radius:6px;font-size:12.5px;opacity:0;transition:opacity .08s;z-index:10;max-width:260px}
+
+/* company cards */
+.company{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px 24px;margin-top:18px}
+.chead{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 14px;margin-bottom:4px}
+.chead h3{font-size:17px}
+.deal{color:var(--ink2);font-size:13.5px}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:999px;border:1.5px solid}
+.badge.good{color:var(--good-text);border-color:var(--good)}
+.badge.warning{color:var(--ink);border-color:var(--warning)}
+.badge.serious{color:var(--ink);border-color:var(--serious)}
+.badge.critical{color:var(--critical);border-color:var(--critical)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:720px){.cols{grid-template-columns:1fr}}
+.col h4{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:6px}
+.col ul{padding-left:18px}
+.col li{margin-bottom:6px}
+.verdict{margin-top:14px;padding:10px 14px;border-left:3px solid var(--seq-450);background:color-mix(in srgb,var(--seq-450) 6%,var(--surface));border-radius:0 8px 8px 0;font-size:14px}
+.verdict b{display:block;margin-bottom:2px}
+
+/* summary table */
+.sumtable td:first-child{font-weight:600}
+.pill{font-size:12px;font-weight:600}
+.pill.good{color:var(--good-text)}
+.pill.warning{color:var(--ink2)}
+.pill.serious{color:var(--ink2)}
+.pill.critical{color:var(--critical)}
+
+/* wave 2 mini cards */
+.mini{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-top:14px}
+.mini .chead h3{font-size:15.5px}
+.mini p{font-size:14px;margin-top:8px}
+.mini a,.company a{color:var(--seq-550);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--seq-550) 35%,transparent)}
+.mini a:hover,.company a:hover{border-bottom-color:var(--seq-550)}
+.mini .verdict{margin-top:12px}
+
+/* hover source-quote cards */
+.q{position:relative;border-bottom:1.5px dashed var(--serious);cursor:help}
+.q .qc{visibility:hidden;opacity:0;transition:opacity .12s ease;position:absolute;left:50%;transform:translateX(-50%);bottom:calc(100% + 10px);width:min(380px,88vw);background:var(--surface);border:1px solid var(--border);border-radius:10px;box-shadow:0 16px 44px rgba(0,0,0,.28);z-index:60;font-size:12.5px;line-height:1.5;color:var(--ink);font-weight:400;font-style:normal;text-align:left}
+.q:hover .qc,.q:focus .qc,.q:focus-within .qc{visibility:visible;opacity:1}
+.qbar{display:flex;align-items:center;gap:5px;padding:7px 10px;border-bottom:1px solid var(--border);border-radius:10px 10px 0 0;background:color-mix(in srgb,var(--ink) 5%,var(--surface));font-size:11px;color:var(--muted)}
+.qbar i{width:8px;height:8px;border-radius:50%;background:var(--axis)}
+.qbar b{margin-left:6px;font-weight:600}
+.qc .qq{display:block;margin:0;padding:10px 12px 4px;font-style:italic}
+.qc .qsrc{display:block;padding:0 12px 10px;color:var(--muted);font-size:11px}
+
+/* sources */
+.sources{font-size:13px;color:var(--ink2)}
+.sources a{color:var(--seq-550);text-decoration:none}
+.sources a:hover{text-decoration:underline}
+.sources li{margin-bottom:4px}
+footer{margin-top:40px;color:var(--muted);font-size:12.5px}
+</style>
+</head>
+<body>
+<div id="tip"></div>
+<div class="wrap">
+
+<header class="hero">
+  <h1>Судьба поглощённых: что стало с крупнейшими игровыми компаниями после продажи</h1>
+  <p class="sub">Девятнадцать сделок 2015–2026 гг. — от $229 млн до $68.7 млрд (плюс уход EA в частные руки за $55 млрд как контекст). Два вопроса к каждой: продолжила ли компания выпускать новые игры — или стала ресурсным пулом, и что произошло с её финансами.</p>
+  <p class="note">Фильтр: поглощения целиком или почти целиком, цена от $5 млн (условный, нестрогий порог). Волна 1 — шесть крупнейших кейсов, волна 2 — тринадцать сделок поменьше, с источниками прямо в тексте. Пунктирное подчёркивание — наведите курсор, всплывёт дословная цитата из источника. Данные на 18 августа 2026 г.</p>
+</header>
+
+<section>
+  <div class="tiles">
+    <div class="tile"><div class="v">$107 млрд</div><div class="l">суммарная стоимость шести сделок</div></div>
+    <div class="tile"><div class="v">2 из 6</div><div class="l">сохранили полноценный конвейер новых игр</div></div>
+    <div class="tile"><div class="v">~$6.7 млрд</div><div class="l">списания покупателей: Take-Two по Zynga (~$5.9 млрд) + Sony по Bungie ($766 млн)</div></div>
+    <div class="tile"><div class="v">12 000+</div><div class="l">сокращений в Microsoft Gaming после сделки с ABK (2024–2026)</div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Масштаб сделок</h2>
+  <div class="card">
+    <h3>Цена поглощения, $ млрд</h3>
+    <p class="cap">Сортировка по размеру сделки. Наведите курсор на столбец — покупатель и дата закрытия.</p>
+    <svg viewBox="0 0 900 292" role="img" aria-label="Горизонтальная столбчатая диаграмма: цены семи сделок от 3.6 до 68.7 млрд долларов">
+      <g id="dealbars" font-size="13" font-family="system-ui,sans-serif"></g>
+    </svg>
+    <details><summary>Данные таблицей</summary>
+      <table>
+        <tr><th>Компания</th><th>Покупатель</th><th>Закрытие</th><th class="num">Цена, $ млрд</th></tr>
+        <tr><td>Activision Blizzard</td><td>Microsoft</td><td>окт 2023</td><td class="num">68.7</td></tr>
+        <tr><td>Electronic Arts (контекст)</td><td>PIF + Silver Lake + Affinity</td><td>авг 2026</td><td class="num">55.0</td></tr>
+        <tr><td>Zynga</td><td>Take-Two</td><td>май 2022</td><td class="num">12.7</td></tr>
+        <tr><td>Supercell (84%)</td><td>Tencent (консорциум)</td><td>2016</td><td class="num">8.6</td></tr>
+        <tr><td>ZeniMax / Bethesda</td><td>Microsoft</td><td>март 2021</td><td class="num">7.5</td></tr>
+        <tr><td>King</td><td>Activision Blizzard</td><td>фев 2016</td><td class="num">5.9</td></tr>
+        <tr><td>Bungie</td><td>Sony</td><td>июль 2022</td><td class="num">3.6</td></tr>
+      </table>
+    </details>
+  </div>
+</section>
+
+<section>
+  <h2>Волна 1: шесть крупнейших сделок</h2>
+
+  <!-- ===== ACTIVISION BLIZZARD ===== -->
+  <div class="company">
+    <div class="chead">
+      <h3>Activision Blizzard → Microsoft</h3>
+      <span class="deal">$68.7 млрд · анонс янв 2022 · закрыта 13 окт 2023 · крупнейшая сделка в истории игр</span>
+    </div>
+    <div class="badges">
+      <span class="badge warning">⚠ Игры: конвейер сузился до франшиз</span>
+      <span class="badge warning">⚠ Финансы: рост выручки, слабая маржа</span>
+    </div>
+    <div class="cols">
+      <div class="col">
+        <h4>Что стало с играми</h4>
+        <ul>
+          <li>Конвейер работает, но <b>только по устоявшимся франшизам</b>: ежегодный Call of Duty (BO6 2024 — «крупнейший CoD в истории», BO7 2025 — заметный спад продаж), дополнения Diablo IV и WoW. <b>Ни одного нового IP</b> после сделки.</li>
+          <li>Отменены: survival-игра Blizzard (янв 2024), развитие Warcraft Rumble и Warzone Mobile свёрнуто (2025).</li>
+          <li>Волны сокращений: ~1 900 (янв 2024), 650 (сент 2024), крупные срезы июля 2025 (King −10%, Blizzard, студии поддержки CoD). Toys for Bob выкупила независимость.</li>
+          <li>Стратегический разворот: CoD day-one в Game Pass, каталог ABK — на все платформы; Microsoft стала крупнейшим издателем на PlayStation.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Что стало с финансами</h4>
+        <ul>
+          <li>До сделки: выручка $8.8 млрд и прибыль $2.7 млрд (2021, рекорд); $7.5 млрд (2022).</li>
+          <li>FY2024: ABK принесла Microsoft ~$5.7 млрд выручки за ~8.5 мес., но <b>операционный убыток ~$1.36 млрд</b> — в основном из-за амортизации сделки.</li>
+          <li>Gaming-выручка Microsoft: $21.5 млрд FY24 (+39%, почти весь рост — ABK) → рекордные $23.45 млрд FY25; Game Pass ≈ $5 млрд/год.</li>
+          <li>С FY25 Microsoft перестала раскрывать ABK отдельно; в 2026 г. — падение квартальной выручки Xbox и новая реструктуризация на фоне маржи ~3%.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="verdict"><b>Вердикт</b>Не ресурсный пул, но и не прежняя компания: фабрика франшиз, у которой отрезали всё экспериментальное. Выручку сделка Microsoft дала, прибыльность — пока нет.</div>
+  </div>
+
+  <!-- ===== ZENIMAX ===== -->
+  <div class="company">
+    <div class="chead">
+      <h3>ZeniMax Media / Bethesda → Microsoft</h3>
+      <span class="deal">$7.5 млрд · анонс сент 2020 · закрыта 9 марта 2021</span>
+    </div>
+    <div class="badges">
+      <span class="badge good">✓ Игры: продолжает активно выпускать</span>
+      <span class="badge serious">⚠ Финансы: ROI не раскрыт, закрыты 4 студии</span>
+    </div>
+    <div class="cols">
+      <div class="col">
+        <h4>Что стало с играми</h4>
+        <ul>
+          <li>Самый продуктивный кейс Microsoft: Hi-Fi Rush (2023), Starfield (2023, 15 млн+ игроков), Indiana Jones and the Great Circle (2024), DOOM: The Dark Ages (2025), Oblivion Remastered (2025, 9 млн+ игроков). TES VI — главный текущий проект студии.</li>
+          <li>Но с потерями: провал Redfall (2023) → в мае 2024 закрыты <b>Arkane Austin, Tango Gameworks</b> (авторы удостоенной наград Hi-Fi Rush; позже возрождена Krafton), Alpha Dog; в 2025 отменена MMO «Blackbird» ZeniMax Online; сокращения 2026 задели id, BGS, ZOS.</li>
+          <li>Эксклюзивность, ради которой покупали, отменена: с 2025 г. игры выходят на PS5 day-one (DOOM, Oblivion), Starfield добрался до PS5 в 2026-м.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Что стало с финансами</h4>
+        <ul>
+          <li>ZeniMax была частной — довоенных цифр нет; Microsoft не выделяет её в отчётности и ни разу не оценила публично возврат на $7.5 млрд.</li>
+          <li>Косвенные плюсы: рекордные запуски (Starfield — крупнейший в истории Bethesda; Oblivion Remastered — №3 по продажам в США в 2025 г.), эффект сериала Fallout.</li>
+          <li>Косвенные минусы: слабые продажи дополнения Starfield, закрытие студий, поворот к мультиплатформе читается прессой как признание, что эксклюзивность не окупалась.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="verdict"><b>Вердикт</b>Осталась полноценным производителем игр — редкость среди кейсов. Цена: четыре студии, отменённая MMO и отказ от изначальной стратегии эксклюзивов.</div>
+  </div>
+
+  <!-- ===== ZYNGA ===== -->
+  <div class="company">
+    <div class="chead">
+      <h3>Zynga → Take-Two Interactive</h3>
+      <span class="deal">$12.7 млрд · анонс янв 2022 · закрыта 23 мая 2022</span>
+    </div>
+    <div class="badges">
+      <span class="badge good">✓ Игры: продолжает выпускать, есть хиты</span>
+      <span class="badge critical">✕ Финансы: списано ~46% цены сделки</span>
+    </div>
+    <div class="cols">
+      <div class="col">
+        <h4>Что стало с играми</h4>
+        <ul>
+          <li>Стала <b>мобильным дивизионом Take-Two</b> (~половина всех букингов компании) — но не пассивным: новые запуски продолжались.</li>
+          <li>Хиты: Match Factory! (2023, Peak) и Color Block Jam (2025, Rollic) — главные драйверы роста; Toon Blast растёт +25% г/г даже в FY26.</li>
+          <li>Провалы: Star Wars Hunters (2024, закрыт через 9 мес. после релиза), закрыта студия Echtra Games; сокращения ~600 чел. (2024), увольнения в NaturalMotion.</li>
+          <li>Обещанный «GTA на мобильных» от Zynga так и не анонсирован (CSR 3 и Top Goal — план на FY2027).</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Что стало с финансами</h4>
+        <ul>
+          <li>До сделки: рекордные $2.8 млрд выручки (2021), но убыточна.</li>
+          <li>Take-Two списала гудвилл на <b>~$5.9 млрд за FY2024–FY2025</b> (~46% цены сделки) — бухгалтерское признание переплаты: покупка закрылась ровно к обвалу мобильного рынка после IDFA.</li>
+          <li>При этом операционно бизнес выправился: мобильные букинги $2.76 млрд (FY24) → $2.87 млрд (FY25) → <b>$3.3 млрд (FY26, +15%, исторический максимум Zynga)</b>.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="verdict"><b>Вердикт</b>Парадокс: как бизнес Zynga чувствует себя лучше, чем до сделки, но как инвестиция — почти официально признана переплатой почти вдвое.</div>
+  </div>
+
+  <!-- ===== SUPERCELL ===== -->
+  <div class="company">
+    <div class="chead">
+      <h3>Supercell → Tencent</h3>
+      <span class="deal">$8.6 млрд за 84.3% · июнь 2016 · оценка ~$10.2 млрд · штаб-квартира осталась в Хельсинки</span>
+    </div>
+    <div class="badges">
+      <span class="badge good">✓ Независимость реально сохранена</span>
+      <span class="badge good">✓ Финансы: вернулась на пик</span>
+      <span class="badge warning">⚠ Новые игры: 5.5 лет без релизов</span>
+    </div>
+    <div class="cols">
+      <div class="col">
+        <h4>Что стало с играми</h4>
+        <ul>
+          <li>Уникальный кейс: Tencent <b>не вмешивается операционно</b> — Илкка Паананен по-прежнему CEO, компания публикует собственные годовые отчёты, стратегию определяет сама.</li>
+          <li>Но собственная «культура убийства прототипов» дала паузу в 5.5 лет между Brawl Stars (2018) и Squad Busters (2024); убито 30+ проектов (Clash Mini, Clash Quest, Everdale…).</li>
+          <li>Squad Busters — первый глобальный релиз, который пришлось закрыть (2025); mo.co перезапускается. В разработке ~10 игр, штат вырос с 213 до ~890 человек.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Что стало с финансами</h4>
+        <ul>
+          <li>Траектория «яма и камбэк»: $2.3 млрд (2016) → спад до $1.48 млрд (2020) → <b>рекордные ~$3.0 млрд (2024, +77%)</b> на возрождении Brawl Stars.</li>
+          <li>2025: ~$3.0 млрд выручки, EBITDA ~$1.06 млрд (+6%); звезда года — Clash Royale. Игры 2012–2018 гг. до сих пор кормят компанию.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="verdict"><b>Вердикт</b>Лучшее опровержение тезиса «поглощение убивает студию»: десять лет под Tencent — и рекордные показатели. Правда, все хиты созданы до или без участия покупателя.</div>
+  </div>
+
+  <!-- ===== KING ===== -->
+  <div class="company">
+    <div class="chead">
+      <h3>King Digital → Activision Blizzard (→ Microsoft)</h3>
+      <span class="deal">$5.9 млрд · анонс ноя 2015 · закрыта 23 фев 2016 · с окт 2023 в составе Microsoft</span>
+    </div>
+    <div class="badges">
+      <span class="badge critical">✕ Игры: одна франшиза, новинок почти нет</span>
+      <span class="badge good">✓ Финансы: сделка окупилась с запасом</span>
+    </div>
+    <div class="cols">
+      <div class="col">
+        <h4>Что стало с играми</h4>
+        <ul>
+          <li>За 10 лет — по сути <b>три заметных запуска</b>: Candy Crush Friends Saga (2018), Crash Bandicoot: On the Run (2021, закрыт через 2 года при 60 млн загрузок) и Candy Crush Solitaire (2025 — первая новая игра почти за 7 лет).</li>
+          <li>Собственная CoD-мобилка King, анонсированная в 2016-м, так и не вышла (CoD Mobile 2019 г. сделала TiMi/Tencent). Убиты в софт-лонче: Candy Crush 3D, Blast, Cubes, Tales, Rebel Riders.</li>
+          <li>~90% выручки — франшиза Candy Crush, почти всё — одна игра 2012 года. При Microsoft: −10% штата (июль 2025), громкие сообщения о замене левел-дизайнеров ИИ-инструментами, которые они сами обучали.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Что стало с финансами</h4>
+        <ul>
+          <li>Куплена «на спаде» (~3× выручки): в 2015-м выручка падала (−12%, $2.0 млрд).</li>
+          <li>Под ATVI — образцовая дойная корова: выручка сегмента $2.0 → $2.8 млрд (2022), операционная маржа до 44%; в 2022-м King прибыльнее сегментов Activision и Blizzard.</li>
+          <li>Candy Crush: $20 млрд+ выручки за всё время (к 2023). Накопленная операционная прибыль превысила цену покупки уже к ~2022 году.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="verdict"><b>Вердикт</b>Финансово — возможно, лучшая сделка десятилетия. Творчески — компания, которая когда-то выпускала сотни игр, стала машиной по обслуживанию одной.</div>
+  </div>
+
+  <!-- ===== BUNGIE ===== -->
+  <div class="company">
+    <div class="chead">
+      <h3>Bungie → Sony Interactive Entertainment</h3>
+      <span class="deal">$3.6 млрд (из них ~$1.2 млрд — на удержание сотрудников) · анонс янв 2022 · закрыта 15 июля 2022 · обещана «независимая дочка со своим советом директоров»</span>
+    </div>
+    <div class="badges">
+      <span class="badge critical">✕ Игры: флагман переведён в режим поддержки</span>
+      <span class="badge critical">✕ Финансы: Sony списала >20% цены сделки</span>
+      <span class="badge critical">✕ Обещанная независимость отозвана</span>
+    </div>
+    <div class="cols">
+      <div class="col">
+        <h4>Что стало с играми</h4>
+        <ul>
+          <li>Destiny 2 после сделки: Lightfall (2023) разочаровал игроков; <b>The Final Shape (2024) — критический триумф</b> (Metacritic ~90), но продажи ниже ожиданий; Edge of Fate (2025) — слабый запуск, за месяцы −91% игроков в Steam. В <b>июне 2026 вышло финальное обновление</b> — игра переведена в режим поддержки без новых дополнений.</li>
+          <li>Marathon: переносы, скандал с плагиатом арта в альфе, запуск в марте 2026 за $40 — 1.2 млн копий и ~$55 млн выручки, но онлайн рухнул до менее 1 000 человек в Steam к июлю 2026-го.</li>
+          <li>Отменён спин-офф Payback; инкубационный проект «Gummy Bears» изъят из Bungie и передан в новую студию PlayStation (teamLFG). Мобильную Destiny: Rising делала NetEase по лицензии — и её выручка тоже обвалилась.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Что стало с финансами и независимостью</h4>
+        <ul>
+          <li>Уже к концу 2023-го выручка шла <b>на ~45% ниже внутреннего плана</b> (Bloomberg) — а именно к финансовым целям была привязана договорная независимость.</li>
+          <li>Волны сокращений: ~100 (окт 2023), 220 (~17%) + перевод 155 ролей в Sony (июль 2024, через 2 месяца после триумфа Final Shape), новые «значительные» сокращения в июне 2026.</li>
+          <li>Sony списала по Bungie <b>¥120.1 млрд (~$766 млн) за FY2025</b>: «продажи и вовлечённость не достигли ожиданий времён покупки». CEO Пит Парсонс ушёл в 2025-м (на фоне скандала с покупкой ретро-автомобилей на $2.4 млн в разгар увольнений), его преемник Джастин Труман — через год; нового руководителя нет, студия фактически растворена в PlayStation Studios.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="verdict"><b>Вердикт</b>Антикейс «независимости за деньги»: автономия, прописанная в сделке, не пережила первый же невыполненный финансовый план. За четыре года — от флагмана live-service до студии без руководителя, чья главная игра больше не обновляется.</div>
+  </div>
+
+  <!-- ===== EA CONTEXT ===== -->
+  <div class="company" style="border-style:dashed">
+    <div class="chead">
+      <h3>Контекст: Electronic Arts → PIF + Silver Lake + Affinity Partners</h3>
+      <span class="deal">$55 млрд ($210/акция) · крупнейший LBO в истории · закрыта 4 августа 2026 — три дня назад</span>
+    </div>
+    <p style="font-size:14px;color:var(--ink2)">Сделка, с которой начался этот вопрос, — но анализировать её последствия пока рано. Стартовые условия известны: EA ушла с биржи на пике (FY2026 — рекордные букинги $8.03 млрд, денежный поток $2.55 млрд), однако на балансе — долг ~$18–20 млрд с процентами ~$1.8 млрд/год, съедающими большую часть этого потока. По данным Bloomberg, новым владельцам (саудовский PIF ~93%) обещано сокращение издержек ~$700 млн/год; ещё до закрытия прошли три волны увольнений 2026 года, включая все четыре студии Battlefield — сразу после рекордного запуска BF6 (7 млн копий за 3 дня). Кейсы выше подсказывают, за чем следить: судьбой новых IP, волнами сокращений и тем, останется ли что-то от обещаний «долгосрочного видения».</p>
+  </div>
+</section>
+
+<section>
+  <h2>Волна 2: тринадцать сделок от $229 млн до $4.9 млрд</h2>
+  <p class="sub" style="font-size:14px">Здесь исходы разбросаны шире, чем в первой шестёрке: от лучшей покупки эпохи до студии, уничтоженной за 14 месяцев. Источники — прямо в тексте; фрагменты с <span class="q" tabindex="0">пунктирным подчёркиванием<span class="qc"><span class="qbar"><i></i><i></i><i></i><b>так это выглядит</b></span><span class="qq">При наведении курсора всплывает дословная цитата из первоисточника — с изданием и датой публикации.</span><span class="qsrc">Демонстрация работы подсказки</span></span></span> показывают цитату из источника при наведении.</p>
+
+  <div class="card">
+    <h3>Цена входа, $ млрд</h3>
+    <p class="cap">Цена, по которой компанию купили (для перепроданных — первая сделка). Firewalk Studios вне графика: Sony не раскрыла цену. Наведите курсор — детали.</p>
+    <svg viewBox="0 0 900 440" role="img" aria-label="Горизонтальная столбчатая диаграмма: цены двенадцати сделок от 0.23 до 4.9 млрд долларов">
+      <g id="w2bars" font-size="12.5" font-family="system-ui,sans-serif"></g>
+    </svg>
+  </div>
+
+  <!-- ===== SCOPELY ===== -->
+  <div class="mini">
+    <div class="chead">
+      <h3>Scopely → Savvy Games Group (саудовский PIF)</h3>
+      <span class="deal">$4.9 млрд · закрыта июль 2023</span>
+    </div>
+    <div class="badges">
+      <span class="badge good">✓ Игры: главный мобильный хит десятилетия</span>
+      <span class="badge good">✓ Финансы: сделка окупилась многократно</span>
+    </div>
+    <p>Кандидат на лучшую покупку эпохи. Monopoly GO! вышла <a href="https://techcrunch.com/2023/04/05/saudis-savvy-games-group-acquire-mobile-games-scopely-4-9-billion">в том же месяце, когда анонсировали сделку</a>, и дальше только ставила рекорды: <a href="https://gamedevreports.substack.com/p/monopoly-go-1-billion-later">$1 млрд за ~7 месяцев</a>, <a href="https://www.pocketgamer.biz/scopelys-monopoly-go-hits-5bn-in-two-years/">$5 млрд за два года</a> (быстрее Genshin Impact) и <span class="q" tabindex="0">рекорд Sensor Tower — $6 млрд внутриигровых покупок быстрее всех в истории<span class="qc"><span class="qbar"><i></i><i></i><i></i><b>wnhub.io</b></span><span class="qq">“No other game has hit the $6 billion mark in in-app purchases as swiftly.” — Sam Aune, Sensor Tower</span><span class="qsrc">WN Hub — рекорд Monopoly GO!, 15 янв 2026</span></span></span>. К июню 2026-го игра <a href="https://finance.yahoo.com/media-advertising/articles/culver-city-based-scopely-built-142923827.html">приближается к $8 млрд за всё время</a> — больше, чем стоила вся компания.</p>
+    <p>Штат <a href="https://www.pocketgamer.biz/scopely-celebrates-15-years-with-more-than-15bn-in-lifetime-revenue/">вырос до 3 000+ человек</a> без массовых увольнений, и Scopely сама превратилась в консолидатора: ещё в 2024-м CRO компании <span class="q" tabindex="0">открыто анонсировал охоту за «мегасделкой»<span class="qc"><span class="qbar"><i></i><i></i><i></i><b>mobilegamer.biz</b></span><span class="qq">“I hope that we announce at least one megadeal. When I say megadeal, I mean a scaled global franchise doing hopefully at least a billion dollars in revenue.” — Tim O’Brien, CRO Scopely</span><span class="qsrc">Mobilegamer.biz — «Scopely is lining up a “megadeal” acquisition for 2025», 7 окт 2024</span></span></span> — ею стала покупка игр Niantic (карточка ниже).</p>
+    <div class="verdict"><b>Вердикт</b>Один хит окупил сделку в одиночку. Оговорка: Monopoly GO! была сделана до продажи — Savvy купила билет на уже взлетающую ракету.</div>
+  </div>
+
+  <!-- ===== MOONTON ===== -->
+  <div class="mini">
+    <div class="chead">
+      <h3>Moonton (Mobile Legends: Bang Bang) → ByteDance → Savvy</h3>
+      <span class="deal">~$4 млрд (ByteDance, 2021) → продана за ~$6 млрд (Savvy, соглашение март 2026)</span>
+    </div>
+    <div class="badges">
+      <span class="badge good">✓ Игра пережила двух владельцев без ущерба</span>
+      <span class="badge warning">⚠ Покупатель-стратег ушёл из игр совсем</span>
+    </div>
+    <p>ByteDance купила Moonton <a href="https://www.marketingdive.com/news/bytedance-acquires-mobile-game-developer-moonton-in-deal-reportedly-valued/597301/">за ~$4 млрд, перебив Tencent</a>, — а в 2023-м свернула игровые амбиции целиком: <a href="https://www.cnn.com/2023/11/28/tech/bytedance-layoffs-video-gaming-intl-hnk">закрыла подразделение Nuverse с сотнями увольнений</a> и начала <a href="https://finance.yahoo.com/news/bytedance-confirms-talks-tencent-other-093000562.html">искать покупателя на игровые активы</a>. Итог неожиданный: в феврале 2026-го Reuters сообщил о <span class="q" tabindex="0">переговорах о продаже Moonton за $6–7 млрд<span class="qc"><span class="qbar"><i></i><i></i><i></i><b>reuters.com</b></span><span class="qq">“ByteDance is in advanced talks to sell Shanghai Moonton Technology…to Saudi Arabia’s Savvy Games Group in a deal valued at between $6 billion and $7 billion.”</span><span class="qsrc">Reuters (via Yahoo Finance) — эксклюзив, 13 фев 2026</span></span></span>, а в марте <a href="https://escharts.com/news/bytedance-6-billion-sale-mlbb-publisher-savvy-games-group">подписано соглашение на ~$6 млрд</a> — ByteDance вышла с прибылью ~$2 млрд (на 18 августа 2026 г. закрытие ещё ожидает регуляторов).</p>
+    <p>Сама MLBB всё это время только росла: <a href="https://mobidictum.com/savvy-games-acquires-mobile-legends-studio-moonton-for-6-billion/">1.5 млрд установок, 110 млн MAU</a>, а чемпионат M7 в январе 2026-го <a href="https://www.sheepesports.com/en/all/articles/bytedance-completes-usd6b-sale-of-mlbb-publisher-moonton-to-savvy-games/en">поставил рекорд мобильного киберспорта — 5.6 млн зрителей на пике</a>.</p>
+    <div class="verdict"><b>Вердикт</b>Редкий случай: актив прошёл через покупку, заморозку интереса владельца и перепродажу — и стал только дороже. Правда, заслуга тут не владельцев, а самой игры.</div>
+  </div>
+
+  <!-- ===== NIANTIC GAMES ===== -->
+  <div class="mini">
+    <div class="chead">
+      <h3>Игровое подразделение Niantic (Pokémon GO) → Scopely</h3>
+      <span class="deal">$3.5 млрд · закрыта 29 мая 2025</span>
+    </div>
+    <div class="badges">
+      <span class="badge good">✓ Игры живы, обещание «без увольнений» сдержано</span>
+      <span class="badge warning">⚠ Монетизация заметно жёстче</span>
+    </div>
+    <p>Scopely забрала <a href="https://techcrunch.com/2025/03/12/pokemon-go-maker-niantic-is-selling-its-games-division-to-scopely-for-3-5b">Pokémon GO, Monster Hunter Now и Pikmin Bloom</a>; Niantic осталась с геопространственным ИИ (Niantic Spatial) — и <a href="https://www.videogameschronicle.com/news/niantic-is-laying-off-68-staff-following-its-acquisition-by-scopely/">уволила 68 человек со своей стороны сделки</a>, тогда как Scopely <span class="q" tabindex="0">публично пообещала обойтись без сокращений — и сдержала слово<span class="qc"><span class="qbar"><i></i><i></i><i></i><b>mobilegamer.biz</b></span><span class="qq">“Scopely will not be making any workforce reductions as part of our acquisition of Niantic’s games business.”</span><span class="qsrc">Mobilegamer.biz — заявление Scopely, 16 апр 2025</span></span></span>.</p>
+    <p>Год спустя игра жива и огромна, но «скоуплификация» ощутима: предметы, которые раньше выдавались за квесты, ушли в платные пропуска, билеты на ивенты дорожают, а <a href="https://kotaku.com/pokemon-go-10-anniversary-times-square-mewtwo-event-2000720258">юбилейный Mewtwo с закрытого ивента на Таймс-сквер тут же всплыл на eBay за пятизначные суммы</a>. Настроение части комьюнити передаёт <span class="q" tabindex="0">цитата игрока из материала Kotaku к 10-летию игры<span class="qc"><span class="qbar"><i></i><i></i><i></i><b>kotaku.com</b></span><span class="qq">“It’s pretty miserable seeing a game you like get bought by a Saudi group.”</span><span class="qsrc">Kotaku — «10 Years Later, The Legacy Of Pokémon Go Has Never Been More Complicated», 30 июля 2026</span></span></span>.</p>
+    <div class="verdict"><b>Вердикт</b>Пока — самый мягкий сценарий смены владельца: без увольнений и закрытий, но с планомерным закручиванием монетизации. Судить окончательно рано — прошёл год.</div>
+  </div>
+
+  <!-- ===== GLU ===== -->
+  <div class="mini">
+    <div class="chead">
+      <h3>Glu Mobile → Electronic Arts</h3>
+      <span class="deal">$2.4 млрд · закрыта апр 2021 · обещание «нового глобального лидера мобильных игр»</span>
+    </div>
+    <div class="badges">
+      <span class="badge critical">✕ Игры: портфель почти целиком отключён</span>
+      <span class="badge critical">✕ Бренд Glu растворён в EA Mobile</span>
+    </div>
+    <p>EA покупала Glu как <a href="https://www.businesswire.com/news/home/20210208005854/en/Electronic-Arts-to-Acquire-Glu-Mobile-Creating-a-New-Global-Leader-in-the-Largest-and-Fastest-Growing-Gaming-Segment">билет в лидеры мобильного рынка</a>. Дальше — методичное отключение: MLB Tap Sports Baseball закрыт, его EA-преемник <a href="https://www.pocketgamer.biz/ea-to-lay-off-several-staff-after-sunsetting-two-mobile-games/">убит в 2024-м вместе с увольнениями</a>, <a href="https://www.cnn.com/2024/01/04/tech/kim-kardashian-hollywood-game-shutting-down/index.html">Kim Kardashian: Hollywood закрыта в 2024-м</a> после почти десятилетия, а в январе 2025-го EA <span class="q" tabindex="0">одним объявлением отключила ещё семь игр Glu — на витрине осталось две<span class="qc"><span class="qbar"><i></i><i></i><i></i><b>mobilegamer.biz</b></span><span class="qq">“It leaves the Glu label with just two live games on the stores, Cooking Dash and Diner Dash Adventures.”</span><span class="qsrc">Mobilegamer.biz — «EA is about to switch off eight more mobile games», 23 янв 2025</span></span></span>.</p>
+    <p>Мобильная выручка EA после пика FY2023 ($1.3 млрд) <a href="https://www.pocketgamer.biz/the-state-of-eas-mobile-portfolio-following-its-55bn-acquisition/">сползла к $1.1 млрд</a>, и стратегия официально сжалась до <a href="https://mobilegamer.biz/ea-only-plans-to-make-concentrated-bets-in-mobile-following-a-flurry-of-cancellations/">«концентрированных ставок»</a> — то есть признания, что тезис сделки не сработал.</p>
+    <div class="verdict"><b>Вердикт</b>Кладбище лицензий: $2.4 млрд за портфель, который почти целиком выключен за четыре года. Из «глобального лидера мобайла» осталось два симулятора готовки.</div>
+  </div>
+
+  <!-- ===== LEYOU ===== -->
+  <div class="mini">
+    <div class="chead">
+      <h3>Leyou (Digital Extremes + Splash Damage) → Tencent</h3>
+      <span class="deal">$1.5 млрд · закрыта дек 2020</span>
+    </div>
+    <div class="badges">
+      <span class="badge good">✓ Warframe: рекорды на 13-м году жизни</span>
+      <span class="badge critical">✕ Splash Damage: перепродана, вся студия под сокращение</span>
+    </div>
+    <p>Одна сделка — две противоположные судьбы. Warframe у Digital Extremes процветает: в декабре 2025-го игра <a href="https://www.xda-developers.com/12-years-warframe-comes-close-beating-own-record-steam/">почти побила собственный рекорд Steam двенадцатилетней давности</a> (175 546 онлайна), на TennoCon 2026 DE говорила про <a href="https://www.businesswire.com/news/home/20260711532888/en/Digital-Extremes-Reveals-the-Future-of-Warframe-and-Soulframe-Alongside-Millions-of-Players-at-Annual-TennoCon-Celebration">85+ млн игроков</a>. Хотя и здесь не без потерь: в 2023-м DE <a href="https://www.videogameschronicle.com/news/digital-extremes-confirms-job-cuts-as-it-closes-its-external-projects-division/">закрыла издательское направление с увольнениями</a> и бросила Wayfinder, а Soulframe спустя ~4 года всё ещё без даты релиза.</p>
+    <p>Вторая половина сделки — мрак: у Splash Damage <a href="https://kotaku.com/transformers-reactivate-canceled-splash-damage-layoffs-1851735308">отменили Transformers: Reactivate</a> (янв 2025), закрыли Star Wars: Hunters, в сентябре 2025-го Tencent <a href="https://www.pcgamer.com/gaming-industry/9-months-after-cancelling-transformers-reactivate-splash-damage-splits-from-tencent-and-is-now-owned-by-private-equity-investors/">продала студию private-equity-инвесторам</a> — а через два месяца <span class="q" tabindex="0">под угрозой сокращения оказались все должности студии разом<span class="qc"><span class="qbar"><i></i><i></i><i></i><b>insider-gaming.com</b></span><span class="qq">Splash Damage announced a “studio-wide consultation process affecting all roles,” describing it as a “difficult step” necessary to “remain agile and adaptable in what has been a very challenging market.”</span><span class="qsrc">Insider Gaming — «Splash Damage Facing More Layoffs Two Months After Sale», 26 ноя 2025</span></span></span>.</p>
+    <div class="verdict"><b>Вердикт</b>Иллюстрация главного правила: судьбу решает не покупатель, а наличие у студии живого самодостаточного хита. У DE он был, у Splash Damage — нет.</div>
+  </div>
+
+  <!-- ===== GEARBOX ===== -->
+  <div class="mini">
+    <div class="chead">
+      <h3>Gearbox → Embracer → Take-Two</h3>
+      <span class="deal">до ~$1.4 млрд (Embracer, 2021) → продана за $460 млн (Take-Two, 2024)</span>
+    </div>
+    <div class="badges">
+      <span class="badge critical">✕ Embracer потеряла на активе сотни миллионов</span>
+      <span class="badge serious">⚠ Borderlands 4 — слабее ожиданий</span>
+    </div>
+    <p>Embracer купила Gearbox на пике своей скупочной лихорадки — а когда <a href="https://www.gameshub.com/news/news/embracer-group-failed-2-billion-deal-report-saudi-arabia-savvy-games-2626467/">сорвалась сделка с Savvy на $2 млрд</a>, началась ампутация: за год <a href="https://www.gamedeveloper.com/business/embracer-cut-ties-with-more-than-4-500-employees-and-cancelled-80-projects-over-the-past-year">4 532 уволенных (27% штата) и 80 отменённых проектов</a>, распад на три компании (а в 2026-м — <a href="https://www.thesixthaxis.com/2026/05/20/embracer-is-splitting-in-half-again-sending-fellowship-entertainment-on-its-merry-way/">ещё раз пополам</a>). Gearbox ушла Take-Two <a href="https://www.gamedeveloper.com/business/embracer-sells-borderlands-maker-gearbox-to-take-two-interactive-for-460-million">за $460 млн — треть заголовочной цены</a>; Kotaku <span class="q" tabindex="0">подытожил сагу одной фразой<span class="qc"><span class="qbar"><i></i><i></i><i></i><b>kotaku.com</b></span><span class="qq">“What a shitshow.”</span><span class="qsrc">Kotaku — «Embracer Sells Borderlands Maker Gearbox For Less Than Half Of What It Paid», 28 мар 2024 (финальная строка статьи)</span></span></span>.</p>
+    <p>Под Take-Two вышла Borderlands 4 (сент 2025): бюджет <a href="https://www.forbes.com/sites/paultassi/2025/10/15/borderlands-4-is-on-sale-after-a-month-as-it-trails-borderlands-3/">вдвое больше BL3</a>, но запуск слабее — <a href="https://www.thegamer.com/borderlands-4-sales-below-take-two-expectations/">«мягче, чем хотелось бы» по словам главы Take-Two</a>, с разгромными отзывами за PC-версию (Gearbox сама признала: <a href="https://www.gamespot.com/articles/borderlands-4-dev-gearbox-says-we-suck-and-heres-why/1100-6535409/">«we suck»</a>) и <a href="https://www.forbes.com/sites/paultassi/2025/09/24/switch-2-borderlands-4-delayed-indefinitely-pre-orders-cancelled/">бессрочно отложенной версией для Switch 2</a>. Отдельный жанр — заявления Рэнди Питчфорда: <span class="q" tabindex="0">про $80 за игру он посоветовал «настоящим фанатам» найти способ заплатить<span class="qc"><span class="qbar"><i></i><i></i><i></i><b>vice.com</b></span><span class="qq">“If you’re a real fan, you’ll find a way to make it happen.” — Randy Pitchford</span><span class="qsrc">Vice — «Randy Pitchford Sparks Outrage…», 20 мая 2025</span></span></span>.</p>
+    <div class="verdict"><b>Вердикт</b>Главный памятник эпохи перепродаж: актив, который двое владельцев передавали друг другу с потерями в сотни миллионов, а флагманская франшиза тем временем сдала.</div>
+  </div>
+
+  <!-- ===== PLAYDEMIC ===== -->
+  <div class="mini">
+    <div class="chead">
+      <h3>Playdemic (Golf Clash) → Electronic Arts</h3>
+      <span class="deal">$1.4 млрд · закрыта сент 2021 · куплена у Warner Bros. / AT&T</span>
+    </div>
+    <div class="badges">
+      <span class="badge warning">⚠ Ни одной новой игры за 5 лет</span>
+      <span class="badge warning">⚠ Основатели ушли через год</span>
+    </div>
+    <p>EA заплатила <a href="https://news.ea.com/press-releases/press-releases-details/2021/Electronic-Arts-Acquires-Playdemic-Makers-of-the-Highly-Successful-Golf-Clash-Mobile-Game-From-Warner-Bros.-Games-and-ATT/default.aspx">$1.4 млрд за студию одной игры</a>. Golf Clash жив и по сей день (<a href="https://www.pocketgamer.biz/the-state-of-eas-mobile-portfolio-following-its-55bn-acquisition/">~$8 млн в месяц, $1.2–1.3 млрд за всю жизнь</a> — но бо́льшая часть заработана ещё до EA), новых игр студия не выпустила, а основатели <a href="https://www.pocketgamer.biz/how-forthstar-hopes-to-follow-up-golf-clash-as-another-1-billion-uk-success-story/">ушли в 2022-м и открыли новую студию ForthStar</a>.</p>
+    <div class="verdict"><b>Вердикт</b>Не катастрофа — тихое разочарование: $1.4 млрд за плато одной стареющей игры и упущенных создателей.</div>
+  </div>
+
+  <!-- ===== SUMO ===== -->
+  <div class="mini">
+    <div class="chead">
+      <h3>Sumo Group → Tencent</h3>
+      <span class="deal">£919 млн (~$1.27 млрд) · закрыта янв 2022 · обещан «hands-off» подход</span>
+    </div>
+    <div class="badges">
+      <span class="badge critical">✕ Группа демонтирована, свои IP брошены</span>
+      <span class="badge critical">✕ Три волны сокращений за три года</span>
+    </div>
+    <p>Tencent обещала <a href="https://www.tweaktown.com/news/80679/tencent-buys-sumo-for-1-27-billion-will-take-hands-off-approach/index.html">не вмешиваться</a> — но за четыре года группа разобрана по винтикам: <a href="https://www.gamedeveloper.com/business/sumo-group-cuts-15-percent-of-staff-across-canada-poland-and-more">−15% штата и закрытие Timbre Games</a> (июнь 2024, через день после показа игр на Summer Game Fest), <a href="https://www.thesixthaxis.com/2025/02/04/sumo-group-stops-making-original-ip-to-focus-on-partner-titles/">полный отказ от собственных IP</a> (фев 2025), продажа издательства Secret Mode, закрытие Stampede: Racing Royale, <a href="https://www.gamedeveloper.com/business/the-chinese-room-is-independent-again-following-management-buyout">выкуп The Chinese Room собственным менеджментом</a> (июль 2025), продажа Auroch Digital и <a href="https://www.gamedeveloper.com/business/sumo-digital-is-once-again-making-layoffs">новые сокращения в феврале 2026-го</a>.</p>
+    <p>Итог сформулировали сами руководители: в августе 2026-го co-CEO признал, что студия <span class="q" tabindex="0">сильно ужалась в Великобритании и перешла с AAA-проектов на AA-подряды<span class="qc"><span class="qbar"><i></i><i></i><i></i><b>thegamebusiness.com</b></span><span class="qq">“We’ve downsized a lot in the UK” — со-CEO Sumo Digital о состоянии студии через пять лет после сделки с Tencent; бюджеты проектов сместились с ~$50M (AAA) к ~$15M (AA, co-dev).</span><span class="qsrc">The Game Business (Christopher Dring) — «The survival of Sackboy and Crackdown developer Sumo Digital», 11 авг 2026</span></span></span>.</p>
+    <div class="verdict"><b>Вердикт</b>Из группы с амбициями собственных франшиз — в подрядчика на чужих проектах. «Hands-off» продержался до первого спада рынка.</div>
+  </div>
+
+  <!-- ===== CODEMASTERS ===== -->
+  <div class="mini">
+    <div class="chead">
+      <h3>Codemasters → Electronic Arts</h3>
+      <span class="deal">$1.2 млрд · закрыта фев 2021 · EA перебила предложение Take-Two</span>
+    </div>
+    <div class="badges">
+      <span class="badge critical">✕ Из портфеля франшиз выжила одна</span>
+      <span class="badge serious">⚠ Сокращения три года подряд</span>
+    </div>
+    <p>Хроника усыхания: <a href="https://www.gamedeveloper.com/business/ea-announces-an-end-to-its-i-project-cars-i-franchise">Project CARS убит в 2022-м</a>, GRID заброшен (<a href="https://gamerant.com/ea-game-shutting-down-grid-legends-servers/">последние сервера отключают к сентябрю 2026-го</a>), а в апреле 2025-го EA <span class="q" tabindex="0">закрыла и ралли — жанр, с которого Codemasters началась 30 лет назад<span class="qc"><span class="qbar"><i></i><i></i><i></i><b>pcgamer.com</b></span><span class="qq">“For now, we are pausing development plans on future rally titles.” — заявление EA Sports WRC, поставившее точку в линии Colin McRae Rally → DIRT → WRC</span><span class="qsrc">PC Gamer — «EA says Codemasters won’t be making any more rally games», 30 апр 2025</span></span></span>. Сокращения шли <a href="https://www.techradar.com/gaming/ea-confirms-layoffs-at-racing-game-developer-codemasters-to-meet-evolving-business-needs">в 2023-м</a>, <a href="https://www.gamedeveloper.com/business/ea-confirms-layoffs-at-ea-sports-wrc-developer-codemasters">2024-м</a> и <a href="https://gamerant.com/codemasters-layoffs-downsizing-2025-why-ea-studio/">2025-м</a>; слух о полном закрытии студии EA <a href="https://www.playstationlifestyle.net/2025/05/29/ea-shut-down-codemasters-report/">официально опровергла</a>.</p>
+    <p>Осталась одна F1 — и даже она дала сбой: <a href="https://racer.com/2025/11/19/no-f1-26-videogame-ea-sports-says">F1 26 не существует</a> — впервые с 2009 года нет ежегодной части, вместо неё платный «Season Pack» к F1 25 и обещание «переосмысленной» игры в 2027-м.</p>
+    <div class="verdict"><b>Вердикт</b>Классика поглощения-воронки: купили портфель гоночных франшиз — оставили одну лицензию, обслуживающую чужой бренд (Formula 1). Теперь студия живёт внутри EA, ушедшей в LBO с долгом $20 млрд.</div>
+  </div>
+
+  <!-- ===== JAGEX ===== -->
+  <div class="mini">
+    <div class="chead">
+      <h3>Jagex (RuneScape) → CVC Capital Partners + Haveli</h3>
+      <span class="deal">~£900 млн (~$1.1 млрд) · фев 2024 · четвёртый владелец за восемь лет</span>
+    </div>
+    <div class="badges">
+      <span class="badge good">✓ OSRS: абсолютный рекорд онлайна на 12-м году</span>
+      <span class="badge serious">⚠ PE-владелец выжимает: цены ×2 за 2 года</span>
+    </div>
+    <p>Образцовый private-equity-плейбук. В январе 2025-го Jagex разослала опрос о подписках до $350/год, рекламе в игре и платной поддержке — и получила <span class="q" tabindex="0">бунт одного из самых лояльных комьюнити в MMO и волну отмен подписок<span class="qc"><span class="qbar"><i></i><i></i><i></i><b>gamesradar.com</b></span><span class="qq">“The fact that the company...even proposed these ideas was enough to trigger a storm of fire, brimstone, and canceled subscriptions.” / “It is hard for me to recall player backlash of this scale.”</span><span class="qsrc">GamesRadar+ — о скандале с опросом Jagex, 16 янв 2025</span></span></span> плюс <a href="https://www.gamesradar.com/games/mmo/old-school-runescape-gets-one-of-2025s-first-steam-review-bombs-after-survey-gauges-in-game-ads-and-price-hikes-to-read-this-review-please-upgrade-to-the-deluxe-package/">ревью-бомбинг OSRS в Steam</a>. Через семь недель <a href="https://www.gamedeveloper.com/business/jagex-ceo-phil-mansell-is-stepping-down-after-eight-years">CEO сменили на советника CVC</a>, летом прошли <a href="https://www.gamedeveloper.com/business/runescape-studio-jagex-lays-off-an-undisclosed-number-of-non-player-facing-staff">сокращения бэк-офиса</a>, а в марте 2026-го — <a href="https://www.pcgamer.com/games/mmo/runescapes-monthly-membership-now-costs-as-much-as-a-world-of-warcraft-subscription-as-jagex-announces-its-second-price-hike-in-less-than-2-years/">второе повышение цены за два года</a> (годовая подписка +33%, дороже WoW в Европе).</p>
+    <p>Парадокс: игра при этом на историческом пике — в августе 2025-го OSRS <a href="https://www.pcgamesn.com/old-school-runescape/player-record-august-2025">поставила абсолютный рекорд онлайна: 240 756 игроков одновременно</a>, а <a href="https://www.jagex.com/news/runescape-dragonwilds-leaves-early-access-with-full-launch-on-15-september-2026">RuneScape: Dragonwilds выходит из раннего доступа в сентябре 2026-го</a>.</p>
+    <div class="verdict"><b>Вердикт</b>Игра растёт вопреки владельцу, а не благодаря: комьюнити дважды отбивало монетизационные атаки, но цены всё равно ползут вверх с каждым новым фондом на капитанском мостике.</div>
+  </div>
+
+  <!-- ===== ROVIO ===== -->
+  <div class="mini">
+    <div class="chead">
+      <h3>Rovio (Angry Birds) → Sega</h3>
+      <span class="deal">€706 млн (~$776 млн) · закрыта авг 2023</span>
+    </div>
+    <div class="badges">
+      <span class="badge critical">✕ Sega списала ~четверть цены сделки</span>
+      <span class="badge serious">⚠ Тезис «Sonic × live-ops Rovio» не сработал</span>
+    </div>
+    <p>Sega покупала Rovio ради live-ops-экспертизы для своих IP. Главный совместный проект Sonic Rumble <a href="https://www.pocketgamer.biz/sonic-rumble-braces-for-new-november-5th-release-date/">переносился и вышел лишь в ноябре 2025-го</a> — со стартовой мобильной выручкой <a href="https://en.wikipedia.org/wiki/Sonic_Rumble">~$228 тыс. за первые 10 дней</a>. Дальше по нарастающей: закрытие монреальской Studio Lumi, <a href="https://www.gamedeveloper.com/business/angry-birds-maker-rovio-lays-off-36-employees">36 увольнений</a> (окт 2025) и — главное — <span class="q" tabindex="0">списание ¥30.4 млрд (~$199 млн) в феврале 2026-го<span class="qc"><span class="qbar"><i></i><i></i><i></i><b>nintendolife.com</b></span><span class="qq">“The company has reported an impairment loss of ¥30.4 billion ($198.6 million), citing increased competition and the rapid deterioration of user bases.”</span><span class="qsrc">Nintendo Life — «SEGA Records $200 Million Impairment Loss…», фев 2026</span></span></span>, после чего Sega <a href="https://mobilegamer.biz/rovio-set-for-restructure-after-sega-acquisition-disappoints/">признала, что сделка не создала «экономической ценности», перебросила ~100 F2P-сотрудников и приостановила крупные M&A</a>.</p>
+    <p>Ставка сместилась с игр на бренд: лицензирование Angry Birds и <a href="https://www.rovio.com/articles/paramount-pictures-to-release-the-angry-birds-movie-3-in-theaters-worldwide-on-january-29-2027/">третий фильм в январе 2027-го</a>.</p>
+    <div class="verdict"><b>Вердикт</b>За 2.5 года — от стратегической покупки до публичного признания неудачи. Похоже на мини-версию Zynga/Take-Two: купили мобильную экспертизу ровно к её обесцениванию.</div>
+  </div>
+
+  <!-- ===== INSOMNIAC ===== -->
+  <div class="mini">
+    <div class="chead">
+      <h3>Insomniac Games → Sony</h3>
+      <span class="deal">$229 млн · 2019 · контрпример: лучший ROI подборки</span>
+    </div>
+    <div class="badges">
+      <span class="badge good">✓ Игры: Spider-Man 2 — 11+ млн копий</span>
+      <span class="badge warning">⚠ Утечка показала цену: игра дороже студии</span>
+    </div>
+    <p>Эталон удачной покупки: студия за $229 млн выпустила Ratchet & Clank: Rift Apart и Marvel’s Spider-Man 2, <a href="https://www.gematsu.com/2024/05/marvels-spider-man-2-sales-top-11-million">продавшую 11+ млн копий</a>; <a href="https://blog.playstation.com/2026/06/02/marvels-wolverine-new-gameplay-story-details-from-state-of-play/">Marvel’s Wolverine выходит 15 сентября 2026-го</a>. Но ransomware-утечка 1.67 ТБ (дек 2023) показала изнанку: <span class="q" tabindex="0">Spider-Man 2 обошёлся в ~$300 млн — дороже, чем вся студия при покупке<span class="qc"><span class="qbar"><i></i><i></i><i></i><b>kotaku.com</b></span><span class="qq">“The final cost was roughly $30 million over the original $270 million budget, according to the presentation, requiring the game to sell 7.2 million copies at full price to break even.”</span><span class="qsrc">Kotaku — «What Hacked Files Tell Us About The Studio Behind Spider-Man 2», 20 дек 2023</span></span></span> — и внутренний мандат Sony: <span class="q" tabindex="0">будущие AAA — не дороже $350 млн<span class="qc"><span class="qbar"><i></i><i></i><i></i><b>kotaku.com</b></span><span class="qq">“We have to make future AAA franchise games for $350 million or less.” — внутренний слайд Insomniac из утечки</span><span class="qsrc">Kotaku — там же, 20 дек 2023</span></span></span>.</p>
+    <p>Даже образцовую студию не обошли <a href="https://gameinformer.com/news/2024/02/27/playstation-laying-off-900-across-insomniac-naughty-dog-guerrilla-and-more-closing">сокращения Sony февраля 2024-го (900 человек по SIE, включая Insomniac)</a> и отмена мультиплеерного Spider-Man: The Great Web.</p>
+    <div class="verdict"><b>Вердикт</b>Лучшее соотношение цены и результата во всей подборке — и одновременно напоминание, что при бюджетах AAA в $300+ млн покупка целой студии 2019 года стоила дешевле одной её игры.</div>
+  </div>
+
+  <!-- ===== FIREWALK ===== -->
+  <div class="mini">
+    <div class="chead">
+      <h3>Firewalk Studios (Concord) → Sony</h3>
+      <span class="deal">цена не раскрыта · куплена апр 2023 · студия закрыта окт 2024 — через ~18 месяцев</span>
+    </div>
+    <div class="badges">
+      <span class="badge critical">✕ Игра отключена через 2 недели после релиза</span>
+      <span class="badge critical">✕ Студия закрыта, 172 человека уволены</span>
+    </div>
+    <p>Абсолютный антирекорд жанра. Concord вышла 23 августа 2024-го за $40 и, по оценкам аналитиков, <span class="q" tabindex="0">продалась тиражом около 25 000 копий<span class="qc"><span class="qbar"><i></i><i></i><i></i><b>kotaku.com</b></span><span class="qq">The $40 PVP-only title “had sold only around 25,000 copies, abysmal numbers given not just its budget but the PlayStation first-party brand it represented.”</span><span class="qsrc">Kotaku — «Concord Director Steps Down…», 19 сент 2024</span></span></span>. Через две недели Sony <a href="https://www.engadget.com/gaming/playstation/sony-pulls-the-plug-on-concord-and-shuts-down-firewalk-studios-180321212.html">отключила сервера и вернула деньги всем покупателям</a>, а 29 октября 2024-го <a href="https://kotaku.com/firewalk-studios-concord-ps5-sony-live-service-shutdown-1851684290">закрыла студию — 172 человека</a>, менее чем через два года после покупки.</p>
+    <p>Надёжно подтверждённая часть бюджета — <a href="https://gameworldobserver.com/2024/10/30/concord-budget-200-million-without-firewalk-acquisition">«чуть больше $200 млн» только на разработку</a> (без цены студии, прав на IP и маркетинга); слух о $400 млн — <a href="https://www.forbes.com/sites/paultassi/2024/09/21/new-report-says-sonys-concord-cost-400-million-to-make/">одиночный источник, оспаривается</a>. Единственный уцелевший артефакт — эпизод в антологии Amazon <a href="https://www.gamespot.com/articles/amazon-never-suggested-cutting-secret-levels-concord-episode/1100-6528206/">Secret Level</a>.</p>
+    <div class="verdict"><b>Вердикт</b>Самый быстрый путь «покупка → закрытие» в современной истории платформодержателей: ~18 месяцев. Восемь лет разработки и $200+ млн против двух недель жизни на рынке.</div>
+  </div>
+
+  <div class="card">
+    <h3>Волна 2: сводная таблица</h3>
+    <table class="sumtable">
+      <tr><th>Компания</th><th>Игры после сделки</th><th>Финансы / итог для покупателя</th><th>Одной строкой</th></tr>
+      <tr><td>Scopely</td><td><span class="pill good">✓ рекорды Monopoly GO!</span></td><td><span class="pill good">✓ окупилась многократно</span></td><td>Один хит покрыл цену сделки</td></tr>
+      <tr><td>Moonton</td><td><span class="pill good">✓ MLBB растёт</span></td><td><span class="pill good">✓ перепродана с прибылью ~$2 млрд</span></td><td>Игра пережила двух владельцев</td></tr>
+      <tr><td>Niantic (игры)</td><td><span class="pill warning">⚠ живы, монетизация жёстче</span></td><td><span class="pill warning">⚠ год — рано судить</span></td><td>«Скоуплификация» постепенна</td></tr>
+      <tr><td>Glu Mobile</td><td><span class="pill critical">✕ портфель отключён</span></td><td><span class="pill critical">✕ тезис сделки провален</span></td><td>Кладбище лицензий</td></tr>
+      <tr><td>Leyou (DE + Splash Damage)</td><td><span class="pill warning">⚠ Warframe ✓ / Splash ✕</span></td><td><span class="pill warning">⚠ смешанный</span></td><td>Одна сделка — две судьбы</td></tr>
+      <tr><td>Gearbox</td><td><span class="pill warning">⚠ BL4 слабее ожиданий</span></td><td><span class="pill critical">✕ Embracer потеряла сотни млн</span></td><td>Памятник эпохе перепродаж</td></tr>
+      <tr><td>Playdemic</td><td><span class="pill critical">✕ ни одной новой</span></td><td><span class="pill warning">⚠ плато</span></td><td>Тихое разочарование за $1.4 млрд</td></tr>
+      <tr><td>Sumo Group</td><td><span class="pill critical">✕ свои IP брошены</span></td><td><span class="pill critical">✕ группа демонтирована</span></td><td>Из группы — в подрядчика</td></tr>
+      <tr><td>Codemasters</td><td><span class="pill critical">✕ выжила одна франшиза</span></td><td><span class="pill warning">⚠ не раскрыто</span></td><td>Портфель-воронка: осталась F1</td></tr>
+      <tr><td>Jagex</td><td><span class="pill good">✓ рекорды OSRS</span></td><td><span class="pill warning">⚠ PE выжимает цены</span></td><td>Игра растёт вопреки владельцу</td></tr>
+      <tr><td>Rovio</td><td><span class="pill warning">⚠ Sonic Rumble слаб</span></td><td><span class="pill critical">✕ списана ~¼ цены</span></td><td>Sega признала неудачу</td></tr>
+      <tr><td>Insomniac</td><td><span class="pill good">✓ хиты продолжаются</span></td><td><span class="pill good">✓ лучший ROI подборки</span></td><td>Студия дешевле одной своей игры</td></tr>
+      <tr><td>Firewalk</td><td><span class="pill critical">✕ игра убита за 2 недели</span></td><td><span class="pill critical">✕ студия закрыта</span></td><td>Абсолютный антирекорд</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Что волна 2 добавляет к выводам</h3>
+    <ul style="padding-left:18px">
+      <li style="margin-bottom:8px"><b>Разброс исходов шире, чем у гигантов.</b> В малых и средних сделках встречаются и лучшая покупка эпохи (Scopely: хит дороже цены сделки), и худшая (Firewalk: студия уничтожена за ~18 месяцев). У сделок за $50+ млрд инерция сглаживает крайности — у сделок за $1 млрд её нет.</li>
+      <li style="margin-bottom:8px"><b>Мобильные портфели умирают тихо.</b> Glu, Playdemic, Rovio: не скандалы, а методичное отключение игр и сползание выручки. EA закрыла семь игр Glu одним объявлением — это не попало в большие заголовки, но именно так испаряются миллиарды.</li>
+      <li style="margin-bottom:8px"><b>Перепродажа стала нормой — и каждый переход оплачен увольнениями.</b> Gearbox (Embracer → Take-Two), Moonton (ByteDance → Savvy), Splash Damage (Tencent → private equity), Jagex (четвёртый фонд за 8 лет). Актив ходит по кругу; сокращения — в каждой точке передачи.</li>
+      <li><b>Игра может процветать, когда компании плохо.</b> Warframe, OSRS и MLBB ставили рекорды, пока их владельцы увольняли людей, менялись сами или воевали с комьюнити. Живой сервис с лояльной базой оказался устойчивее любой корпоративной надстройки.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Финансовые траектории: два самых показательных графика</h2>
+
+  <div class="card">
+    <h3>Supercell: выручка по годам, $ млрд</h3>
+    <p class="cap">Официальные данные Supercell (компания публикует отчёты сама). Сделка с Tencent — 2016 год. Яма 2018–2020, затем рекорд 2024-го на возрождении Brawl Stars.</p>
+    <svg viewBox="0 0 900 240" role="img" aria-label="Столбчатая диаграмма выручки Supercell 2016–2025: спад с 2.3 до 1.48 млрд, затем рост до 3 млрд">
+      <g id="scbars" font-size="12.5" font-family="system-ui,sans-serif"></g>
+    </svg>
+    <details><summary>Данные таблицей</summary>
+      <table>
+        <tr><th>Год</th><th class="num">Выручка, $ млрд</th><th class="num">EBITDA, $ млрд</th></tr>
+        <tr><td>2016</td><td class="num">2.30</td><td class="num">~1.00</td></tr>
+        <tr><td>2017</td><td class="num">2.00</td><td class="num">0.81</td></tr>
+        <tr><td>2018</td><td class="num">1.60</td><td class="num">0.64</td></tr>
+        <tr><td>2019</td><td class="num">1.56</td><td class="num">0.58</td></tr>
+        <tr><td>2020</td><td class="num">1.48</td><td class="num">0.46</td></tr>
+        <tr><td>2021</td><td class="num">2.24</td><td class="num">0.85</td></tr>
+        <tr><td>2022</td><td class="num">~1.90</td><td class="num">~0.68</td></tr>
+        <tr><td>2023</td><td class="num">1.82</td><td class="num">0.62</td></tr>
+        <tr><td>2024</td><td class="num">3.00</td><td class="num">0.95</td></tr>
+        <tr><td>2025</td><td class="num">~3.00</td><td class="num">1.06</td></tr>
+      </table>
+    </details>
+  </div>
+
+  <div class="card">
+    <h3>King внутри Activision Blizzard: выручка сегмента, $ млрд</h3>
+    <p class="cap">Сегментная отчётность ATVI (10-K). 2015 — последний самостоятельный год King (выручка падала). После 2022 г. Microsoft сегмент не раскрывает.</p>
+    <svg viewBox="0 0 900 240" role="img" aria-label="Столбчатая диаграмма выручки King 2015–2022: рост с 2 до 2.8 млрд долларов">
+      <g id="kingbars" font-size="12.5" font-family="system-ui,sans-serif"></g>
+    </svg>
+    <details><summary>Данные таблицей</summary>
+      <table>
+        <tr><th>Год</th><th class="num">Выручка, $ млрд</th><th class="num">Опер. прибыль, $ млрд</th></tr>
+        <tr><td>2015 (до сделки)</td><td class="num">2.00</td><td class="num">—</td></tr>
+        <tr><td>2018</td><td class="num">2.09</td><td class="num">0.75</td></tr>
+        <tr><td>2019</td><td class="num">2.03</td><td class="num">0.74</td></tr>
+        <tr><td>2020</td><td class="num">2.16</td><td class="num">0.86</td></tr>
+        <tr><td>2021</td><td class="num">2.58</td><td class="num">1.14</td></tr>
+        <tr><td>2022</td><td class="num">2.79</td><td class="num">1.12</td></tr>
+      </table>
+    </details>
+  </div>
+</section>
+
+<section>
+  <h2>Сводное сравнение</h2>
+  <div class="card">
+    <table class="sumtable">
+      <tr><th>Компания</th><th>Новые игры после сделки</th><th>Финансы после сделки</th><th>Одной строкой</th></tr>
+      <tr><td>King</td><td><span class="pill critical">✕ почти нет</span></td><td><span class="pill good">✓ окупилась с запасом</span></td><td>Дойная корова одной франшизы</td></tr>
+      <tr><td>Supercell</td><td><span class="pill warning">⚠ редко, но сама решает</span></td><td><span class="pill good">✓ рекорд 2024–2025</span></td><td>Реальная независимость сработала</td></tr>
+      <tr><td>ZeniMax / Bethesda</td><td><span class="pill good">✓ регулярные крупные релизы</span></td><td><span class="pill warning">⚠ ROI не раскрыт</span></td><td>Производит игры, но потеряла 4 студии</td></tr>
+      <tr><td>Zynga</td><td><span class="pill good">✓ выпускает, есть хиты</span></td><td><span class="pill critical">✕ списано ~$5.9 млрд гудвилла</span></td><td>Бизнес жив, инвестиция — переплата</td></tr>
+      <tr><td>Activision Blizzard</td><td><span class="pill warning">⚠ только франшизы, ноль новых IP</span></td><td><span class="pill warning">⚠ выручка ↑, маржа слабая</span></td><td>Фабрика франшиз без экспериментов</td></tr>
+      <tr><td>Bungie</td><td><span class="pill critical">✕ флагман в режиме поддержки</span></td><td><span class="pill critical">✕ списано >20% цены</span></td><td>Независимость не пережила первый провал</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Общие закономерности</h3>
+    <ul style="padding-left:18px">
+      <li style="margin-bottom:8px"><b>«Ресурсным пулом» в чистом виде не стал никто</b> — но у половины кейсов творческий репертуар резко сузился: покупатель оставляет то, что предсказуемо зарабатывает (CoD, Candy Crush), и режет эксперименты и новые IP.</li>
+      <li style="margin-bottom:8px"><b>Финансовый успех и творческий — почти не пересекаются.</b> Лучшая финансовая сделка (King) — худшая по новым играм. Самый продуктивный по релизам кейс (Bethesda) не имеет доказанной окупаемости.</li>
+      <li style="margin-bottom:8px"><b>Модель управления важнее суммы.</b> Supercell с реально сохранённой автономией — единственный кейс без массовых сокращений и закрытий студий. Bungie показала обратный сценарий: независимость «на бумаге», привязанная к финансовым целям, испарилась при первом же промахе. Полная интеграция (ABK, ZeniMax) через 1–3 года приводила к волнам увольнений независимо от результатов игр.</li>
+      <li><b>Момент сделки решает.</b> Take-Two купила Zynga ровно на пике мобильного рынка и заплатила за это $5.9 млрд списаний; Activision купила King «на спаде» за ~3× выручки — и это сработало.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Ключевые источники</h2>
+  <div class="card sources">
+    <ul style="padding-left:18px">
+      <li><a href="https://en.wikipedia.org/wiki/Acquisition_of_Activision_Blizzard_by_Microsoft">Wikipedia — Acquisition of Activision Blizzard by Microsoft</a>; <a href="https://www.cnbc.com/2023/10/13/microsoft-closes-activision-blizzard-deal-after-regulatory-review.html">CNBC — закрытие сделки</a>; <a href="https://www.cnbc.com/2024/01/25/microsoft-lays-off-1900-workers-nearly-9percent-of-gaming-division-after-activision-blizzard-acquisition.html">CNBC — 1 900 увольнений (янв 2024)</a>; <a href="https://gameworldobserver.com/2024/07/31/xbox-revenue-activision-blizzard-impact-q4-fy24">GWO — вклад ABK в FY24</a>; <a href="https://www.gamespot.com/articles/the-69-billion-hangover-every-xbox-layoff-since-the-activision-blizzard-merger/">GameSpot — хроника сокращений Xbox</a></li>
+      <li><a href="https://news.microsoft.com/source/2020/09/21/microsoft-to-acquire-zenimax-media-and-its-game-publisher-bethesda-softworks/">Microsoft — покупка ZeniMax</a>; <a href="https://www.bloomberg.com/news/articles/2024-05-07/microsoft-s-xbox-division-is-shutting-down-four-bethesda-studios">Bloomberg — закрытие 4 студий Bethesda</a>; <a href="https://www.pcgamer.com/games/rpg/oblivion-remastered-is-already-the-third-best-selling-game-of-2025-in-the-us-industry-analyst-says/">PC Gamer — продажи Oblivion Remastered</a></li>
+      <li><a href="https://variety.com/2022/gaming/news/take-two-aquiring-zynga-1235150190/">Variety — Take-Two покупает Zynga</a>; <a href="https://www.businesswire.com/news/home/20250515273132/en/">Take-Two FY2025 (списание $3.55 млрд)</a>; <a href="https://www.take2games.com/ir/news/take-two-interactive-software-inc-reports-results-fourth-0">Take-Two FY2024 (списание $2.34 млрд)</a>; <a href="https://mobilegamer.biz/zynga-hits-all-time-high-as-mobile-dominates-take-two-financials/">Mobilegamer — рекорд Zynga FY26</a></li>
+      <li><a href="https://www.cnbc.com/2016/06/21/tencent-to-buy-supercell-clash-of-clans-maker-from-softbank.html">CNBC — Tencent покупает Supercell</a>; <a href="https://gameworldobserver.com/2025/02/11/supercell-record-revenue-2024-new-mistakes-strong-teams">GWO — рекорд Supercell 2024</a>; <a href="https://gamesbeat.com/supercell-generates-3b-in-2025-revenue-down-4-while-profits-grew/">GamesBeat — итоги Supercell 2025</a>; <a href="https://gameworldobserver.com/2025/10/30/we-were-wrong-supercell-to-shut-down-squad-busters-two-years-after-games-release">GWO — закрытие Squad Busters</a></li>
+      <li><a href="https://investor.activision.com/news-releases/news-release-details/activision-blizzard-completes-king-acquisition-becomes-largest">Activision — закрытие сделки с King</a>; <a href="https://www.stock-analysis-on.net/NASDAQ/Company/Activision-Blizzard-Inc/Ratios/Reportable-Segments">Сегментная отчётность ATVI</a>; <a href="https://gameworldobserver.com/2023/09/27/candy-crush-saga-revenue-20-billion-king">GWO — $20 млрд Candy Crush</a>; <a href="https://www.gamedeveloper.com/business/report-candy-crush-maker-king-is-allegedly-replacing-employees-with-internal-ai-tools">Game Developer — сообщения о замене сотрудников King ИИ</a></li>
+      <li><a href="https://sonyinteractive.com/en/press-releases/2022/sony-interactive-entertainment-to-acquire-leading-independent-videogame-developer-bungie/">Sony — покупка Bungie (обещание независимости)</a>; <a href="https://www.tweaktown.com/news/94150/destiny-2-is-missing-bungies-revenue-targets-by-nearly-50/index.html">Bloomberg/TweakTown — выручка на 45% ниже плана</a>; <a href="https://variety.com/2024/gaming/news/playstation-bungie-layoffs-220-employees-1236091494/">Variety — 220 увольнений (июль 2024)</a>; <a href="https://www.shacknews.com/article/149055/sony-bungie-acquisition-impairment-loss">Shacknews — списания Sony ~$766 млн</a>; <a href="https://www.pcgamer.com/gaming-industry/sony-records-a-usd766-million-impairment-loss-against-bungie-for-the-2025-financial-year-a-1-2-punch-of-destiny-2-and-marathon-failing-to-meet-its-expectations/">PC Gamer — детали impairment FY2025</a></li>
+      <li><a href="https://www.ea.com/news/ea-announces-completion-of-acquisition">EA — завершение сделки (4 авг 2026)</a>; <a href="https://www.videogameschronicle.com/news/ea-could-be-set-for-mass-layoffs-as-it-aims-to-cut-costs-following-saudi-acquisition/">VGC/Bloomberg — план сокращений $700 млн</a>; <a href="https://ir.ea.com/press-releases/press-release-details/2025/Battlefield-6-Shatters-Records-Becoming-the-Biggest-Launch-in-Franchise-History/default.aspx">EA — рекорд Battlefield 6</a>; <a href="https://www.gamedeveloper.com/business/ea-boasts-record-year-thanks-to-battlefield-6-and-ea-sports-fc">Game Developer — рекордный FY26 EA</a></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  Отчёт подготовлен 7–18 августа 2026 г. Оценочные суждения («вердикты») — интерпретация открытых данных. Цифры ABK после FY2024, King после 2022 г. и Bungie (кроме официальных списаний Sony) не раскрываются покупателями и опираются на оценки прессы. Выручка мобильных игр — оценки трекеров (Sensor Tower, AppMagic), если не указано иное. Продажа Moonton → Savvy на дату отчёта ожидает закрытия у регуляторов. Пометка «~» — приблизительные или пересчитанные значения. Во «второй волне» источники приведены прямо в тексте карточек; цитаты в hover-подсказках — дословные, из указанных публикаций.
+</footer>
+
+</div>
+
+<script>
+(function(){
+  const tip = document.getElementById('tip');
+  function bindTips(root){
+    root.querySelectorAll('[data-tip]').forEach(el=>{
+      el.addEventListener('mousemove',e=>{
+        tip.textContent = el.getAttribute('data-tip');
+        tip.style.opacity = 1;
+        tip.style.left = Math.min(e.clientX+14, window.innerWidth-280)+'px';
+        tip.style.top = (e.clientY+14)+'px';
+      });
+      el.addEventListener('mouseleave',()=>{ tip.style.opacity = 0; });
+    });
+  }
+  const css = getComputedStyle(document.documentElement);
+  const seq = ['--seq-250','--seq-350','--seq-450','--seq-550','--seq-650'].map(v=>css.getPropertyValue(v).trim());
+  const ink2 = css.getPropertyValue('--ink2').trim();
+  const muted = css.getPropertyValue('--muted').trim();
+  const axis = css.getPropertyValue('--axis').trim();
+  const grid = css.getPropertyValue('--grid').trim();
+
+  // ---- Deal size horizontal bars (single measure -> one hue, magnitude-stepped)
+  const deals = [
+    {n:'Activision Blizzard', v:68.7, t:'Microsoft · закрыта окт 2023'},
+    {n:'Electronic Arts', v:55.0, t:'PIF + Silver Lake + Affinity · закрыта авг 2026 · в отчёте как контекст', ctx:1},
+    {n:'Zynga', v:12.7, t:'Take-Two · закрыта май 2022'},
+    {n:'Supercell (84%)', v:8.6, t:'Tencent (консорциум) · 2016'},
+    {n:'ZeniMax / Bethesda', v:7.5, t:'Microsoft · закрыта март 2021'},
+    {n:'King', v:5.9, t:'Activision Blizzard · закрыта фев 2016'},
+    {n:'Bungie', v:3.6, t:'Sony · закрыта июль 2022'}
+  ];
+  const g1 = document.getElementById('dealbars');
+  const L=200, W=610, rowH=38, barH=18, max=70;
+  let s1='';
+  deals.forEach((d,i)=>{
+    const y=i*rowH+14, w=Math.max(4, d.v/max*W);
+    s1 += `<text x="${L-10}" y="${y+barH-4}" text-anchor="end" fill="${ink2}">${d.n}</text>`;
+    s1 += `<path d="M${L},${y} h${w-4} a4,4 0 0 1 4,4 v${barH-8} a4,4 0 0 1 -4,4 h${-(w-4)} z" fill="${d.ctx?axis:seq[2]}" data-tip="${d.n}: $${d.v} млрд — ${d.t}"/>`;
+    s1 += `<text x="${L+w+8}" y="${y+barH-4}" fill="${ink2}" font-variant-numeric="tabular-nums">$${d.v.toFixed(1)}${d.ctx?' (контекст)':''}</text>`;
+  });
+  s1 += `<line x1="${L}" y1="4" x2="${L}" y2="${deals.length*rowH+10}" stroke="${axis}" stroke-width="1"/>`;
+  g1.innerHTML = s1;
+
+  // ---- Wave 2 deal bars
+  const w2 = [
+    {n:'Scopely', v:4.9, t:'Savvy Games Group · 2023'},
+    {n:'Moonton', v:4.0, t:'ByteDance · 2021 → продана Savvy за ~$6 млрд (2026)'},
+    {n:'Niantic (игры)', v:3.5, t:'Scopely · 2025'},
+    {n:'Glu Mobile', v:2.4, t:'EA · 2021'},
+    {n:'Leyou (DE + Splash Damage)', v:1.5, t:'Tencent · 2020'},
+    {n:'Gearbox', v:1.4, t:'Embracer · 2021 (с эрнаутами) → продана Take-Two за $0.46 млрд (2024)'},
+    {n:'Playdemic', v:1.4, t:'EA · 2021'},
+    {n:'Sumo Group', v:1.27, t:'Tencent · 2022'},
+    {n:'Codemasters', v:1.2, t:'EA · 2021'},
+    {n:'Jagex', v:1.1, t:'CVC + Haveli · 2024 (~£900 млн)'},
+    {n:'Rovio', v:0.78, t:'Sega · 2023 (€706 млн)'},
+    {n:'Insomniac Games', v:0.23, t:'Sony · 2019'}
+  ];
+  const g2 = document.getElementById('w2bars');
+  const rowH2=34, barH2=16, max2=5;
+  let s2='';
+  w2.forEach((d,i)=>{
+    const y=i*rowH2+12, w=Math.max(4, d.v/max2*W);
+    s2 += `<text x="${L-10}" y="${y+barH2-3}" text-anchor="end" fill="${ink2}">${d.n}</text>`;
+    s2 += `<path d="M${L},${y} h${w-4} a4,4 0 0 1 4,4 v${barH2-8} a4,4 0 0 1 -4,4 h${-(w-4)} z" fill="${seq[2]}" data-tip="${d.n}: $${d.v} млрд — ${d.t}"/>`;
+    s2 += `<text x="${L+w+8}" y="${y+barH2-3}" fill="${ink2}" font-variant-numeric="tabular-nums">$${d.v.toFixed(2)}</text>`;
+  });
+  s2 += `<line x1="${L}" y1="4" x2="${L}" y2="${w2.length*rowH2+8}" stroke="${axis}" stroke-width="1"/>`;
+  g2.innerHTML = s2;
+
+  // ---- Vertical bar chart helper (single series over time -> one hue)
+  function vbars(gid, rows, ymax, unit, note){
+    const g = document.getElementById(gid);
+    const left=46, top=28, plotW=830, plotH=170, n=rows.length;
+    const bw=Math.min(46, plotW/n*0.62), step=plotW/n;
+    let s='';
+    // gridlines
+    for(let v=1; v<=ymax; v++){
+      const gy = top+plotH - v/ymax*plotH;
+      s += `<line x1="${left}" y1="${gy}" x2="${left+plotW}" y2="${gy}" stroke="${grid}" stroke-width="1"/>`;
+      s += `<text x="${left-8}" y="${gy+4}" text-anchor="end" fill="${muted}" font-size="11.5">${v}</text>`;
+    }
+    rows.forEach((r,i)=>{
+      const h=r.v/ymax*plotH, x=left+i*step+(step-bw)/2, y=top+plotH-h;
+      s += `<path d="M${x},${top+plotH} v${-(h-4)} a4,4 0 0 1 4,-4 h${bw-8} a4,4 0 0 1 4,4 v${h-4} z" fill="${seq[2]}" data-tip="${r.y}: ${r.approx?'~':''}$${r.v.toFixed(2)} млрд${r.note?' — '+r.note:''}"/>`;
+      s += `<text x="${x+bw/2}" y="${top+plotH+18}" text-anchor="middle" fill="${muted}" font-size="11.5">${r.y}</text>`;
+      if(r.label) s += `<text x="${x+bw/2}" y="${y-7}" text-anchor="middle" fill="${ink2}" font-weight="600">${(r.approx?'~':'')+r.v.toFixed(r.v>=3?1:2)}</text>`;
+    });
+    s += `<line x1="${left}" y1="${top+plotH}" x2="${left+plotW}" y2="${top+plotH}" stroke="${axis}" stroke-width="1"/>`;
+    g.innerHTML = s;
+  }
+
+  vbars('scbars', [
+    {y:2016,v:2.30,label:1,note:'год сделки с Tencent'},
+    {y:2017,v:2.00},
+    {y:2018,v:1.60,note:'релиз Brawl Stars'},
+    {y:2019,v:1.56},
+    {y:2020,v:1.48,label:1,note:'дно'},
+    {y:2021,v:2.24},
+    {y:2022,v:1.90,approx:1},
+    {y:2023,v:1.82},
+    {y:2024,v:3.00,label:1,note:'рекорд, возрождение Brawl Stars'},
+    {y:2025,v:3.00,approx:1,note:'EBITDA $1.06 млрд (+6%)'}
+  ], 3, '$ млрд');
+
+  vbars('kingbars', [
+    {y:'2015',v:2.00,label:1,note:'последний год до сделки, выручка −12%'},
+    {y:2018,v:2.09},
+    {y:2019,v:2.03},
+    {y:2020,v:2.16},
+    {y:2021,v:2.58,note:'опер. прибыль $1.14 млрд, маржа 44%'},
+    {y:2022,v:2.79,label:1,note:'последний раскрытый год; далее Microsoft сегмент не публикует'}
+  ], 3, '$ млрд');
+
+  bindTips(document);
+})();
+</script>
+<script>window.REPORT_CANONICAL_URL="https://gapgtn-bg.github.io/nz-trip-plan/gaming_ma_2015_2026.html";</script>
+<script>
+(function(){
+  var ua = navigator.userAgent || '';
+  var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+  var inWebView = /Teams|TeamsMobile|Telegram|WebView|wv\)|FBAN|FBAV|Instagram|Line\//i.test(ua)
+    || (isIOS && !/Safari\//i.test(ua))
+    || (/Android/i.test(ua) && /Version\/[\d.]+/.test(ua) && !/Chrome\/\d{2,}/.test(ua));
+  if (!inWebView) return;
+  var url = window.REPORT_CANONICAL_URL || location.href;
+  var href = isIOS ? 'x-safari-https://' + url.replace(/^https?:\/\//,'') : url;
+  var bar = document.createElement('div');
+  bar.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:9999;display:flex;align-items:center;gap:12px;justify-content:center;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:#0b0b0b;color:#fff;font:13.5px/1.4 -apple-system,system-ui,"Segoe UI",Roboto,Arial,sans-serif;box-shadow:0 -6px 20px rgba(0,0,0,.25)';
+  var txt = document.createElement('span');
+  txt.textContent = 'Во встроенном просмотрщике отчёт может отображаться неполно.';
+  var a = document.createElement('a');
+  a.href = href; a.target = '_blank'; a.rel = 'noopener';
+  a.textContent = isIOS ? 'Открыть в Safari' : 'Открыть в браузере';
+  a.style.cssText = 'flex:none;background:#fff;color:#0b0b0b;font-weight:600;text-decoration:none;padding:7px 14px;border-radius:8px';
+  var x = document.createElement('button');
+  x.type='button'; x.textContent='✕'; x.setAttribute('aria-label','Скрыть');
+  x.style.cssText = 'flex:none;background:none;border:0;color:#898781;font-size:15px;cursor:pointer;padding:4px';
+  x.onclick = function(){ bar.remove(); };
+  bar.appendChild(txt); bar.appendChild(a); bar.appendChild(x);
+  document.body.appendChild(bar);
+})();
+</script>
+</body>
+</html>
