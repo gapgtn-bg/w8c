@@ -1538,5 +1538,456 @@ footer{padding:30px 0 46px;color:var(--ink2);font-size:.84rem}
 })();
 </script>
 
+<!-- ===== nz-comments: выделение текста -> комментарий. Самодостаточный блок. ===== -->
+<style id="nzc-style">
+.nzc-hl{background:var(--peat-soft);box-shadow:inset 0 -2px 0 var(--peat);border-radius:2px;cursor:pointer;padding:0 1px}
+.nzc-hl.nzc-flash{animation:nzc-flash 1.4s ease-out}
+@keyframes nzc-flash{0%,40%{background:var(--peat);color:var(--paper)}100%{background:var(--peat-soft)}}
+.nzc-bubble{position:absolute;z-index:900;transform:translate(-50%,0);background:var(--ink);color:var(--paper);
+  border:0;border-radius:999px;padding:8px 15px;font:600 13px/1 "Segoe UI",system-ui,sans-serif;cursor:pointer;
+  box-shadow:0 4px 14px rgba(0,0,0,.28);white-space:nowrap}
+.nzc-bubble:active{transform:translate(-50%,1px)}
+.nzc-pop{position:absolute;z-index:901;transform:translate(-50%,0);width:min(340px,calc(100vw - 24px));background:var(--card);color:var(--ink);
+  border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 34px rgba(0,0,0,.22);padding:13px;
+  font:14px/1.5 "Segoe UI",system-ui,sans-serif}
+.nzc-pop .nzc-quote{font-size:12.5px;color:var(--ink2);border-left:3px solid var(--peat);padding:2px 0 2px 9px;
+  margin:0 0 10px;max-height:76px;overflow:auto;white-space:pre-wrap}
+.nzc-pop input,.nzc-pop textarea{width:100%;font:14px/1.45 "Segoe UI",system-ui,sans-serif;color:var(--ink);
+  background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:7px 9px;margin:0 0 8px;display:block}
+.nzc-pop textarea{min-height:74px;resize:vertical}
+.nzc-pop input:focus,.nzc-pop textarea:focus{outline:2px solid var(--heather);outline-offset:1px;border-color:transparent}
+.nzc-row{display:flex;gap:8px;align-items:center;justify-content:flex-end}
+.nzc-btn{font:600 13px/1 "Segoe UI",system-ui,sans-serif;border-radius:8px;padding:9px 14px;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--ink2)}
+.nzc-btn.pri{background:var(--heather);border-color:var(--heather);color:var(--paper)}
+.nzc-btn:disabled{opacity:.5;cursor:default}
+.nzc-thread{max-height:44vh;overflow:auto;margin:0 0 9px}
+.nzc-item{border-top:1px solid var(--line);padding:9px 0}
+.nzc-item:first-child{border-top:0;padding-top:0}
+.nzc-meta{font-size:11.5px;color:var(--ink2);display:flex;gap:7px;align-items:baseline;margin-bottom:2px}
+.nzc-meta b{color:var(--ink);font-size:12.5px}
+.nzc-del{margin-left:auto;background:none;border:0;color:var(--ink2);cursor:pointer;font-size:11.5px;padding:0;text-decoration:underline}
+.nzc-text{white-space:pre-wrap;word-break:break-word}
+.nzc-fab{position:fixed;right:16px;bottom:16px;z-index:880;background:var(--heather);color:var(--paper);border:0;
+  border-radius:999px;padding:11px 17px;font:600 13px/1 "Segoe UI",system-ui,sans-serif;cursor:pointer;
+  box-shadow:0 5px 18px rgba(0,0,0,.24)}
+.nzc-drawer{position:fixed;top:0;right:0;bottom:0;width:min(390px,100vw);z-index:890;background:var(--card);
+  border-left:1px solid var(--line);box-shadow:-8px 0 30px rgba(0,0,0,.16);transform:translateX(101%);
+  transition:transform .22s ease;display:flex;flex-direction:column;font:14px/1.5 "Segoe UI",system-ui,sans-serif}
+.nzc-drawer.open{transform:none}
+@media (prefers-reduced-motion: reduce){.nzc-drawer{transition:none}}
+.nzc-dhead{display:flex;align-items:center;gap:10px;padding:13px 15px;border-bottom:1px solid var(--line)}
+.nzc-dhead h3{margin:0;font-size:1.02rem;flex:1}
+.nzc-dbody{overflow:auto;padding:6px 15px 22px;flex:1}
+.nzc-card{border:1px solid var(--line);border-radius:10px;padding:10px 11px;margin:11px 0;background:var(--paper);cursor:pointer}
+.nzc-card:hover{border-color:var(--heather)}
+.nzc-card .nzc-q{font-size:12.5px;color:var(--ink2);border-left:3px solid var(--peat);padding-left:8px;margin:0 0 7px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.nzc-card.lost{opacity:.62;border-style:dashed}
+.nzc-empty{color:var(--ink2);font-size:13.5px;padding:18px 2px}
+.nzc-status{font-size:12px;color:var(--ink2);padding:0 15px 10px}
+.nzc-status.err{color:var(--red)}
+.nzc-x{background:none;border:0;color:var(--ink2);font-size:20px;line-height:1;cursor:pointer;padding:2px 4px}
+@media print{.nzc-fab,.nzc-drawer,.nzc-bubble,.nzc-pop{display:none!important}.nzc-hl{background:none;box-shadow:none}}
+</style>
+<script id="nzc-script">
+(function(){
+'use strict';
+
+/* ================= НАСТРОЙКА =================
+   Вставить сюда адрес веб-приложения Google Apps Script (…/exec),
+   чтобы комментарии стали общими. Пусто = комментарии живут только
+   в браузере читателя (и их можно скопировать кнопкой в панели).      */
+var API = '';
+/* ============================================ */
+
+var BLOCKSEL = 'p,li,h1,h2,h3,h4,td,th,blockquote,figcaption,dt,dd,summary';
+var LS_LOCAL='nzc_local_v1', LS_CACHE='nzc_cache_v1', LS_QUEUE='nzc_queue_v1',
+    LS_AUTHOR='nzc_author', LS_UID='nzc_uid';
+
+/* ---------- мелкая утварь ---------- */
+function ls(k,v){ try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,v); }catch(e){} return null; }
+function jget(k,d){ try{ return JSON.parse(ls(k)||'') || d; }catch(e){ return d; } }
+function jset(k,v){ ls(k, JSON.stringify(v)); }
+function norm(s){ return String(s==null?'':s).replace(/\s+/g,' ').trim(); }
+function hash(s){ var h=5381,i=s.length; while(i) h=(h*33 ^ s.charCodeAt(--i))>>>0; return h.toString(36); }
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,8); }
+function esc(s){ var d=document.createElement('div'); d.textContent=String(s==null?'':s); return d.innerHTML; }
+function when(ts){
+  var d=new Date(ts); if(isNaN(d)) return '';
+  var p=function(n){ return (n<10?'0':'')+n; };
+  return p(d.getDate())+'.'+p(d.getMonth()+1)+'.'+d.getFullYear()+' '+p(d.getHours())+':'+p(d.getMinutes());
+}
+function me(){ var u=ls(LS_UID); if(!u){ u=uid(); ls(LS_UID,u); } return u; }
+
+/* ---------- ключи блоков ---------- */
+var keyOf = new WeakMap(), byKey = {};
+function indexBlocks(){
+  byKey={}; var seen={};
+  Array.prototype.slice.call(document.querySelectorAll(BLOCKSEL)).forEach(function(el){
+    if(el.closest('.nzc-ui')) return;
+    var t=norm(el.textContent); if(t.length<2) return;
+    var k=hash(t); seen[k]=(seen[k]||0)+1;
+    if(seen[k]>1) k=k+'~'+seen[k];
+    keyOf.set(el,k); byKey[k]=el;
+  });
+}
+function blockFor(node){
+  var el = node.nodeType===3 ? node.parentElement : node;
+  if(!el) return null;
+  var b = el.closest(BLOCKSEL);
+  while(b && !keyOf.has(b)) b = b.parentElement && b.parentElement.closest(BLOCKSEL);
+  return b || null;
+}
+
+/* ---------- поиск процитированного текста ---------- */
+function compact(s){ return String(s==null?'':s).replace(/\s+/g,''); }
+function textIndex(container){
+  /* пробелы выкидываем совсем: в исходнике блоки склеены без переносов,
+     а выделение в браузере переносы добавляет - иначе цитата не находится */
+  var nodes=[], w=document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false), n;
+  while((n=w.nextNode())){ if(n.parentElement && n.parentElement.closest('.nzc-ui')) continue; nodes.push(n); }
+  var s='', map=[];
+  for(var i=0;i<nodes.length;i++){
+    var v=nodes[i].nodeValue;
+    for(var j=0;j<v.length;j++){ if(/\s/.test(v[j])) continue; s+=v[j]; map.push([i,j]); }
+  }
+  return {nodes:nodes, s:s, map:map};
+}
+function locate(container, quote, prefix){
+  if(!container) return null;
+  var idx=textIndex(container), q=compact(quote); if(!q) return null;
+  var at=-1, p=compact(prefix);
+  if(p){ var i=idx.s.indexOf(p+q); if(i>=0) at=i+p.length; }
+  if(at<0) at=idx.s.indexOf(q);
+  if(at<0) return null;
+  var a=idx.map[at], b=idx.map[at+q.length-1]; if(!a||!b) return null;
+  var r=document.createRange();
+  r.setStart(idx.nodes[a[0]], a[1]);
+  r.setEnd(idx.nodes[b[0]], b[1]+1);
+  return r;
+}
+function wrapRange(range, id){
+  var root=range.commonAncestorContainer; if(root.nodeType===3) root=root.parentNode;
+  var nodes=[], w=document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false), n;
+  while((n=w.nextNode())){
+    if(!range.intersectsNode(n)) continue;
+    if(n.parentElement && n.parentElement.closest('.nzc-ui')) continue;
+    if(!/\S/.test(n.nodeValue)) continue;            // межблочные пробелы не подсвечиваем
+    nodes.push(n);
+  }
+  var made=[];
+  nodes.forEach(function(node){
+    var s = (node===range.startContainer) ? range.startOffset : 0;
+    var e = (node===range.endContainer)   ? range.endOffset   : node.nodeValue.length;
+    if(e<=s) return;
+    var t=node;
+    if(e<t.nodeValue.length) t.splitText(e);
+    if(s>0) t=t.splitText(s);
+    if(!t.nodeValue) return;
+    var m=document.createElement('mark');
+    m.className='nzc-hl'; m.setAttribute('data-nzc', id);
+    t.parentNode.insertBefore(m, t); m.appendChild(t);
+    made.push(m);
+  });
+  return made;
+}
+function clearMarks(){
+  Array.prototype.slice.call(document.querySelectorAll('mark.nzc-hl')).forEach(function(m){
+    var p=m.parentNode; while(m.firstChild) p.insertBefore(m.firstChild, m);
+    p.removeChild(m); p.normalize();
+  });
+}
+
+/* ---------- хранилище ---------- */
+var state = { items: [], lost: {}, online: !!API, error: '' };
+
+function jsonp(url){
+  return new Promise(function(res, rej){
+    var cb='nzcb_'+uid(), s=document.createElement('script'), done=false;
+    window[cb]=function(d){ done=true; res(d); cleanup(); };
+    function cleanup(){ try{ delete window[cb]; }catch(e){ window[cb]=undefined; } if(s.parentNode) s.parentNode.removeChild(s); }
+    s.onerror=function(){ if(!done){ cleanup(); rej(new Error('jsonp')); } };
+    setTimeout(function(){ if(!done){ cleanup(); rej(new Error('timeout')); } }, 15000);
+    s.src = url + (url.indexOf('?')<0?'?':'&') + 'callback=' + cb;
+    document.head.appendChild(s);
+  });
+}
+function call(payload){
+  if(!API) return Promise.reject(new Error('no-api'));
+  return fetch(API, {
+    method:'POST', redirect:'follow',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body: JSON.stringify(payload)
+  }).then(function(r){ return r.json(); });
+}
+function pull(){
+  if(!API){ state.items = jget(LS_LOCAL, []); return Promise.resolve(); }
+  return call({action:'list'})
+    .catch(function(){ return jsonp(API + '?action=list'); })
+    .then(function(d){
+      if(!d || !d.ok) throw new Error(d && d.error || 'bad response');
+      state.items = d.items || []; state.online = true; state.error = '';
+      jset(LS_CACHE, state.items);
+    })
+    .catch(function(e){
+      state.online = false; state.error = 'нет связи с таблицей комментариев';
+      state.items = jget(LS_CACHE, []);
+    });
+}
+function flushQueue(){
+  var q = jget(LS_QUEUE, []); if(!q.length || !API) return Promise.resolve();
+  var rest = q.slice();
+  return q.reduce(function(chain, it){
+    return chain.then(function(){
+      return call({action:'add', item:it}).then(function(d){
+        if(d && d.ok) rest = rest.filter(function(x){ return x.id!==it.id; });
+      }).catch(function(){});
+    });
+  }, Promise.resolve()).then(function(){ jset(LS_QUEUE, rest); });
+}
+function save(item){
+  state.items = state.items.concat([item]);
+  if(!API){ jset(LS_LOCAL, state.items); return Promise.resolve(); }
+  jset(LS_CACHE, state.items);
+  return call({action:'add', item:item})
+    .then(function(d){ if(!d || !d.ok) throw new Error('reject'); state.online=true; state.error=''; })
+    .catch(function(){
+      state.online=false; state.error='комментарий сохранён локально, отправится позже';
+      jset(LS_QUEUE, jget(LS_QUEUE,[]).concat([item]));
+    });
+}
+function remove(id){
+  var kill = {}; kill[id]=1;
+  state.items.forEach(function(c){ if(c.parentId===id) kill[c.id]=1; });   // корень уносит ответы
+  state.items = state.items.map(function(c){ return kill[c.id] ? Object.assign({}, c, {deleted:1}) : c; });
+  if(!API){ jset(LS_LOCAL, state.items); return Promise.resolve(); }
+  jset(LS_CACHE, state.items);
+  return Object.keys(kill).reduce(function(chain, k){
+    return chain.then(function(){ return call({action:'delete', id:k, uid:me()}).catch(function(){}); });
+  }, Promise.resolve());
+}
+
+/* ---------- модель ---------- */
+function live(){ return state.items.filter(function(c){ return !c.deleted; }); }
+function threads(){
+  var roots = live().filter(function(c){ return !c.parentId; })
+                    .sort(function(a,b){ return (a.ts||0)-(b.ts||0); });
+  return roots.map(function(r){
+    return { root:r, replies: live().filter(function(c){ return c.parentId===r.id; })
+                                    .sort(function(a,b){ return (a.ts||0)-(b.ts||0); }) };
+  });
+}
+function threadOf(id){ return threads().filter(function(t){ return t.root.id===id; })[0]; }
+
+/* ---------- интерфейс ---------- */
+var ui, bubble, pop, fab, drawer, dbody, dstatus, pending=null, openId=null;
+
+function buildUI(){
+  ui=document.createElement('div'); ui.className='nzc-ui';
+  ui.innerHTML =
+    '<button class="nzc-bubble" hidden type="button">Комментировать</button>'+
+    '<div class="nzc-pop" hidden></div>'+
+    '<button class="nzc-fab" type="button">Комментарии</button>'+
+    '<aside class="nzc-drawer" aria-label="Комментарии">'+
+      '<div class="nzc-dhead"><h3>Комментарии</h3>'+
+        '<button class="nzc-btn nzc-copy" type="button">Скопировать все</button>'+
+        '<button class="nzc-x" type="button" aria-label="Закрыть">&times;</button></div>'+
+      '<div class="nzc-status" hidden></div><div class="nzc-dbody"></div>'+
+    '</aside>';
+  document.body.appendChild(ui);
+  bubble=ui.querySelector('.nzc-bubble'); pop=ui.querySelector('.nzc-pop');
+  fab=ui.querySelector('.nzc-fab'); drawer=ui.querySelector('.nzc-drawer');
+  dbody=ui.querySelector('.nzc-dbody'); dstatus=ui.querySelector('.nzc-status');
+
+  bubble.addEventListener('mousedown', function(e){ e.preventDefault(); });
+  bubble.addEventListener('click', function(){ if(pending) openNew(pending); });
+  fab.addEventListener('click', function(){ drawer.classList.toggle('open'); if(drawer.classList.contains('open')) renderDrawer(); });
+  ui.querySelector('.nzc-x').addEventListener('click', function(){ drawer.classList.remove('open'); });
+  ui.querySelector('.nzc-copy').addEventListener('click', copyAll);
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closePop(); drawer.classList.remove('open'); } });
+  document.addEventListener('mousedown', function(e){
+    if(pop.hidden) return;
+    if(!pop.contains(e.target) && !bubble.contains(e.target) && !(e.target.closest && e.target.closest('mark.nzc-hl'))) closePop();
+  });
+  window.addEventListener('resize', function(){ hideBubble(); closePop(); });
+}
+function place(el, rect){
+  el.hidden=false;
+  var top = rect.bottom + window.scrollY + 8;
+  var left = rect.left + rect.width/2 + window.scrollX;
+  el.style.top = top+'px';
+  el.style.left = left+'px';
+  var w = el.offsetWidth, half = w/2, pad = 10;
+  var minL = window.scrollX + half + pad, maxL = window.scrollX + document.documentElement.clientWidth - half - pad;
+  el.style.left = Math.max(minL, Math.min(maxL, left))+'px';
+}
+function hideBubble(){ bubble.hidden=true; }
+function closePop(){ pop.hidden=true; pop.innerHTML=''; openId=null; }
+
+/* новая ветка */
+function openNew(p){
+  hideBubble();
+  pop.innerHTML =
+    '<div class="nzc-quote">'+esc(p.quote)+'</div>'+
+    '<input class="nzc-name" maxlength="40" placeholder="Как вас зовут" value="'+esc(ls(LS_AUTHOR)||'')+'">'+
+    '<textarea class="nzc-txt" maxlength="2000" placeholder="Что не так или что предлагаете"></textarea>'+
+    '<div class="nzc-row"><button class="nzc-btn nzc-cancel" type="button">Отмена</button>'+
+    '<button class="nzc-btn pri nzc-ok" type="button">Отправить</button></div>';
+  place(pop, p.rect);
+  var txt=pop.querySelector('.nzc-txt'), name=pop.querySelector('.nzc-name');
+  (ls(LS_AUTHOR)? txt : name).focus();
+  pop.querySelector('.nzc-cancel').addEventListener('click', closePop);
+  pop.querySelector('.nzc-ok').addEventListener('click', function(){
+    var t=txt.value.trim(), a=name.value.trim()||'Аноним';
+    if(!t){ txt.focus(); return; }
+    ls(LS_AUTHOR, a);
+    this.disabled=true;
+    var item={id:uid(), ts:Date.now(), blockKey:p.blockKey, quote:p.quote, prefix:p.prefix,
+              author:a, uid:me(), text:t, parentId:'', deleted:0};
+    save(item).then(function(){ closePop(); render(); flash(item.id); });
+  });
+}
+/* ветка целиком */
+function openThread(id, rect){
+  var t=threadOf(id); if(!t) return;
+  openId=id;
+  var rows=[t.root].concat(t.replies).map(function(c){
+    var mine = c.uid===me();
+    return '<div class="nzc-item"><div class="nzc-meta"><b>'+esc(c.author)+'</b><span>'+when(c.ts)+'</span>'+
+      (mine?'<button class="nzc-del" data-id="'+esc(c.id)+'" type="button">удалить</button>':'')+
+      '</div><div class="nzc-text">'+esc(c.text)+'</div></div>';
+  }).join('');
+  pop.innerHTML =
+    '<div class="nzc-quote">'+esc(t.root.quote)+'</div>'+
+    '<div class="nzc-thread">'+rows+'</div>'+
+    '<textarea class="nzc-txt" maxlength="2000" placeholder="Ответить"></textarea>'+
+    '<div class="nzc-row"><button class="nzc-btn nzc-cancel" type="button">Закрыть</button>'+
+    '<button class="nzc-btn pri nzc-ok" type="button">Ответить</button></div>';
+  place(pop, rect);
+  pop.querySelector('.nzc-cancel').addEventListener('click', closePop);
+  Array.prototype.slice.call(pop.querySelectorAll('.nzc-del')).forEach(function(b){
+    b.addEventListener('click', function(){
+      remove(b.getAttribute('data-id')).then(function(){ closePop(); render(); });
+    });
+  });
+  pop.querySelector('.nzc-ok').addEventListener('click', function(){
+    var txt=pop.querySelector('.nzc-txt'), v=txt.value.trim(); if(!v){ txt.focus(); return; }
+    var a=ls(LS_AUTHOR)||'Аноним'; this.disabled=true;
+    save({id:uid(), ts:Date.now(), blockKey:t.root.blockKey, quote:t.root.quote, prefix:t.root.prefix,
+          author:a, uid:me(), text:v, parentId:id, deleted:0})
+      .then(function(){ render(); var m=document.querySelector('mark.nzc-hl[data-nzc="'+id+'"]');
+                        openThread(id, m? m.getBoundingClientRect() : rect); });
+  });
+}
+
+/* ---------- отрисовка ---------- */
+function render(){
+  clearMarks(); indexBlocks(); state.lost={};
+  threads().forEach(function(t){
+    var r = null, el = byKey[t.root.blockKey];
+    if(el) r = locate(el, t.root.quote, t.root.prefix);
+    if(!r) r = locate(document.body, t.root.quote, t.root.prefix);
+    if(!r){ state.lost[t.root.id]=true; return; }
+    wrapRange(r, t.root.id);
+  });
+  Array.prototype.slice.call(document.querySelectorAll('mark.nzc-hl')).forEach(function(m){
+    m.addEventListener('click', function(e){
+      e.stopPropagation();
+      openThread(m.getAttribute('data-nzc'), m.getBoundingClientRect());
+    });
+  });
+  var n = threads().length;
+  fab.textContent = n ? 'Комментарии · '+n : 'Комментарии';
+  if(drawer.classList.contains('open')) renderDrawer();
+}
+function renderDrawer(){
+  var list = threads();
+  dstatus.hidden = !state.error; dstatus.textContent = state.error;
+  dstatus.className = 'nzc-status' + (state.error ? ' err' : '');
+  if(!list.length){
+    dbody.innerHTML = '<div class="nzc-empty">Пока пусто. Выделите любой кусок текста в плане - появится кнопка «Комментировать».</div>';
+    return;
+  }
+  dbody.innerHTML = list.slice().reverse().map(function(t){
+    var lost = state.lost[t.root.id];
+    var more = t.replies.length ? '<div class="nzc-meta" style="margin-top:6px">ответов: '+t.replies.length+'</div>' : '';
+    return '<div class="nzc-card'+(lost?' lost':'')+'" data-id="'+esc(t.root.id)+'">'+
+      '<div class="nzc-q">'+esc(t.root.quote)+'</div>'+
+      '<div class="nzc-meta"><b>'+esc(t.root.author)+'</b><span>'+when(t.root.ts)+'</span></div>'+
+      '<div class="nzc-text">'+esc(t.root.text)+'</div>'+ more +
+      (lost?'<div class="nzc-meta" style="margin-top:6px">фрагмент в плане изменился - не подсвечен</div>':'')+
+    '</div>';
+  }).join('');
+  Array.prototype.slice.call(dbody.querySelectorAll('.nzc-card')).forEach(function(c){
+    c.addEventListener('click', function(){
+      var id=c.getAttribute('data-id');
+      if(state.lost[id]) return;
+      drawer.classList.remove('open'); flash(id);
+    });
+  });
+}
+function flash(id){
+  var m=document.querySelector('mark.nzc-hl[data-nzc="'+id+'"]'); if(!m) return;
+  m.scrollIntoView({behavior:'smooth', block:'center'});
+  m.classList.add('nzc-flash'); setTimeout(function(){ m.classList.remove('nzc-flash'); }, 1600);
+}
+function copyAll(){
+  var txt = threads().map(function(t){
+    return '« '+t.root.quote+' »\n'+[t.root].concat(t.replies).map(function(c){
+      return c.author+' ('+when(c.ts)+'): '+c.text;
+    }).join('\n');
+  }).join('\n\n---\n\n');
+  if(!txt){ return; }
+  var btn=ui.querySelector('.nzc-copy');
+  var done=function(){ btn.textContent='Скопировано'; setTimeout(function(){ btn.textContent='Скопировать все'; },1800); };
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done, fallback); }
+  else fallback();
+  function fallback(){
+    var ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); done(); }catch(e){}
+    document.body.removeChild(ta);
+  }
+}
+
+/* ---------- выделение ---------- */
+function onSel(){
+  var sel=window.getSelection();
+  if(!sel || !sel.rangeCount || sel.isCollapsed){ hideBubble(); pending=null; return; }
+  var r=sel.getRangeAt(0);
+  var anc=r.commonAncestorContainer, ancEl = anc.nodeType===3 ? anc.parentElement : anc;
+  if(!ancEl || ancEl.closest('.nzc-ui')){ hideBubble(); pending=null; return; }
+  var quote=norm(sel.toString());
+  if(quote.length<2){ hideBubble(); pending=null; return; }
+  if(quote.length>600) quote=quote.slice(0,600);
+  var block=blockFor(r.startContainer);
+  if(!block){ hideBubble(); pending=null; return; }
+  var prefix='';
+  try{ var pr=document.createRange(); pr.setStart(block,0); pr.setEnd(r.startContainer, r.startOffset);
+       prefix=norm(pr.toString()).slice(-24); }catch(e){}
+  var rect=r.getBoundingClientRect();
+  if(!rect || (!rect.width && !rect.height)){ hideBubble(); return; }
+  pending={blockKey:keyOf.get(block), quote:quote, prefix:prefix, rect:rect};
+  place(bubble, rect);
+}
+
+/* ---------- запуск ---------- */
+function refresh(){
+  if(!API || !pop.hidden) return;
+  pull().then(function(){ render(); });
+}
+function boot(){
+  buildUI(); indexBlocks();
+  pull().then(flushQueue).then(render);
+  var t=null;
+  document.addEventListener('selectionchange', function(){ clearTimeout(t); t=setTimeout(onSel, 160); });
+  document.addEventListener('visibilitychange', function(){ if(!document.hidden) refresh(); });
+  window.addEventListener('online', function(){ flushQueue().then(refresh); });
+  setInterval(refresh, 60000);
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
+</script>
+
 </body>
 </html>
