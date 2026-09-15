@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>window.REPORT_CANONICAL_URL = "https://gapgtn-bg.github.io/nz-trip-plan/nz-visa-declines.html";</script>
+<title>Отказы по гостевым визам Новой Зеландии</title>
+<style>
+  :root{
+    --paper:#F4F5F2;
+    --ink:#1B2430;
+    --ink-soft:#5A6675;
+    --rule:#CDD2CB;
+    --decline:#9E2B25;
+    --approve:#3D6B6B;
+    --highlight:#E8E3D6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font:16px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    padding:32px 20px 64px;
+  }
+  .wrap{max-width:1000px;margin:0 auto}
+  h1{
+    font:400 34px/1.15 Iowan Old Style,Georgia,"Times New Roman",serif;
+    margin:0 0 8px;letter-spacing:-.01em;
+  }
+  .sub{color:var(--ink-soft);max-width:62ch;margin:0 0 4px}
+  .meta{color:var(--ink-soft);font-size:13px;margin-top:10px}
+  .meta a{color:var(--ink-soft)}
+  .controls{display:flex;gap:8px;align-items:center;margin:28px 0 10px;flex-wrap:wrap}
+  button{
+    font:inherit;font-size:14px;background:transparent;color:var(--ink-soft);
+    border:1px solid var(--rule);border-radius:2px;padding:6px 12px;cursor:pointer;
+  }
+  button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  button:focus-visible{outline:2px solid var(--decline);outline-offset:2px}
+  .legend{color:var(--ink-soft);font-size:13px;margin-left:auto}
+
+  table{border-collapse:collapse;width:100%}
+  caption{text-align:left;font-size:13px;color:var(--ink-soft);padding:0 0 8px}
+  th{font-weight:600;font-size:13px;color:var(--ink-soft);text-align:right;padding:8px 10px;border-bottom:1px solid var(--rule)}
+  th.name{text-align:left}
+  td{padding:12px 10px;border-bottom:1px solid var(--rule);text-align:right;
+     font:400 17px/1.2 Iowan Old Style,Georgia,serif;font-variant-numeric:tabular-nums}
+  td.name{text-align:left;font:600 15px/1.3 ui-sans-serif,-apple-system,"Segoe UI",sans-serif}
+  td.name span{display:block;font-weight:400;font-size:12px;color:var(--ink-soft);margin-top:2px}
+  td.rate{color:var(--decline);font-size:22px}
+  tr.total td{background:var(--highlight)}
+  tr.total td.rate{color:var(--ink)}
+  .spark{width:210px}
+  .spark svg{display:block;width:210px;height:44px;overflow:visible}
+  .dot{fill:var(--decline)}
+  .dot.dim{fill:var(--ink-soft);opacity:.35}
+  .line{fill:none;stroke:var(--decline);stroke-width:1.6}
+  .line.vol{stroke:var(--approve)}
+  .dot.vol{fill:var(--approve)}
+  .base{stroke:var(--rule);stroke-width:1}
+  .tip{font:400 11px ui-sans-serif,sans-serif;fill:var(--ink-soft)}
+
+  details{margin-top:26px;border-top:1px solid var(--rule);padding-top:16px}
+  summary{cursor:pointer;font-size:14px;color:var(--ink-soft)}
+  details p, details ul{font-size:14px;color:var(--ink-soft);max-width:75ch}
+  details li{margin-bottom:6px}
+  .euro-list{columns:3;font-size:13px;column-gap:24px}
+  @media (max-width:720px){
+    .spark,.spark svg{width:120px}
+    td,th{padding:8px 5px}
+    td{font-size:15px}
+    td.rate{font-size:18px}
+    .euro-list{columns:2}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Кому Новая Зеландия отказывает в гостевой визе</h1>
+  <p class="sub">Заявления на visitor visa, решённые Immigration New Zealand, по гражданству и финансовому году (июль-июнь). Последний полный год - 2025/26.</p>
+  <p class="meta">Источник: <a href="https://www.immigration.govt.nz/assets/inz/documents/statistics/statistics-visitor-applications-decided.pdf">INZ, Visitor applications decided</a>, отчёт подготовлен 7 сентября 2026. Данные по заявлениям (не по людям).</p>
+
+  <div class="controls">
+    <button id="btn-rate" aria-pressed="true">Процент отказов</button>
+    <button id="btn-vol" aria-pressed="false">Число заявлений</button>
+    <span class="legend" id="legend">Кривая: 2016/17 - 2025/26</span>
+  </div>
+
+  <table>
+    <caption id="cap">Столбцы - последний полный финансовый год, 2025/26</caption>
+    <thead>
+      <tr>
+        <th class="name">Гражданство</th>
+        <th>Решено</th>
+        <th>Отказов</th>
+        <th>% отказов</th>
+        <th class="spark">Динамика</th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+
+  <details>
+    <summary>Как читать эти цифры (важно)</summary>
+    <ul>
+      <li>«Отказ» у INZ - грязная категория: сюда же попадают заявления, отозванные по просьбе заявителя, заменённые новым заявлением и отозванные из-за одобрения следующего. Реальный процент отказов по существу ниже.</li>
+      <li>Американцы и европейцы ездят в НЗ по <a href="https://www.immigration.govt.nz/new-zealand-visas/preparing-a-visa-application/visas-for-travel/nzeta">NZeTA</a> без визы, поэтому в визовой статистике остаётся только нетипичный остаток: длинные поездки, партнёры, родители, люди с проблемной историей. Отсюда «европейские» 10%, которые нельзя сравнивать с индийскими напрямую.</li>
+      <li>Европа здесь - ЕС-27 плюс Великобритания, Норвегия, Исландия, Швейцария, Лихтенштейн. Россия, Беларусь, Сербия, Украина и Балканы в эту сумму не входят и показаны отдельно. Ряд по Европе начинается с 2022/23, поскольку ковидные годы несопоставимы.</li>
+      <li>2026/27 в кривой не показан: это всего два месяца (июль-август 2026).</li>
+      <li>Цифры INZ не округляются по base-3 в этих PDF, в отличие от Migration Data Explorer, поэтому здесь они точные.</li>
+    </ul>
+    <p>Страны, сложенные в строку «Европа»:</p>
+    <div class="euro-list" id="eulist"></div>
+  </details>
+</div>
+
+<script>
+const YEARS = ["2016/17","2017/18","2018/19","2019/20","2020/21","2021/22","2022/23","2023/24","2024/25","2025/26"];
+
+// [approved, declined] per financial year, 2016/17 .. 2025/26
+const D = {
+  "Китай":   {note:"China", v:[[184048,9310],[271225,13595],[312225,16666],[175390,9524],[12652,487],[8185,445],[94925,4840],[251234,12516],[226247,11665],[189057,6568]]},
+  "Индия":   {note:"India", v:[[46324,5155],[57772,5749],[56409,8272],[47295,7523],[6719,1154],[7300,858],[70458,13401],[70197,33714],[64943,16085],[66794,13876]]},
+  "Россия":  {note:"Russia", v:[[5050,216],[5106,306],[5485,554],[4910,426],[1400,53],[3012,48],[2670,512],[6366,1043],[8140,1005],[8693,1690]]},
+  "США":     {note:"United States of America", v:[[1895,178],[2103,180],[1947,226],[2385,271],[4346,302],[3542,163],[3857,381],[3641,421],[3211,327],[3450,365]]},
+  "Сербия":  {note:"Serbia", v:[[215,27],[189,44],[213,54],[169,19],[20,7],[64,13],[174,17],[182,10],[185,24],[181,21]]},
+  "Беларусь":{note:"Belarus", v:[[156,6],[161,21],[148,17],[151,15],[6,1],[6,0],[64,15],[81,30],[119,28],[110,59]]},
+};
+
+// EU27 + UK + NO + IS + CH + LI, 2022/23 .. 2025/26
+const EU = {
+"Австрия":[[135,6],[92,11],[66,10],[75,8]], "Бельгия":[[103,14],[90,7],[107,8],[94,9]],
+"Болгария":[[20,2],[12,0],[10,2],[12,1]], "Хорватия":[[14,1],[24,1],[12,1],[15,3]],
+"Кипр":[[2,1],[2,2],[0,2],[5,0]], "Чехия":[[96,9],[178,18],[125,22],[119,11]],
+"Дания":[[80,9],[113,12],[67,6],[85,6]], "Эстония":[[17,0],[15,3],[14,2],[16,2]],
+"Финляндия":[[45,4],[40,5],[55,4],[43,9]], "Франция":[[597,69],[820,81],[795,78],[819,94]],
+"Германия":[[1077,82],[1035,114],[898,72],[896,73]], "Великобритания":[[1562,239],[1205,216],[1044,177],[1032,180]],
+"Греция":[[9,1],[14,3],[15,3],[20,5]], "Венгрия":[[68,7],[51,1],[42,10],[42,3]],
+"Исландия":[[11,2],[13,2],[7,0],[3,1]], "Ирландия":[[265,29],[282,42],[246,45],[219,40]],
+"Италия":[[241,31],[269,42],[217,43],[214,28]], "Латвия":[[7,1],[23,4],[16,4],[18,4]],
+"Лихтенштейн":[[2,0],[0,0],[0,1],[0,0]], "Литва":[[22,4],[22,7],[18,4],[21,3]],
+"Люксембург":[[6,0],[4,0],[3,0],[7,1]], "Мальта":[[8,1],[6,1],[1,0],[4,0]],
+"Нидерланды":[[375,25],[290,37],[315,31],[323,20]], "Норвегия":[[63,5],[52,6],[36,5],[55,7]],
+"Польша":[[76,6],[69,16],[55,6],[65,5]], "Португалия":[[37,6],[55,5],[37,0],[45,4]],
+"Румыния":[[57,7],[38,11],[30,2],[27,4]], "Словакия":[[15,1],[18,4],[37,4],[19,2]],
+"Словения":[[14,1],[8,2],[12,1],[12,1]], "Испания":[[159,9],[145,16],[130,21],[159,19]],
+"Швеция":[[149,12],[124,21],[87,15],[79,6]], "Швейцария":[[373,20],[319,12],[249,11],[236,12]],
+};
+
+const TOTAL = [[370490,31094],[487072,38104],[534951,45286],[341872,32178],[55099,4627],[53004,3641],[304237,34828],[480211,77467],[443274,59410],[415708,52721]];
+
+// Europe aggregate, padded with nulls for 2016/17 .. 2021/22
+const euSum = [0,1,2,3].map(i => {
+  let a=0,d=0;
+  for (const c of Object.values(EU)) { a += c[i][0]; d += c[i][1]; }
+  return [a,d];
+});
+D["Европа"] = {note:"ЕС-27, Великобритания, Норвегия, Исландия, Швейцария, Лихтенштейн", v:[null,null,null,null,null,null,...euSum]};
+
+const ORDER = ["Индия","Беларусь","Россия","Европа","Сербия","США","Китай"];
+
+const fmt = n => n.toLocaleString("ru-RU").replace(/\u00a0/g," ");
+const rate = p => p ? 100*p[1]/(p[0]+p[1]) : null;
+const vol  = p => p ? p[0]+p[1] : null;
+
+let mode = "rate";
+
+function spark(series, isTotal){
+  const W=210,H=44,pad=4;
+  const f = mode==="rate" ? rate : vol;
+  const vals = series.map(p => f(p));
+  const known = vals.filter(v => v!==null);
+  if(!known.length) return "";
+  const max = mode==="rate" ? Math.max(35, Math.max(...known)) : Math.max(...known);
+  const x = i => pad + i*(W-2*pad)/(YEARS.length-1);
+  const y = v => H - 2 - (v/max)*(H-8);
+  let dpath="", started=false, pts="";
+  vals.forEach((v,i)=>{
+    if(v===null) { started=false; return; }
+    dpath += (started?" L":" M") + x(i).toFixed(1) + " " + y(v).toFixed(1);
+    started = true;
+    const last = i===vals.length-1;
+    pts += `<circle class="dot ${mode==='vol'?'vol':''} ${last?'':'dim'}" cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="${last?3:1.8}">`
+        +  `<title>${YEARS[i]}: ${mode==='rate'? v.toFixed(1)+'% отказов' : fmt(v)+' заявлений'}</title></circle>`;
+  });
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="динамика ${mode==='rate'?'доли отказов':'числа заявлений'}">`
+       + `<line class="base" x1="${pad}" y1="${H-2}" x2="${W-pad}" y2="${H-2}"/>`
+       + `<path class="line ${mode==='vol'?'vol':''}" d="${dpath.trim()}"/>${pts}</svg>`;
+}
+
+function render(){
+  const body = document.getElementById("rows");
+  let html = "";
+  for(const name of ORDER){
+    const row = D[name];
+    const last = row.v[row.v.length-1];
+    html += `<tr><td class="name">${name}<span>${row.note}</span></td>`
+         +  `<td>${fmt(vol(last))}</td><td>${fmt(last[1])}</td>`
+         +  `<td class="rate">${rate(last).toFixed(1)}%</td>`
+         +  `<td class="spark">${spark(row.v)}</td></tr>`;
+  }
+  const t = TOTAL[TOTAL.length-1];
+  html += `<tr class="total"><td class="name">Все гражданства<span>итог INZ</span></td>`
+       +  `<td>${fmt(vol(t))}</td><td>${fmt(t[1])}</td>`
+       +  `<td class="rate">${rate(t).toFixed(1)}%</td>`
+       +  `<td class="spark">${spark(TOTAL,true)}</td></tr>`;
+  body.innerHTML = html;
+  document.getElementById("legend").textContent =
+    mode==="rate" ? "Кривая: доля отказов, 2016/17 - 2025/26" : "Кривая: число решённых заявлений, 2016/17 - 2025/26";
+}
+
+function setMode(m){
+  mode = m;
+  document.getElementById("btn-rate").setAttribute("aria-pressed", m==="rate");
+  document.getElementById("btn-vol").setAttribute("aria-pressed", m==="vol");
+  render();
+}
+document.getElementById("btn-rate").onclick = () => setMode("rate");
+document.getElementById("btn-vol").onclick  = () => setMode("vol");
+
+document.getElementById("eulist").innerHTML =
+  Object.keys(EU).sort((a,b)=>a.localeCompare(b,"ru")).map(c=>`<div>${c}</div>`).join("");
+
+render();
+</script>
+<!-- ================================================================
+     ↓↓↓  ВОТ ЭТОТ БЛОК КОПИРУЕТСЯ В ЛЮБОЙ ОТЧЁТ — ЦЕЛИКОМ  ↓↓↓
+     Ничего снаружи ему не нужно: ни CDN, ни шрифтов, ни библиотек.
+     ================================================================ -->
+<style>
+  #eh-pill{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);right:10px;z-index:2147483000;
+    display:none;align-items:center;gap:6px;padding:7px 12px;border-radius:99px;cursor:pointer;
+    background:#4c8dff;color:#fff;border:0;font:600 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    box-shadow:0 4px 14px rgba(0,0,0,.35)}
+  #eh-bar{position:fixed;left:0;right:0;top:0;z-index:2147483001;display:none;
+    padding:calc(env(safe-area-inset-top,0px) + 12px) 14px 12px;
+    background:#12151c;border-bottom:1px solid #2a3040;color:#e7eaf0;
+    font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+  #eh-bar b{display:block;font-size:14px;margin-bottom:3px}
+  #eh-bar small{display:block;color:#98a2b3;font-size:12.5px;margin-bottom:11px}
+  #eh-bar .eh-row{display:flex;gap:8px;flex-wrap:wrap}
+  #eh-bar button{flex:1 1 auto;min-width:140px;padding:11px 14px;border-radius:9px;border:0;cursor:pointer;
+    font:600 14px/1 inherit;background:#4c8dff;color:#fff}
+  #eh-bar button.ghost{background:transparent;color:#98a2b3;border:1px solid #2a3040;flex:0 0 auto;min-width:0}
+  #eh-steps{margin:10px 0 0;padding-left:18px;color:#c3cad6;font-size:13px}
+  #eh-steps li{margin:3px 0}
+</style>
+
+<button id="eh-pill" type="button">↗&nbsp;В браузере</button>
+
+<div id="eh-bar">
+  <b id="eh-title">Открыть в обычном браузере</b>
+  <small id="eh-sub"></small>
+  <div class="eh-row">
+    <button id="eh-go" type="button">Открыть в браузере</button>
+    <button id="eh-copy" type="button" class="ghost">Скопировать ссылку</button>
+    <button id="eh-close" type="button" class="ghost">✕</button>
+  </div>
+  <ol id="eh-steps" hidden></ol>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var CANON = (window.REPORT_CANONICAL_URL || '').trim();
+  var href  = location.href;
+  var isFile = location.protocol === 'file:' || location.protocol === 'blob:' ||
+               location.protocol === 'content:';
+  // Целевой адрес: онлайн-копия, если она задана и мы открыты из файла.
+  var target = (isFile || !/^https?:$/.test(location.protocol)) ? CANON : href;
+
+  // ---------- 1. Определяем окружение -------------------------------
+  var ua = navigator.userAgent || '';
+  var os =
+    /iPhone|iPad|iPod/i.test(ua) ? 'ios' :
+    /Android/i.test(ua)          ? 'android' :
+    /Macintosh/i.test(ua)        ? 'mac' :
+    /Windows/i.test(ua)          ? 'win' : 'other';
+
+  var app = 'browser';
+  if (window.TelegramWebviewProxy || window.TelegramWebview ||
+      (window.webkit && window.webkit.messageHandlers &&
+       window.webkit.messageHandlers.performAction) || /Telegram/i.test(ua)) {
+    app = 'telegram';
+  } else if (/Teams(Mobile)?[\/ ]/i.test(ua) || /MSTeams/i.test(ua) ||
+             /SkypeSpaces/i.test(ua) || window.microsoftTeams) {
+    app = 'teams';
+  } else if (/FBAN|FBAV|Instagram/i.test(ua))       { app = 'meta'; }
+  else if (/MicroMessenger/i.test(ua))              { app = 'wechat'; }
+  else if (/\bLine\//i.test(ua))                    { app = 'line'; }
+  else if (/LinkedInApp/i.test(ua))                 { app = 'linkedin'; }
+
+  // Общие признаки встроенного вебвью, если по имени приложения не опознали.
+  var embedded =
+    app !== 'browser' ||
+    /;\s*wv\)/i.test(ua) ||                                          // Android WebView
+    (os === 'ios' && /AppleWebKit/i.test(ua) && !/Safari\//i.test(ua)); // WKWebView без Safari-токена
+
+  var isDesktop = (os === 'mac' || os === 'win' || os === 'other');
+
+  // ---------- 2. Способы «выпрыгнуть» --------------------------------
+  function bare(u){ return u.replace(/^https?:\/\//i, ''); }
+
+  function escapeTo(u) {
+    if (!u) return false;
+    try {
+      if (os === 'android') {
+        // Сначала пробуем системный выбор браузера, затем явно Chrome.
+        location.href = 'intent://' + bare(u) +
+          '#Intent;scheme=https;action=android.intent.action.VIEW;' +
+          'S.browser_fallback_url=' + encodeURIComponent(u) + ';end';
+        setTimeout(function () {
+          location.href = 'intent://' + bare(u) +
+            '#Intent;scheme=https;package=com.android.chrome;' +
+            'S.browser_fallback_url=' + encodeURIComponent(u) + ';end';
+        }, 600);
+        return true;
+      }
+      if (os === 'ios') {
+        // Недокументированная, но рабочая схема принудительного Safari.
+        location.href = 'x-safari-' + u;
+        setTimeout(function () { location.href = 'googlechrome' + u.replace(/^http/, ''); }, 700);
+        return true;
+      }
+      window.open(u, '_blank', 'noopener');
+      return true;
+    } catch (e) { return false; }
+  }
+
+  function copy(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).then(function(){return true;},function(){return fallback();});
+    }
+    return Promise.resolve(fallback());
+    function fallback() {
+      try {
+        var t = document.createElement('textarea');
+        t.value = text; t.setAttribute('readonly','');
+        t.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+        document.body.appendChild(t); t.select(); t.setSelectionRange(0, 99999);
+        var ok = document.execCommand('copy'); document.body.removeChild(t); return ok;
+      } catch (e) { return false; }
+    }
+  }
+
+  // ---------- 3. Тексты подсказок ------------------------------------
+  var APPNAME = {telegram:'Telegram', teams:'Microsoft Teams', meta:'Facebook/Instagram',
+                 wechat:'WeChat', line:'LINE', linkedin:'LinkedIn', browser:'встроенном браузере'};
+
+  function manualSteps() {
+    if (app === 'telegram' && os === 'ios')
+      return ['Нажми ⋯ в правом верхнем углу', 'Выбери «Открыть в Safari»'];
+    if (app === 'telegram' && os === 'android')
+      return ['Нажми ⋮ в правом верхнем углу', 'Выбери «Открыть в браузере»'];
+    if (app === 'teams' && os === 'ios')
+      return ['Нажми ⋯ / «Поделиться»', 'Выбери «Открыть в Safari»'];
+    if (app === 'teams' && os === 'android')
+      return ['Нажми ⋮ в правом верхнем углу', 'Выбери «Открыть в браузере»'];
+    return ['Открой меню ⋯ / ⋮ этого окна', 'Выбери «Открыть в браузере»'];
+  }
+
+  function fileSteps() {
+    if (os === 'ios')     return ['Нажми «Поделиться» → «Сохранить в Файлы»',
+                                  'Открой файл из приложения «Файлы» — он откроется в Safari'];
+    if (os === 'android') return ['Сохрани файл (⋮ → «Сохранить»)',
+                                  'Открой его из «Загрузок» и выбери Chrome'];
+    return ['Сохрани файл на диск', 'Открой его двойным кликом — запустится браузер по умолчанию'];
+  }
+
+  // ---------- 4. Рисуем интерфейс -------------------------------------
+  var bar = document.getElementById('eh-bar'),
+      pill = document.getElementById('eh-pill'),
+      steps = document.getElementById('eh-steps'),
+      sub = document.getElementById('eh-sub'),
+      go = document.getElementById('eh-go'),
+      cp = document.getElementById('eh-copy');
+
+  var canEscape = !!target;
+
+  sub.textContent = canEscape
+    ? 'Страница открыта в ' + (APPNAME[app] || 'встроенном браузере') +
+      '. Там ломаются графики, печать и полноэкранный режим.'
+    : 'Файл открыт локально, поэтому кнопкой перебросить нельзя — только вручную.';
+
+  if (!canEscape) {
+    go.hidden = true; cp.hidden = true;
+    fileSteps().forEach(function (s) { var li = document.createElement('li'); li.textContent = s; steps.appendChild(li); });
+    steps.hidden = false;
+  }
+
+  function show(){ bar.style.display = 'block'; pill.style.display = 'none'; }
+  function hide(){ bar.style.display = 'none'; pill.style.display = 'inline-flex'; }
+
+  pill.onclick = show;
+  document.getElementById('eh-close').onclick = hide;
+
+  go.onclick = function () {
+    escapeTo(target);
+    // Если через 1.2 с мы всё ещё здесь — показываем ручную инструкцию.
+    setTimeout(function () {
+      if (steps.childNodes.length) return;
+      manualSteps().forEach(function (s) { var li = document.createElement('li'); li.textContent = s; steps.appendChild(li); });
+      steps.hidden = false;
+      go.textContent = 'Попробовать ещё раз';
+    }, 1200);
+  };
+
+  cp.onclick = function () {
+    Promise.resolve(copy(target)).then(function (ok) {
+      cp.textContent = ok ? 'Скопировано ✓' : 'Не удалось';
+      setTimeout(function () { cp.textContent = 'Скопировать ссылку'; }, 2000);
+    });
+  };
+
+  // Показываем баннер сразу, если это вебвью; иначе — только тихую «пилюлю».
+  if (embedded && !isDesktop) { show(); } else if (embedded) { pill.style.display = 'inline-flex'; }
+
+  // Отдаём диагностику наружу — для тестовой страницы.
+  window.__EH__ = {app:app, os:os, embedded:embedded, isFile:isFile,
+                   target:target || '(не задан)', ua:ua};
+})();
+</script>
+<!-- ================================================================
+     ↑↑↑  КОНЕЦ КОПИРУЕМОГО БЛОКА  ↑↑↑
+     ================================================================ -->
+
+</body>
+</html>
