@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Drama Triangle Notes</title>
+<meta name="description" content="Конспект двух видео Heidi Priebe о типах привязанности и треугольнике Карпмана, RU/EN. Все права на исходный материал у автора видео.">
+<script>window.REPORT_CANONICAL_URL="https://gapgtn-bg.github.io/w8c/drama-triangle.html";</script>
+<style>*,*::before,*::after{box-sizing:border-box}html{color-scheme:light}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one reading column, sticky language bar on top; drama = crimson, empowerment = teal, used as the only two accents */
+:root{
+  --bg:#F2F4F6; --surface:#FFFFFF; --ink:#18212B; --muted:#5A6573; --line:#D6DCE3;
+  --drama:#A8324F; --drama-soft:#F6E3E8; --ted:#1C6F69; --ted-soft:#DDEFEC;
+  --display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171D; --surface:#1A2129; --ink:#E6EAEE; --muted:#9AA6B3; --line:#2C3641;
+  --drama:#E77A94; --drama-soft:#3A1F28; --ted:#5CC2B8; --ted-soft:#15322F; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171D; --surface:#1A2129; --ink:#E6EAEE; --muted:#9AA6B3; --line:#2C3641;
+  --drama:#E77A94; --drama-soft:#3A1F28; --ted:#5CC2B8; --ted-soft:#15322F; color-scheme:dark}
+
+body{background:var(--bg);color:var(--ink);font:17px/1.62 var(--body);}
+.wrap{max-width:46rem;margin:0 auto;padding-inline:20px;padding-block:0 64px}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:46rem;margin:0 auto;padding-inline:20px;padding-block:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.bar-name{font:600 14px/1.2 var(--display);letter-spacing:.02em;color:var(--muted)}
+.lang{display:inline-flex;border:2px solid var(--ink);border-radius:999px;padding:3px;gap:3px;background:var(--surface)}
+.lang button{font:700 15px/1 var(--display);letter-spacing:.06em;border:0;border-radius:999px;padding:9px 18px;background:transparent;color:var(--ink);cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.lang button:focus-visible,a:focus-visible{outline:3px solid var(--ted);outline-offset:2px}
+
+.notice{margin-block:24px;padding:14px 16px;border:1px solid var(--line);border-left:4px solid var(--drama);background:var(--surface);font-size:15px;line-height:1.5;color:var(--muted);border-radius:4px}
+.notice strong{color:var(--ink)}
+header.hero{padding-block:28px 8px}
+.eyebrow{font:600 12px/1 var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--ted)}
+h1{font:700 clamp(30px,6vw,46px)/1.08 var(--display);margin:.35em 0 .4em;text-wrap:balance;letter-spacing:-.01em}
+h2{font:700 26px/1.2 var(--display);margin:2.2em 0 .5em;text-wrap:balance;padding-top:.8em;border-top:1px solid var(--line)}
+h3{font:600 20px/1.3 var(--display);margin:1.8em 0 .4em;text-wrap:balance}
+h3 .role{font:600 12px/1 var(--display);letter-spacing:.1em;text-transform:uppercase;padding:5px 8px;border-radius:4px;vertical-align:3px;margin-left:6px;white-space:nowrap}
+.r-drama{background:var(--drama-soft);color:var(--drama)}
+.r-ted{background:var(--ted-soft);color:var(--ted)}
+p,li{max-width:65ch}
+ul{padding-left:1.2em;margin:.4em 0 1em}
+li{margin:.3em 0}
+li::marker{color:var(--muted)}
+.label{font:600 13px/1.4 var(--display);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:1.2em 0 .2em}
+.sources{display:grid;gap:8px;margin:14px 0 4px}
+.src{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.src a{color:var(--ink);font-weight:600}
+.src .dur{font:500 13px/1 var(--mono);color:var(--muted)}
+a{color:var(--ted);text-underline-offset:3px}
+.tsg{white-space:nowrap;font-size:0}
+.tsg .dash{font:500 13px/1 var(--mono);color:var(--muted);padding:0 2px}
+a.ts{font:500 13px/1 var(--mono);font-variant-numeric:tabular-nums;color:var(--ted);background:var(--ted-soft);padding:3px 6px;border-radius:4px;text-decoration:none;display:inline-block}
+a.ts:hover{background:var(--ted);color:var(--bg)}
+.tldr{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 20px 8px;margin-top:18px}
+.tldr h2{border:0;margin-top:.6em;padding-top:0;font-size:20px}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:15px;line-height:1.45;margin:.6em 0 1.2em;min-width:560px}
+th,td{text-align:left;vertical-align:top;padding:9px 10px;border-bottom:1px solid var(--line)}
+th{font:600 12px/1.3 var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--ink)}
+td strong{font-weight:600}
+td.d{color:var(--drama);font-weight:600}
+td.t{color:var(--ted);font-weight:600}
+.diagram{margin:20px 0 8px}
+.diagram svg{width:100%;min-width:520px;height:auto;display:block}
+.svg-h{font:700 18px var(--display);fill:var(--ink)}
+.svg-role{font:700 17px var(--display)}
+.svg-q{font:italic 400 14px var(--body);fill:var(--muted)}
+.g-drama .tri{fill:var(--drama-soft);stroke:var(--drama);stroke-width:2}
+.g-drama .dot,.g-drama .svg-role{fill:var(--drama)}
+.g-ted .tri{fill:var(--ted-soft);stroke:var(--ted);stroke-width:2}
+.g-ted .dot,.g-ted .svg-role{fill:var(--ted)}
+.g-arrow line,.g-arrow polyline{stroke:var(--muted);stroke-width:2.5;fill:none}
+figcaption{font-size:14px;color:var(--muted)}
+footer{margin-top:48px}
+.related{margin:10px 0 0;padding:10px 14px;background:var(--surface);border:1px solid var(--line);border-radius:6px;font-size:15px}
+.related a{font-weight:600}
+@media (max-width:480px){body{font-size:16px}.bar-name{display:none}.bar-in{justify-content:flex-end}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="bar"><div class="bar-in">
+  <span class="bar-name" data-l="ru">Конспект · Heidi Priebe</span>
+  <span class="bar-name" data-l="en" hidden>Notes · Heidi Priebe</span>
+  <div class="lang" role="group" aria-label="Language / Язык">
+    <button type="button" id="btn-ru" data-set="ru" aria-pressed="true">RU</button>
+    <button type="button" id="btn-en" data-set="en" aria-pressed="false">EN</button>
+  </div>
+</div></div>
+
+<main class="wrap">
+
+<!-- ==================== RU ==================== -->
+<article data-l="ru" lang="ru">
+<div class="notice"><strong>Все права на исходный материал принадлежат автору видео, Heidi Priebe.</strong> Это неофициальный конспект, пересказанный своими словами для личного изучения. Он не заменяет оригинал и не связан с автором. Полная версия с интонацией и примерами есть только в самих видео по ссылкам ниже.</div>
+
+<header class="hero">
+  <div class="eyebrow">Конспект · части 1-2</div>
+  <h1>Типы привязанности и треугольник Карпмана</h1>
+  <div class="sources">
+    <div class="src"><a href="https://www.youtube.com/watch?v=4BrjQ9qX33k" target="_blank" rel="noopener">Part 1: Intro To The Drama Triangle</a><span class="dur">14 мин</span></div>
+    <div class="src"><a href="https://www.youtube.com/watch?v=ynMNRFp68LM" target="_blank" rel="noopener">Part 2</a><span class="dur">39 мин</span></div>
+  </div>
+  <p class="related">Соседний конспект: <a href="https://gapgtn-bg.github.io/w8c/avoidant-boundaries.html">Четыре границы с избегающим партнёром</a></p>
+  <p style="color:var(--muted);font-size:15px">Автор - <a href="https://www.youtube.com/@HeidiPriebe" target="_blank" rel="noopener">Heidi Priebe</a>. Каждая метка времени открывает видео с нужного места.</p>
+</header>
+
+<figure class="diagram"><div class="scroll"><svg viewBox="0 0 740 360" role="img" aria-label="Треугольник драмы / Динамика силы">
+  
+  <g class="g-drama">
+    <text class="svg-h" x="170" y="26" text-anchor="middle">Треугольник драмы</text>
+    <polygon points="40,70 300,70 170,290" class="tri"/>
+    <circle cx="40" cy="70" r="7" class="dot"/><circle cx="300" cy="70" r="7" class="dot"/><circle cx="170" cy="290" r="7" class="dot"/>
+    <text class="svg-role" x="40" y="52" text-anchor="start">Преследователь</text>
+    <text class="svg-q" x="54" y="96" text-anchor="start">«виноват ты»</text>
+    <text class="svg-role" x="300" y="52" text-anchor="end">Спасатель</text>
+    <text class="svg-q" x="286" y="96" text-anchor="end">«я нужен»</text>
+    <text class="svg-role" x="170" y="320" text-anchor="middle">Жертва</text>
+    <text class="svg-q" x="170" y="340" text-anchor="middle">«я бессилен»</text>
+  </g>
+  <g class="g-arrow"><line x1="352" y1="180" x2="392" y2="180"/><polyline points="384,172 394,180 384,188"/></g>
+  
+  <g class="g-ted">
+    <text class="svg-h" x="570" y="26" text-anchor="middle">Динамика силы</text>
+    <polygon points="440,70 700,70 570,290" class="tri"/>
+    <circle cx="440" cy="70" r="7" class="dot"/><circle cx="700" cy="70" r="7" class="dot"/><circle cx="570" cy="290" r="7" class="dot"/>
+    <text class="svg-role" x="440" y="52" text-anchor="start">Бросающий вызов</text>
+    <text class="svg-q" x="454" y="96" text-anchor="start">«чему я научусь?»</text>
+    <text class="svg-role" x="700" y="52" text-anchor="end">Коуч</text>
+    <text class="svg-q" x="686" y="96" text-anchor="end">«ты справишься сам»</text>
+    <text class="svg-role" x="570" y="320" text-anchor="middle">Творец</text>
+    <text class="svg-q" x="570" y="340" text-anchor="middle">«какие у меня варианты?»</text>
+  </g>
+</svg></div></figure>
+
+<section class="tldr">
+  <h2>Коротко</h2>
+  <ul>
+    <li>Работа над своим типом привязанности невозможна, пока ты ждёшь, что изменится кто-то другой: партнёр, родители, обстоятельства. Мысль «мне будет хорошо, только когда ты изменишься» и есть вход в <a href="https://en.wikipedia.org/wiki/Karpman_drama_triangle" target="_blank" rel="noopener">треугольник Карпмана</a>.</li>
+    <li>У каждого небезопасного типа есть привычная стартовая роль: <strong>тревожный - Жертва</strong>, <strong>избегающий - Преследователь</strong>, <strong>тревожно-избегающий (fearful avoidant) - Спасатель</strong>.</li>
+    <li>Выход - перейти в зеркальную роль из <a href="https://theempowermentdynamic.com/" target="_blank" rel="noopener">The Empowerment Dynamic</a>: Жертва → <strong>Творец</strong>, Преследователь → <strong>Бросающий вызов</strong>, Спасатель → <strong>Коуч</strong>.</li>
+    <li>Это не разовое действие. Ловить себя придётся всю жизнь, но каждый пойманный случай прибавляет контроля над собственным благополучием.</li>
+  </ul>
+</section>
+
+<h2>Часть 1. Введение в треугольник</h2>
+
+<h3>Зачем начинать с треугольника <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=0s" target="_blank" rel="noopener">0:00</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=120s" target="_blank" rel="noopener">2:00</a></span></h3>
+<ul>
+  <li>В сообществах, где обсуждают привязанность, люди в основном говорят о <em>чужом</em> типе: тревожные обсуждают избегающих партнёров и то, как заставить их любить. Автор считает, что это не работа над собой.</li>
+  <li>Небезопасной привязанности присуще смещение: хочется, чтобы проблема была в другом. Тревожным кажется, что они отдают много, а получают мало. Избегающим - что они никого не грузят, зато грузят их. Fearful avoidant кажется, что прилетает со всех сторон.</li>
+  <li>Треугольник придумал <a href="https://karpmandramatriangle.com/" target="_blank" rel="noopener">Стивен Карпман</a> в 1968 году, модель выросла из <a href="https://en.wikipedia.org/wiki/Transactional_analysis" target="_blank" rel="noopener">транзактного анализа</a>. Роли играют все, но у каждого есть <strong>«стартовые ворота»</strong> - роль, с которой он обычно входит в конфликт, а потом роли меняются.</li>
+</ul>
+
+<h3>Личная история <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=150s" target="_blank" rel="noopener">2:30</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=240s" target="_blank" rel="noopener">4:00</a></span></h3>
+<ul>
+  <li>Автору было 25, отношения тянулись восемь лет, и минимум пять из них были лишними. Она пришла к консультанту и долго жаловалась на партнёра.</li>
+  <li>Консультант спросил не о том, что делает партнёр, а о том, почему она остаётся в плохих отношениях. Вопрос перевёл ответственность на неё: выбирать партнёров, с которыми есть доверие и спокойный разговор, - её зона.</li>
+</ul>
+
+<h3>Три роли треугольника <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=240s" target="_blank" rel="noopener">4:00</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=510s" target="_blank" rel="noopener">8:30</a></span></h3>
+<div class="scroll"><table>
+  <thead><tr><th>Роль</th><th>Установка</th><th>В чём ловушка</th></tr></thead>
+  <tbody>
+    <tr><td class="d">Жертва</td><td>Со мной случилось плохое, я бессилен, чинить должен тот, кто виноват</td><td>Играет на чувстве справедливости. Благополучие целиком в чужих руках, человек ждёт спасателя</td></tr>
+    <tr><td class="d">Преследователь</td><td>Ты виноват, вот список, что тебе исправить</td><td>Ощущается как сила, но это та же передача своих потребностей другому, только агрессивнее</td></tr>
+    <tr><td class="d">Спасатель</td><td>Меня будут любить, если я нужен</td><td>Ищет «сломанных», жертвует собой, незаметно создаёт созависимость</td></tr>
+  </tbody>
+</table></div>
+<ul>
+  <li><strong>Как роли переключаются</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=410s" target="_blank" rel="noopener">6:50</a></span>: если кто-то входит в конфликт Жертвой, второму остаются две роли - Преследователь (перевести стрелки) или Спасатель (отказаться от своего ради другого). Спасатель копит обиду: по негласному договору ему теперь «должны», и он сам сползает в Жертву.</li>
+  <li><strong>Главный маркер</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=480s" target="_blank" rel="noopener">8:00</a></span>: пока ты ждёшь, что кто-то придёт и снимет с тебя ответственность за решение, ты в треугольнике. Даже если обида справедлива.</li>
+</ul>
+
+<h3>Противоядие - Empowerment Dynamic <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=540s" target="_blank" rel="noopener">9:00</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=690s" target="_blank" rel="noopener">11:30</a></span></h3>
+<div class="scroll"><table>
+  <thead><tr><th>Роль треугольника</th><th>Зеркальная роль</th><th>Главный вопрос</th></tr></thead>
+  <tbody>
+    <tr><td class="d">Жертва</td><td class="t">Творец (Creator)</td><td>Какие варианты у меня остаются, даже если всё плохо и виноват другой?</td></tr>
+    <tr><td class="d">Преследователь</td><td class="t">Бросающий вызов (Challenger)</td><td>Чему я научусь в этой ситуации, даже если другой не изменится?</td></tr>
+    <tr><td class="d">Спасатель</td><td class="t">Коуч (Coach)</td><td>У меня и у других достаточно возможностей справиться. Я напоминаю об этом, а не делаю за них</td></tr>
+  </tbody>
+</table></div>
+<ul>
+  <li>В её истории вариантами Творца были: уйти, научиться ставить границы, перестать спасать, а потом обижаться.</li>
+  <li>Коуч не считает, что другим он нужен, чтобы быть в порядке. Это защищает от созависимости и слипания.</li>
+</ul>
+
+<h3>Вывод части 1 <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=690s" target="_blank" rel="noopener">11:30</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=810s" target="_blank" rel="noopener">13:30</a></span></h3>
+<ul>
+  <li>Шаг номер один для любого типа - <strong>перестать ждать, что изменятся другие</strong>, и твёрдо решить меняться самому, даже если больше никто не станет.</li>
+  <li>Выйти из треугольника один раз и навсегда не получится. Работает частота: чем чаще ловишь себя и переключаешься, тем лучше жизнь.</li>
+</ul>
+
+<h2>Часть 2. Каждый тип привязанности в треугольнике</h2>
+<p>Вводная мысль <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=0s" target="_blank" rel="noopener">0:00</a></span>: все стратегии привязанности когда-то работали, иначе бы не закрепились. Fearful avoidant автор использует как примерный синоним дезорганизованной привязанности.</p>
+
+<h3>Тревожный тип <span class="role r-drama">Жертва</span> <span class="role r-ted">→ Творец</span></h3>
+<p class="label">Откуда <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=40s" target="_blank" rel="noopener">0:40</a></span></p>
+<p>Родитель в целом откликался, но был доступен нестабильно. Ребёнок усвоил: надо стараться, стараться и стараться, зато потом дадут любовь и совместную регуляцию (<a href="https://en.wikipedia.org/wiki/Emotional_self-regulation" target="_blank" rel="noopener">co-regulation</a>). <strong>Саморегуляции</strong> он не научился.</p>
+<p class="label">Как проявляется</p>
+<ul>
+  <li>Ощущение себя «половинкой», тяга к мифу о второй половине и соулмейте <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=100s" target="_blank" rel="noopener">1:40</a></span>.</li>
+  <li>Неосознанный поиск <strong>фигуры родителя, а не партнёра</strong>. Избегающий, который выглядит так, будто у него всё под контролем, срабатывает как сигнал «вот он, взрослый». Отсюда классическая пара «тревожный гонится за избегающим» <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=180s" target="_blank" rel="noopener">3:00</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=270s" target="_blank" rel="noopener">4:30</a></span>.</li>
+  <li>В конфликте включается детская стратегия: показать, как больно, и преувеличить потребность. Избегающего это отталкивает, потому что он боится нарушения своих границ <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=270s" target="_blank" rel="noopener">4:30</a></span>.</li>
+  <li>Внутренняя мантра: <em>«я буду счастлив, только когда ты закроешь мои потребности»</em> - это и есть Жертва <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=330s" target="_blank" rel="noopener">5:30</a></span>.</li>
+  <li>Литература о привязанности, в отличие от поп-культуры, говорит о <strong>контролирующем</strong> характере тревожного типа: стремлении управлять тем, что чувствует партнёр. Обычно это не осознаётся <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=350s" target="_blank" rel="noopener">5:50</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=430s" target="_blank" rel="noopener">7:10</a></span>.</li>
+</ul>
+<p class="label">Выход в роль Творца <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=430s" target="_blank" rel="noopener">7:10</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1020s" target="_blank" rel="noopener">17:00</a></span></p>
+<ul>
+  <li>Сменить вопрос «как заставить партнёра закрыть мою потребность» на «как закрыть её самому, если партнёр не может или не хочет».</li>
+  <li>Докопаться до глубинной потребности <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=495s" target="_blank" rel="noopener">8:15</a></span>. Пример цепочки: «меня эмоционально игнорируют» → «мне плохо, потому что нет любви» → «без подтверждения я чувствую себя недостойным любви». Дать эту любовь можешь только ты, иначе сердце так и останется ведром с дырой в дне.</li>
+  <li><strong>Встречаться с самим собой</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=600s" target="_blank" rel="noopener">10:00</a></span>: приходить вовремя, держать обещания себе, дарить себе мелочи, говорить с собой по-доброму, проводить время с собой, знать свои желания. Пара мантр тут не поможет, нужна долгая работа методом проб и ошибок.</li>
+  <li>Здоровое партнёрство - это двое, каждый из которых справился бы со своими потребностями и в одиночку, и которые сходятся, чтобы разделить жизнь. Поддержка партнёра - <strong>опция, а не необходимость</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=720s" target="_blank" rel="noopener">12:00</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=790s" target="_blank" rel="noopener">13:10</a></span>.</li>
+  <li>Проверочный вопрос автора: <em>что бы я сделал с этой потребностью, будь я один?</em> День заботы о себе, звонок другу, саморегуляция <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=760s" target="_blank" rel="noopener">12:40</a></span>.</li>
+  <li>Ресурс: <a href="https://coda.org/" target="_blank" rel="noopener">Co-Dependents Anonymous</a> (CoDA), 12-шаговая программа. Ключевая предпосылка - <strong>мы бессильны над другими</strong>. Если принять это всерьёз, появляются новые варианты, в том числе вопрос, подходит ли тебе этот человек и безопасна ли ситуация <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=810s" target="_blank" rel="noopener">13:30</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=900s" target="_blank" rel="noopener">15:00</a></span>.</li>
+  <li>Эмоциональная безопасность - твоя ответственность, а не партнёра. Помогает <strong>репарентинг</strong>: спросить себя, оставил бы я в такой ситуации маленького ребёнка <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=900s" target="_blank" rel="noopener">15:00</a></span>.</li>
+  <li>Автор ссылается на мысль <a href="https://en.wikipedia.org/wiki/Sherry_Argov" target="_blank" rel="noopener">Шерри Аргов</a>: сильный человек не выпрашивает уважение, а просто уходит от тех, кто его не даёт. По её словам, это и есть позиция безопасного типа <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=950s" target="_blank" rel="noopener">15:50</a></span>.</li>
+</ul>
+
+<h3>Избегающий тип <span class="role r-drama">Преследователь</span> <span class="role r-ted">→ Бросающий вызов</span></h3>
+<p class="label">Самовосприятие <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1020s" target="_blank" rel="noopener">17:00</a></span></p>
+<p>Избегающие часто считают себя самодостаточными и даже безопасными, но преуменьшают свои потребности и чувства.</p>
+<p class="label">Как проявляется</p>
+<ul>
+  <li>Картина мира: <em>я в порядке, другие нет и будут нарушать мои границы</em>. Жизнь за стенами.</li>
+  <li><strong>Внешний критик</strong> вместо внутреннего: мелкие недостатки других становятся поводом не сближаться <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1070s" target="_blank" rel="noopener">17:50</a></span>.</li>
+  <li>Преследование идёт <strong>тихо, в голове</strong>: молчит, выходит из комнаты, отказывается от разговора, а внутри обесценивает всё происходящее <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1100s" target="_blank" rel="noopener">18:20</a></span>.</li>
+  <li>Убеждение «всё наладится, когда партнёр изменится» верно примерно наполовину. Тревожному надо учиться самодостаточности, избегающему - эмоциональной осознанности <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1140s" target="_blank" rel="noopener">19:00</a></span>.</li>
+  <li><strong>Отстранение - не граница</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1180s" target="_blank" rel="noopener">19:40</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1260s" target="_blank" rel="noopener">21:00</a></span>. Отстранение - травматическая реакция. Граница - это ясно назвать потребность и чувство, объяснить, в чём граница, и жить в её пределах. Границы дают <strong>взаимозависимость</strong>, избегание даёт <strong>контрзависимость</strong>.</li>
+  <li>Безопасный человек на деле уязвим меньше, чем избегающий: у него есть люди, которые помогут пережить боль, честные отношения и меньше поводов для отвержения.</li>
+</ul>
+<p class="label">Выход в роль Бросающего вызов <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1290s" target="_blank" rel="noopener">21:30</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1560s" target="_blank" rel="noopener">26:00</a></span></p>
+<ul>
+  <li>Принять, что ты взаимосвязан с людьми и ситуациями: мир влияет на тебя, а ты на мир. Нельзя говорить себе «это целиком вина другого» или «если бы партнёр сделал X».</li>
+  <li>Признать, что ты выбираешь быть в этих отношениях, выбираешь учиться и меняться. Ты уже уязвим, просто чувства выходят бессознательно и криво <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1320s" target="_blank" rel="noopener">22:00</a></span>.</li>
+  <li><strong>Фантазия о соулмейте у избегающего</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1370s" target="_blank" rel="noopener">22:50</a></span>: партнёр, который всегда отрегулирован, ничего лишнего не просит и понимает без слов. Она так же фальшива, как у тревожного.</li>
+  <li>Идеальной совместимости не бывает. Избегающие часто сидят в отношениях с совместимостью процентов 20, потому что не идут к тем, кто им правда интересен (страх отвержения), а ждут, кто сам придёт. Приходят обычно тревожные <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1440s" target="_blank" rel="noopener">24:00</a></span>.</li>
+  <li>Совместимость около 80% - очень много, но для неё нужно быть настоящим и серьёзно относиться к отношениям. Тогда начнут притягиваться безопасные люди <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1480s" target="_blank" rel="noopener">24:40</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1560s" target="_blank" rel="noopener">26:00</a></span>.</li>
+  <li>Если ты и так уязвим, выбери уязвимость, которая ведёт туда, куда ты хочешь.</li>
+</ul>
+
+<h3>Тревожно-избегающий (fearful avoidant) <span class="role r-drama">Спасатель</span> <span class="role r-ted">→ Коуч</span></h3>
+<p class="label">Смешанные стратегии <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1560s" target="_blank" rel="noopener">26:00</a></span></p>
+<p>То включается тревожная активация и контроль, то деактивация, внутренняя критика партнёра и поиск повода уйти.</p>
+<p class="label">Типичный цикл - рикошет <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1610s" target="_blank" rel="noopener">26:50</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1720s" target="_blank" rel="noopener">28:40</a></span></p>
+<ul>
+  <li>В отношениях годами длится слипание почти без границ и страх, что партнёр уйдёт.</li>
+  <li>После разрыва наступают годы в одиночестве с ощущением «я работаю над собой». На деле это просто избегание: собственные чувства подавляются.</li>
+  <li>Первый же триггер (отвержение, острая потребность в тепле) возвращает в созависимые отношения, потому что настоящих способов успокоить себя так и не появилось.</li>
+</ul>
+<p class="label">Картина мира <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1720s" target="_blank" rel="noopener">28:40</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1800s" target="_blank" rel="noopener">30:00</a></span></p>
+<p><em>Я не в порядке, и ты не в порядке.</em> Отсюда отношения как «взаимные заложники»: мы знаем худшее друг о друге, поэтому не можем уйти, и при этом нет ни уважения, ни радости.</p>
+<p class="label">Откуда Спасатель <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1800s" target="_blank" rel="noopener">30:00</a></span></p>
+<p>Дисрегулированная семья со слипанием. Ребёнок усвоил, что его потребности закроют, только когда сначала успокоят чужие. Отсюда «любовь = быть нужным» и тяга к людям с тяжёлыми проблемами (регуляция, зависимости). Чем дольше длятся такие отношения, тем хуже психическое здоровье и самостоятельность обоих.</p>
+<p class="label">Выход в роль Коуча <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1910s" target="_blank" rel="noopener">31:50</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=2280s" target="_blank" rel="noopener">38:00</a></span></p>
+<ul>
+  <li>Установка коуча: <em>я в порядке, и другие в порядке</em>. Все умеют регулировать себя и ставить границы.</li>
+  <li>Отпустить идею, что партнёр без тебя пропадёт. Если так кажется, то почти наверняка это правда о тебе самом <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1970s" target="_blank" rel="noopener">32:50</a></span>.</li>
+  <li>Признать свой вклад в созависимость: одиночные периоды - не самореализация, а накопление «горы нужды», которая потом прорывается <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1980s" target="_blank" rel="noopener">33:00</a></span>.</li>
+  <li>Делать <strong>обе работы сразу</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=2030s" target="_blank" rel="noopener">33:50</a></span>: тревожную (любить себя, репарентинг, давать себе то, что ищешь у других) и избегающую (серьёзно относиться к своим и чужим чувствам и спокойно реагировать на неразумных людей).</li>
+  <li>Своя фантазия о соулмейте: «он где-то есть, но я его пока не достоин, так что тихо дорасту». Её надо выбросить и становиться цельным независимо от отношений <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=2060s" target="_blank" rel="noopener">34:20</a></span>.</li>
+  <li><strong>Взаимозависимость на практике</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=2100s" target="_blank" rel="noopener">35:00</a></span>: честнее вести себя в дружбе, чтобы партнёр не был единственным, кто тебя знает. Всерьёз заниматься заботой о себе, а не посмеиваться над ней. Окружить себя более безопасными людьми, на которых видно, что человек может быть в порядке один и всё равно хотеть близости.</li>
+  <li><strong>Границы</strong> - ключевая работа <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=2130s" target="_blank" rel="noopener">35:30</a></span>. Для этого нужно верить, что другой человек выдержит твою границу и сам разберётся, и что это полезнее ему, чем твоё потакание.</li>
+  <li>CoDA и здесь полезна: исходить из того, что ты бессилен над другими <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=2200s" target="_blank" rel="noopener">36:40</a></span>.</li>
+</ul>
+
+<h3>Финал части 2 <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=2260s" target="_blank" rel="noopener">37:40</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=2340s" target="_blank" rel="noopener">39:00</a></span></h3>
+<ul>
+  <li>Это только шаг один. Паттерны складывались десятилетиями, так что меняются они не за полгода, а ежедневной работой всю жизнь.</li>
+  <li>Старт - замечать моменты, когда кажется, что решение твоей проблемы лежит <strong>вне тебя</strong>, и говорить себе: «я в треугольнике, могу выбрать другой ответ».</li>
+</ul>
+
+<h2>Шпаргалка</h2>
+<div class="scroll"><table>
+  <thead><tr><th>Тип</th><th>Картина мира</th><th>Стартовая роль</th><th>Мантра в конфликте</th><th>Куда переходить</th><th>Ключевая практика</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Тревожный</strong></td><td>Я не в порядке, ты в порядке</td><td class="d">Жертва</td><td>«Счастлив, когда ты закроешь мои потребности»</td><td class="t">Творец</td><td>Встречаться с собой, «что бы я сделал один?», бессилие над другими</td></tr>
+    <tr><td><strong>Избегающий</strong></td><td>Я в порядке, ты нет</td><td class="d">Преследователь (молча)</td><td>«Всё наладится, когда ты изменишься»</td><td class="t">Бросающий вызов</td><td>Отличать отстранение от границ, принять свою уязвимость и неидеального партнёра</td></tr>
+    <tr><td><strong>Fearful avoidant</strong></td><td>Я не в порядке, ты не в порядке</td><td class="d">Спасатель</td><td>«Мне дадут любовь, если я сначала спасу тебя»</td><td class="t">Коуч</td><td>Обе работы сразу, взаимозависимость, границы, не рикошетить</td></tr>
+  </tbody>
+</table></div>
+
+<footer>
+<div class="notice"><strong>Все права на исходный материал принадлежат автору видео, Heidi Priebe.</strong> Конспект - неофициальный пересказ для личного изучения, не заменяет оригинал и не связан с автором. Смотрите полные видео: <a href="https://www.youtube.com/watch?v=4BrjQ9qX33k" target="_blank" rel="noopener">часть 1</a>, <a href="https://www.youtube.com/watch?v=ynMNRFp68LM" target="_blank" rel="noopener">часть 2</a>, канал <a href="https://www.youtube.com/@HeidiPriebe" target="_blank" rel="noopener">Heidi Priebe</a>.</div>
+</footer>
+</article>
+
+<!-- ==================== EN ==================== -->
+<article data-l="en" lang="en" hidden>
+<div class="notice"><strong>All rights to the original material belong to the author of the videos, Heidi Priebe.</strong> These are unofficial notes, written in my own words for personal study. They do not replace the original and are not affiliated with the author. The full content, tone and examples live only in the videos linked below.</div>
+
+<header class="hero">
+  <div class="eyebrow">Study notes · parts 1-2</div>
+  <h1>Attachment Styles and the Drama Triangle</h1>
+  <div class="sources">
+    <div class="src"><a href="https://www.youtube.com/watch?v=4BrjQ9qX33k" target="_blank" rel="noopener">Part 1: Intro To The Drama Triangle</a><span class="dur">14 min</span></div>
+    <div class="src"><a href="https://www.youtube.com/watch?v=ynMNRFp68LM" target="_blank" rel="noopener">Part 2</a><span class="dur">39 min</span></div>
+  </div>
+  <p class="related">Companion notes: <a href="https://gapgtn-bg.github.io/w8c/avoidant-boundaries.html">Four boundaries with an avoidant partner</a></p>
+  <p style="color:var(--muted);font-size:15px">By <a href="https://www.youtube.com/@HeidiPriebe" target="_blank" rel="noopener">Heidi Priebe</a>. Every timestamp opens the video at that point.</p>
+</header>
+
+<figure class="diagram"><div class="scroll"><svg viewBox="0 0 740 360" role="img" aria-label="Drama Triangle / Empowerment Dynamic">
+  
+  <g class="g-drama">
+    <text class="svg-h" x="170" y="26" text-anchor="middle">Drama Triangle</text>
+    <polygon points="40,70 300,70 170,290" class="tri"/>
+    <circle cx="40" cy="70" r="7" class="dot"/><circle cx="300" cy="70" r="7" class="dot"/><circle cx="170" cy="290" r="7" class="dot"/>
+    <text class="svg-role" x="40" y="52" text-anchor="start">Persecutor</text>
+    <text class="svg-q" x="54" y="96" text-anchor="start">“it's your fault”</text>
+    <text class="svg-role" x="300" y="52" text-anchor="end">Rescuer</text>
+    <text class="svg-q" x="286" y="96" text-anchor="end">“I'm needed”</text>
+    <text class="svg-role" x="170" y="320" text-anchor="middle">Victim</text>
+    <text class="svg-q" x="170" y="340" text-anchor="middle">“I'm powerless”</text>
+  </g>
+  <g class="g-arrow"><line x1="352" y1="180" x2="392" y2="180"/><polyline points="384,172 394,180 384,188"/></g>
+  
+  <g class="g-ted">
+    <text class="svg-h" x="570" y="26" text-anchor="middle">Empowerment Dynamic</text>
+    <polygon points="440,70 700,70 570,290" class="tri"/>
+    <circle cx="440" cy="70" r="7" class="dot"/><circle cx="700" cy="70" r="7" class="dot"/><circle cx="570" cy="290" r="7" class="dot"/>
+    <text class="svg-role" x="440" y="52" text-anchor="start">Challenger</text>
+    <text class="svg-q" x="454" y="96" text-anchor="start">“what can I learn?”</text>
+    <text class="svg-role" x="700" y="52" text-anchor="end">Coach</text>
+    <text class="svg-q" x="686" y="96" text-anchor="end">“you can handle it”</text>
+    <text class="svg-role" x="570" y="320" text-anchor="middle">Creator</text>
+    <text class="svg-q" x="570" y="340" text-anchor="middle">“what are my options?”</text>
+  </g>
+</svg></div></figure>
+
+<section class="tldr">
+  <h2>In short</h2>
+  <ul>
+    <li>You can't work on your attachment style while you're waiting for someone else to change: a partner, parents, circumstances. The belief "I'll be fine once you change" is the entry point into the <a href="https://en.wikipedia.org/wiki/Karpman_drama_triangle" target="_blank" rel="noopener">Karpman drama triangle</a>.</li>
+    <li>Each insecure style has a default starting role: <strong>anxious - Victim</strong>, <strong>avoidant - Persecutor</strong>, <strong>fearful avoidant - Rescuer</strong>.</li>
+    <li>The way out is the mirror role from <a href="https://theempowermentdynamic.com/" target="_blank" rel="noopener">The Empowerment Dynamic</a>: Victim → <strong>Creator</strong>, Persecutor → <strong>Challenger</strong>, Rescuer → <strong>Coach</strong>.</li>
+    <li>It is not a one-time exit. You'll keep catching yourself for life, and each catch gives you more control over your own wellbeing.</li>
+  </ul>
+</section>
+
+<h2>Part 1. Introducing the triangle</h2>
+
+<h3>Why start with the triangle <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=0s" target="_blank" rel="noopener">0:00</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=120s" target="_blank" rel="noopener">2:00</a></span></h3>
+<ul>
+  <li>Online attachment communities tend to focus on the <em>other</em> person's style, for example anxious people discussing how to get an avoidant partner to love them. The author doesn't see that as doing the work.</li>
+  <li>Insecure attachment carries a built-in bias toward locating the problem in someone else. Anxious people feel they give a lot and get little back. Avoidant people feel they burden no one while others burden them. Fearful avoidant people feel hit from both sides.</li>
+  <li>The model comes from <a href="https://karpmandramatriangle.com/" target="_blank" rel="noopener">Stephen Karpman</a> (1968) and is rooted in <a href="https://en.wikipedia.org/wiki/Transactional_analysis" target="_blank" rel="noopener">transactional analysis</a>. Everyone plays every role, but most people have a <strong>"starting gate"</strong>: the role they usually enter conflict in before switching.</li>
+</ul>
+
+<h3>A personal story <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=150s" target="_blank" rel="noopener">2:30</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=240s" target="_blank" rel="noopener">4:00</a></span></h3>
+<ul>
+  <li>At 25, at the end of an eight-year relationship that had outlived itself by years, the author went to a counselor and spent the session describing everything her partner did wrong.</li>
+  <li>The counselor redirected her: he wanted to know why she stayed, not what the partner did. That shifted responsibility back to her, since choosing relationships with trust and calm communication was within her control.</li>
+</ul>
+
+<h3>The three roles <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=240s" target="_blank" rel="noopener">4:00</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=510s" target="_blank" rel="noopener">8:30</a></span></h3>
+<div class="scroll"><table>
+  <thead><tr><th>Role</th><th>Stance</th><th>The trap</th></tr></thead>
+  <tbody>
+    <tr><td class="d">Victim</td><td>Something bad happened to me, I'm powerless, whoever caused it must fix it</td><td>Plays on our sense of justice. Wellbeing sits entirely in someone else's hands while you wait to be rescued</td></tr>
+    <tr><td class="d">Persecutor</td><td>You did this wrong, here's what you need to fix</td><td>Feels powerful, but it's the same outsourcing of needs, just louder</td></tr>
+    <tr><td class="d">Rescuer</td><td>I'll be loved if I'm needed</td><td>Seeks out people who seem broken, self-sacrifices, and quietly builds codependency</td></tr>
+  </tbody>
+</table></div>
+<ul>
+  <li><strong>How roles switch</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=410s" target="_blank" rel="noopener">6:50</a></span>: when one person enters as Victim, the other is pushed into Persecutor (point the finger back) or Rescuer (drop their own needs). The Rescuer then expects to be repaid, feels resentful when that doesn't happen, and slides into Victim.</li>
+  <li><strong>The key test</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=480s" target="_blank" rel="noopener">8:00</a></span>: whenever you're waiting for someone to come and relieve you of finding a solution, you're in the triangle, even if your grievance is fully justified.</li>
+</ul>
+
+<h3>The antidote: the Empowerment Dynamic <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=540s" target="_blank" rel="noopener">9:00</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=690s" target="_blank" rel="noopener">11:30</a></span></h3>
+<div class="scroll"><table>
+  <thead><tr><th>Triangle role</th><th>Mirror role</th><th>Guiding question</th></tr></thead>
+  <tbody>
+    <tr><td class="d">Victim</td><td class="t">Creator</td><td>Even if things are bad and it's someone else's fault, what options do I still have?</td></tr>
+    <tr><td class="d">Persecutor</td><td class="t">Challenger</td><td>What can I learn from this, even if the other person never changes?</td></tr>
+    <tr><td class="d">Rescuer</td><td class="t">Coach</td><td>Both I and others are capable of handling our lives. I remind people of that instead of doing it for them</td></tr>
+  </tbody>
+</table></div>
+<ul>
+  <li>In her own case the Creator options were: leave, learn to set boundaries, stop rescuing and then feeling wronged.</li>
+  <li>The Coach doesn't believe others need them in order to be okay, which guards against codependency and enmeshment.</li>
+</ul>
+
+<h3>Takeaway of part 1 <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=690s" target="_blank" rel="noopener">11:30</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=4BrjQ9qX33k&amp;t=810s" target="_blank" rel="noopener">13:30</a></span></h3>
+<ul>
+  <li>Step one for every style: <strong>stop waiting for others to change</strong> and commit to changing yourself, even if nobody else does.</li>
+  <li>There's no permanent exit. What matters is frequency: the more often you catch yourself and switch, the better life gets.</li>
+</ul>
+
+<h2>Part 2. Each attachment style in the triangle</h2>
+<p>Opening point <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=0s" target="_blank" rel="noopener">0:00</a></span>: every attachment strategy once worked, which is why it stuck. The author uses "fearful avoidant" as a loose synonym for disorganized attachment.</p>
+
+<h3>Anxious <span class="role r-drama">Victim</span> <span class="role r-ted">→ Creator</span></h3>
+<p class="label">Origin <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=40s" target="_blank" rel="noopener">0:40</a></span></p>
+<p>The caregiver did respond, but not consistently. The child learned to keep trying until they got attention, after which love and <a href="https://en.wikipedia.org/wiki/Emotional_self-regulation" target="_blank" rel="noopener">co-regulation</a> would follow. What they didn't learn was <strong>self-regulation</strong>.</p>
+<p class="label">How it shows up</p>
+<ul>
+  <li>Feeling like half of a whole and being drawn to "other half" and soulmate stories <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=100s" target="_blank" rel="noopener">1:40</a></span>.</li>
+  <li>Unconsciously looking for <strong>a parent figure rather than a partner</strong>. An avoidant who appears to have everything together reads as that grown-up, hence the familiar anxious-chases-avoidant pairing <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=180s" target="_blank" rel="noopener">3:00</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=270s" target="_blank" rel="noopener">4:30</a></span>.</li>
+  <li>In conflict the childhood strategy kicks in: show how much it hurts and amplify the need. This tends to push the avoidant away, since they fear having their boundaries crossed <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=270s" target="_blank" rel="noopener">4:30</a></span>.</li>
+  <li>Inner script: <em>"I'll only be happy once you meet my needs"</em>, which is the Victim role <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=330s" target="_blank" rel="noopener">5:30</a></span>.</li>
+  <li>Unlike pop culture, attachment research highlights the <strong>controlling</strong> side of the anxious style: trying to manage how the partner feels about them. It is usually not conscious <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=350s" target="_blank" rel="noopener">5:50</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=430s" target="_blank" rel="noopener">7:10</a></span>.</li>
+</ul>
+<p class="label">Moving into Creator <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=430s" target="_blank" rel="noopener">7:10</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1020s" target="_blank" rel="noopener">17:00</a></span></p>
+<ul>
+  <li>Change the question from "how do I get my partner to meet this need" to "how do I meet it myself if they can't or won't".</li>
+  <li>Dig down to the core need <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=495s" target="_blank" rel="noopener">8:15</a></span>. Example chain: "I feel emotionally neglected" → "I feel bad because I'm not getting love" → "without validation I feel unlovable". Only you can supply that love, or it keeps leaking out like water from a bucket with a hole.</li>
+  <li><strong>Court yourself</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=600s" target="_blank" rel="noopener">10:00</a></span>: show up on time for yourself, keep your promises to yourself, give yourself small gifts, speak kindly, spend quality time alone, know your own wants. A few affirmations won't do it. It takes sustained trial and error.</li>
+  <li>A healthy partnership is two people who could handle their needs on their own and choose to share life. A partner's support is <strong>an option, not a necessity</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=720s" target="_blank" rel="noopener">12:00</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=790s" target="_blank" rel="noopener">13:10</a></span>.</li>
+  <li>The author's check: <em>if I were single, what would I do with this need?</em> A self-care day, a call to a friend, some self-regulation <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=760s" target="_blank" rel="noopener">12:40</a></span>.</li>
+  <li>Resource: <a href="https://coda.org/" target="_blank" rel="noopener">Co-Dependents Anonymous</a> (CoDA), a 12-step program. Its core premise is that <strong>we are powerless over others</strong>. Taking that seriously opens up options, including asking whether this person and this situation are right and safe for you <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=810s" target="_blank" rel="noopener">13:30</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=900s" target="_blank" rel="noopener">15:00</a></span>.</li>
+  <li>Emotional safety is your job, not your partner's. <strong>Re-parenting</strong> helps: would you leave a small child in this situation? <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=900s" target="_blank" rel="noopener">15:00</a></span></li>
+  <li>She cites an idea from <a href="https://en.wikipedia.org/wiki/Sherry_Argov" target="_blank" rel="noopener">Sherry Argov</a>: strong people don't argue for respect, they simply step away from those who don't give it. She calls this the secure style's stance <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=950s" target="_blank" rel="noopener">15:50</a></span>.</li>
+</ul>
+
+<h3>Avoidant <span class="role r-drama">Persecutor</span> <span class="role r-ted">→ Challenger</span></h3>
+<p class="label">Self-image <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1020s" target="_blank" rel="noopener">17:00</a></span></p>
+<p>Avoidants often see themselves as self-sufficient, even secure, while minimizing their own needs and feelings.</p>
+<p class="label">How it shows up</p>
+<ul>
+  <li>Worldview: <em>I'm okay, others aren't, and they'll cross my boundaries</em>. Life behind walls.</li>
+  <li>An <strong>outer critic</strong> instead of an inner one: small flaws in others become reasons not to get close <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1070s" target="_blank" rel="noopener">17:50</a></span>.</li>
+  <li>The persecuting happens <strong>quietly, inside their head</strong>: going silent, leaving the room, refusing the conversation, while privately dismissing what's going on <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1100s" target="_blank" rel="noopener">18:20</a></span>.</li>
+  <li>The belief "it'll be fine once my partner changes" is about half true. The anxious partner needs self-sufficiency, the avoidant needs emotional awareness <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1140s" target="_blank" rel="noopener">19:00</a></span>.</li>
+  <li><strong>Detaching is not a boundary</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1180s" target="_blank" rel="noopener">19:40</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1260s" target="_blank" rel="noopener">21:00</a></span>. Detaching is a trauma response. A boundary means naming your need and feeling, explaining the limit, and living within it. Boundaries enable <strong>interdependence</strong>, avoidance produces <strong>counter-dependence</strong>.</li>
+  <li>A secure person is actually less vulnerable than an avoidant: they have people to help them heal, honest relationships, and fewer reasons to be rejected.</li>
+</ul>
+<p class="label">Moving into Challenger <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1290s" target="_blank" rel="noopener">21:30</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1560s" target="_blank" rel="noopener">26:00</a></span></p>
+<ul>
+  <li>Accept that you're interconnected with people and situations: the world affects you and you affect it. "It's all their fault" and "if only my partner did X" are off the table.</li>
+  <li>Own that you're choosing to be in this relationship and choosing to learn and be changed by it. You're already vulnerable, the feelings just leak out unconsciously <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1320s" target="_blank" rel="noopener">22:00</a></span>.</li>
+  <li><strong>The avoidant soulmate fantasy</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1370s" target="_blank" rel="noopener">22:50</a></span>: a partner who is always regulated, never asks for too much and understands without words. It's as unrealistic as the anxious version.</li>
+  <li>Perfect compatibility doesn't exist. Avoidants often end up in low-compatibility relationships (she says around 20%) because fear of rejection keeps them from pursuing people they really like, so they wait, and those who approach are usually anxious <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1440s" target="_blank" rel="noopener">24:00</a></span>.</li>
+  <li>Around 80% compatibility is a lot, but reaching it requires showing up authentically and taking relationships seriously. Then secure people start to appear <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1480s" target="_blank" rel="noopener">24:40</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1560s" target="_blank" rel="noopener">26:00</a></span>.</li>
+  <li>Since you're vulnerable anyway, pick a vulnerability that gets you somewhere you want to go.</li>
+</ul>
+
+<h3>Fearful avoidant <span class="role r-drama">Rescuer</span> <span class="role r-ted">→ Coach</span></h3>
+<p class="label">Mixed strategies <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1560s" target="_blank" rel="noopener">26:00</a></span></p>
+<p>Sometimes anxious activation and controlling behavior, sometimes deactivation, inner criticism of the partner and a search for reasons to leave.</p>
+<p class="label">The typical cycle: ricocheting <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1610s" target="_blank" rel="noopener">26:50</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1720s" target="_blank" rel="noopener">28:40</a></span></p>
+<ul>
+  <li>Inside a relationship: years of enmeshment with few boundaries and fear of being left.</li>
+  <li>After a breakup: years alone that feel like "working on myself" but are really just avoidance, with feelings pushed down.</li>
+  <li>The first trigger (rejection, a strong need for warmth) sends them straight back into codependency, because real self-soothing skills never developed.</li>
+</ul>
+<p class="label">Worldview <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1720s" target="_blank" rel="noopener">28:40</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1800s" target="_blank" rel="noopener">30:00</a></span></p>
+<p><em>I'm not okay, and you're not okay.</em> Relationships start to feel like a mutual hostage situation: we know each other's worst sides so we can't leave, yet there's little respect or excitement.</p>
+<p class="label">Why the Rescuer <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1800s" target="_blank" rel="noopener">30:00</a></span></p>
+<p>A dysregulated, enmeshed family. The child learned their needs get met only after someone else's are soothed first. That leads to "love means being needed" and to partners with serious struggles (regulation, addiction). The longer such relationships last, the worse both people's mental health and independence become.</p>
+<p class="label">Moving into Coach <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1910s" target="_blank" rel="noopener">31:50</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=2280s" target="_blank" rel="noopener">38:00</a></span></p>
+<ul>
+  <li>The Coach stance: <em>I'm okay, and others are okay</em>. Everyone can self-regulate and set boundaries.</li>
+  <li>Let go of the idea that your partner would fall apart without you. If it feels that way, it's very likely true of you instead <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1970s" target="_blank" rel="noopener">32:50</a></span>.</li>
+  <li>Own your part in the codependency: time alone isn't self-actualization, it's a growing backlog of need that eventually overflows <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=1980s" target="_blank" rel="noopener">33:00</a></span>.</li>
+  <li>Do <strong>both sets of work</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=2030s" target="_blank" rel="noopener">33:50</a></span>: the anxious work (self-love, re-parenting, giving yourself what you seek from others) and the avoidant work (taking your own and others' feelings seriously, responding reasonably to unreasonable people).</li>
+  <li>Your own soulmate fantasy, "they're out there but I'm not good enough yet, so I'll quietly improve first", needs to go. Become whole in or out of a relationship <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=2060s" target="_blank" rel="noopener">34:20</a></span>.</li>
+  <li><strong>Interdependence in practice</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=2100s" target="_blank" rel="noopener">35:00</a></span>: be more honest in friendships so a partner isn't the only one who knows you. Take self-care seriously instead of laughing it off. Add more secure people to your circle who show that someone can be fine alone and still want closeness.</li>
+  <li><strong>Boundaries</strong> are the core work <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=2130s" target="_blank" rel="noopener">35:30</a></span>. That requires trusting the other person will cope with your boundary and figure things out, which serves them better than being enabled.</li>
+  <li>CoDA helps here too: work from the assumption that you're powerless over others <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=2200s" target="_blank" rel="noopener">36:40</a></span>.</li>
+</ul>
+
+<h3>Closing of part 2 <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=2260s" target="_blank" rel="noopener">37:40</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=ynMNRFp68LM&amp;t=2340s" target="_blank" rel="noopener">39:00</a></span></h3>
+<ul>
+  <li>This is only step one. The patterns took decades to form, so they change through daily work over a lifetime, not in six months.</li>
+  <li>Start by noticing when it feels like the answer to your problem lies <strong>outside yourself</strong>, then tell yourself: "I'm in the triangle, I can choose a different response."</li>
+</ul>
+
+<h2>Cheat sheet</h2>
+<div class="scroll"><table>
+  <thead><tr><th>Style</th><th>Worldview</th><th>Starting role</th><th>Conflict script</th><th>Move to</th><th>Key practice</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Anxious</strong></td><td>I'm not okay, you're okay</td><td class="d">Victim</td><td>"Happy once you meet my needs"</td><td class="t">Creator</td><td>Court yourself, "what would I do if single?", powerless over others</td></tr>
+    <tr><td><strong>Avoidant</strong></td><td>I'm okay, you're not</td><td class="d">Persecutor (silent)</td><td>"Fine once you change"</td><td class="t">Challenger</td><td>Tell detaching from boundaries, accept vulnerability and an imperfect partner</td></tr>
+    <tr><td><strong>Fearful avoidant</strong></td><td>I'm not okay, you're not okay</td><td class="d">Rescuer</td><td>"I'll be loved if I save you first"</td><td class="t">Coach</td><td>Both sets of work, interdependence, boundaries, stop ricocheting</td></tr>
+  </tbody>
+</table></div>
+
+<footer>
+<div class="notice"><strong>All rights to the original material belong to the author of the videos, Heidi Priebe.</strong> These notes are an unofficial paraphrase for personal study, do not replace the original and are not affiliated with the author. Watch the full videos: <a href="https://www.youtube.com/watch?v=4BrjQ9qX33k" target="_blank" rel="noopener">part 1</a>, <a href="https://www.youtube.com/watch?v=ynMNRFp68LM" target="_blank" rel="noopener">part 2</a>, and the <a href="https://www.youtube.com/@HeidiPriebe" target="_blank" rel="noopener">Heidi Priebe channel</a>.</div>
+</footer>
+</article>
+</main>
+
+<script>
+(function(){
+  var KEY = 'dt-lang';
+  function setLang(l){
+    document.querySelectorAll('[data-l]').forEach(function(el){ el.hidden = el.getAttribute('data-l') !== l; });
+    document.querySelectorAll('[data-set]').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-set') === l)); });
+    document.documentElement.lang = l;
+    try { localStorage.setItem(KEY, l); } catch(e) {}
+  }
+  document.querySelectorAll('[data-set]').forEach(function(b){
+    b.addEventListener('click', function(){ setLang(b.getAttribute('data-set')); });
+  });
+  var start = 'ru';
+  var h = (location.hash || '').replace('#','');
+  if (h === 'en' || h === 'ru') start = h;
+  else { try { var s = localStorage.getItem(KEY); if (s === 'en' || s === 'ru') start = s; } catch(e) {} }
+  setLang(start);
+})();
+</script>
+
+<!-- ================================================================
+     ↓↓↓  ВОТ ЭТОТ БЛОК КОПИРУЕТСЯ В ЛЮБОЙ ОТЧЁТ - ЦЕЛИКОМ  ↓↓↓
+     Ничего снаружи ему не нужно: ни CDN, ни шрифтов, ни библиотек.
+     ================================================================ -->
+<style>
+  #eh-pill{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);right:10px;z-index:2147483000;
+    display:none;align-items:center;gap:6px;padding:7px 12px;border-radius:99px;cursor:pointer;
+    background:#4c8dff;color:#fff;border:0;font:600 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    box-shadow:0 4px 14px rgba(0,0,0,.35)}
+  #eh-bar{position:fixed;left:0;right:0;top:0;z-index:2147483001;display:none;
+    padding:calc(env(safe-area-inset-top,0px) + 12px) 14px 12px;
+    background:#12151c;border-bottom:1px solid #2a3040;color:#e7eaf0;
+    font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+  #eh-bar b{display:block;font-size:14px;margin-bottom:3px}
+  #eh-bar small{display:block;color:#98a2b3;font-size:12.5px;margin-bottom:11px}
+  #eh-bar .eh-row{display:flex;gap:8px;flex-wrap:wrap}
+  #eh-bar button{flex:1 1 auto;min-width:140px;padding:11px 14px;border-radius:9px;border:0;cursor:pointer;
+    font:600 14px/1 inherit;background:#4c8dff;color:#fff}
+  #eh-bar button.ghost{background:transparent;color:#98a2b3;border:1px solid #2a3040;flex:0 0 auto;min-width:0}
+  #eh-steps{margin:10px 0 0;padding-left:18px;color:#c3cad6;font-size:13px}
+  #eh-steps li{margin:3px 0}
+</style>
+
+<button id="eh-pill" type="button">↗&nbsp;В браузере</button>
+
+<div id="eh-bar">
+  <b id="eh-title">Открыть в обычном браузере</b>
+  <small id="eh-sub"></small>
+  <div class="eh-row">
+    <button id="eh-go" type="button">Открыть в браузере</button>
+    <button id="eh-copy" type="button" class="ghost">Скопировать ссылку</button>
+    <button id="eh-close" type="button" class="ghost">✕</button>
+  </div>
+  <ol id="eh-steps" hidden></ol>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var CANON = (window.REPORT_CANONICAL_URL || '').trim();
+  var href  = location.href;
+  var isFile = location.protocol === 'file:' || location.protocol === 'blob:' ||
+               location.protocol === 'content:';
+  // Целевой адрес: онлайн-копия, если она задана и мы открыты из файла.
+  var target = (isFile || !/^https?:$/.test(location.protocol)) ? CANON : href;
+
+  // ---------- 1. Определяем окружение -------------------------------
+  var ua = navigator.userAgent || '';
+  var os =
+    /iPhone|iPad|iPod/i.test(ua) ? 'ios' :
+    /Android/i.test(ua)          ? 'android' :
+    /Macintosh/i.test(ua)        ? 'mac' :
+    /Windows/i.test(ua)          ? 'win' : 'other';
+
+  var app = 'browser';
+  if (window.TelegramWebviewProxy || window.TelegramWebview ||
+      (window.webkit && window.webkit.messageHandlers &&
+       window.webkit.messageHandlers.performAction) || /Telegram/i.test(ua)) {
+    app = 'telegram';
+  } else if (/Teams(Mobile)?[\/ ]/i.test(ua) || /MSTeams/i.test(ua) ||
+             /SkypeSpaces/i.test(ua) || window.microsoftTeams) {
+    app = 'teams';
+  } else if (/FBAN|FBAV|Instagram/i.test(ua))       { app = 'meta'; }
+  else if (/MicroMessenger/i.test(ua))              { app = 'wechat'; }
+  else if (/\bLine\//i.test(ua))                    { app = 'line'; }
+  else if (/LinkedInApp/i.test(ua))                 { app = 'linkedin'; }
+
+  // Общие признаки встроенного вебвью, если по имени приложения не опознали.
+  var embedded =
+    app !== 'browser' ||
+    /;\s*wv\)/i.test(ua) ||                                          // Android WebView
+    (os === 'ios' && /AppleWebKit/i.test(ua) && !/Safari\//i.test(ua)); // WKWebView без Safari-токена
+
+  var isDesktop = (os === 'mac' || os === 'win' || os === 'other');
+
+  // ---------- 2. Способы «выпрыгнуть» --------------------------------
+  function bare(u){ return u.replace(/^https?:\/\//i, ''); }
+
+  function escapeTo(u) {
+    if (!u) return false;
+    try {
+      if (os === 'android') {
+        // Сначала пробуем системный выбор браузера, затем явно Chrome.
+        location.href = 'intent://' + bare(u) +
+          '#Intent;scheme=https;action=android.intent.action.VIEW;' +
+          'S.browser_fallback_url=' + encodeURIComponent(u) + ';end';
+        setTimeout(function () {
+          location.href = 'intent://' + bare(u) +
+            '#Intent;scheme=https;package=com.android.chrome;' +
+            'S.browser_fallback_url=' + encodeURIComponent(u) + ';end';
+        }, 600);
+        return true;
+      }
+      if (os === 'ios') {
+        // Недокументированная, но рабочая схема принудительного Safari.
+        location.href = 'x-safari-' + u;
+        setTimeout(function () { location.href = 'googlechrome' + u.replace(/^http/, ''); }, 700);
+        return true;
+      }
+      window.open(u, '_blank', 'noopener');
+      return true;
+    } catch (e) { return false; }
+  }
+
+  function copy(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).then(function(){return true;},function(){return fallback();});
+    }
+    return Promise.resolve(fallback());
+    function fallback() {
+      try {
+        var t = document.createElement('textarea');
+        t.value = text; t.setAttribute('readonly','');
+        t.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+        document.body.appendChild(t); t.select(); t.setSelectionRange(0, 99999);
+        var ok = document.execCommand('copy'); document.body.removeChild(t); return ok;
+      } catch (e) { return false; }
+    }
+  }
+
+  // ---------- 3. Тексты подсказок ------------------------------------
+  var APPNAME = {telegram:'Telegram', teams:'Microsoft Teams', meta:'Facebook/Instagram',
+                 wechat:'WeChat', line:'LINE', linkedin:'LinkedIn', browser:'встроенном браузере'};
+
+  function manualSteps() {
+    if (app === 'telegram' && os === 'ios')
+      return ['Нажми ⋯ в правом верхнем углу', 'Выбери «Открыть в Safari»'];
+    if (app === 'telegram' && os === 'android')
+      return ['Нажми ⋮ в правом верхнем углу', 'Выбери «Открыть в браузере»'];
+    if (app === 'teams' && os === 'ios')
+      return ['Нажми ⋯ / «Поделиться»', 'Выбери «Открыть в Safari»'];
+    if (app === 'teams' && os === 'android')
+      return ['Нажми ⋮ в правом верхнем углу', 'Выбери «Открыть в браузере»'];
+    return ['Открой меню ⋯ / ⋮ этого окна', 'Выбери «Открыть в браузере»'];
+  }
+
+  function fileSteps() {
+    if (os === 'ios')     return ['Нажми «Поделиться» → «Сохранить в Файлы»',
+                                  'Открой файл из приложения «Файлы» - он откроется в Safari'];
+    if (os === 'android') return ['Сохрани файл (⋮ → «Сохранить»)',
+                                  'Открой его из «Загрузок» и выбери Chrome'];
+    return ['Сохрани файл на диск', 'Открой его двойным кликом - запустится браузер по умолчанию'];
+  }
+
+  // ---------- 4. Рисуем интерфейс -------------------------------------
+  var bar = document.getElementById('eh-bar'),
+      pill = document.getElementById('eh-pill'),
+      steps = document.getElementById('eh-steps'),
+      sub = document.getElementById('eh-sub'),
+      go = document.getElementById('eh-go'),
+      cp = document.getElementById('eh-copy');
+
+  var canEscape = !!target;
+
+  sub.textContent = canEscape
+    ? 'Страница открыта в ' + (APPNAME[app] || 'встроенном браузере') +
+      '. Там ломаются графики, печать и полноэкранный режим.'
+    : 'Файл открыт локально, поэтому кнопкой перебросить нельзя - только вручную.';
+
+  if (!canEscape) {
+    go.hidden = true; cp.hidden = true;
+    fileSteps().forEach(function (s) { var li = document.createElement('li'); li.textContent = s; steps.appendChild(li); });
+    steps.hidden = false;
+  }
+
+  function show(){ bar.style.display = 'block'; pill.style.display = 'none'; }
+  function hide(){ bar.style.display = 'none'; pill.style.display = 'inline-flex'; }
+
+  pill.onclick = show;
+  document.getElementById('eh-close').onclick = hide;
+
+  go.onclick = function () {
+    escapeTo(target);
+    // Если через 1.2 с мы всё ещё здесь - показываем ручную инструкцию.
+    setTimeout(function () {
+      if (steps.childNodes.length) return;
+      manualSteps().forEach(function (s) { var li = document.createElement('li'); li.textContent = s; steps.appendChild(li); });
+      steps.hidden = false;
+      go.textContent = 'Попробовать ещё раз';
+    }, 1200);
+  };
+
+  cp.onclick = function () {
+    Promise.resolve(copy(target)).then(function (ok) {
+      cp.textContent = ok ? 'Скопировано ✓' : 'Не удалось';
+      setTimeout(function () { cp.textContent = 'Скопировать ссылку'; }, 2000);
+    });
+  };
+
+  // Показываем баннер сразу, если это вебвью; иначе - только тихую «пилюлю».
+  if (embedded && !isDesktop) { show(); } else if (embedded) { pill.style.display = 'inline-flex'; }
+
+  // Отдаём диагностику наружу - для тестовой страницы.
+  window.__EH__ = {app:app, os:os, embedded:embedded, isFile:isFile,
+                   target:target || '(не задан)', ua:ua};
+})();
+</script>
+<!-- ================================================================
+     ↑↑↑  КОНЕЦ КОПИРУЕМОГО БЛОКА  ↑↑↑
+     ================================================================ -->
+</body>
+</html>
