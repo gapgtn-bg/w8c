@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Avoidant Boundaries Notes</title>
+<meta name="description" content="Конспект двух видео Heidi Priebe о типах привязанности и треугольнике Карпмана, RU/EN. Все права на исходный материал у автора видео.">
+<script>window.REPORT_CANONICAL_URL="https://gapgtn-bg.github.io/w8c/avoidant-boundaries.html";</script>
+<style>*,*::before,*::after{box-sizing:border-box}html{color-scheme:light}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one reading column, sticky language bar on top; drama = crimson, empowerment = teal, used as the only two accents */
+:root{
+  --bg:#F2F4F6; --surface:#FFFFFF; --ink:#18212B; --muted:#5A6573; --line:#D6DCE3;
+  --drama:#A8324F; --drama-soft:#F6E3E8; --ted:#1C6F69; --ted-soft:#DDEFEC;
+  --display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171D; --surface:#1A2129; --ink:#E6EAEE; --muted:#9AA6B3; --line:#2C3641;
+  --drama:#E77A94; --drama-soft:#3A1F28; --ted:#5CC2B8; --ted-soft:#15322F; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171D; --surface:#1A2129; --ink:#E6EAEE; --muted:#9AA6B3; --line:#2C3641;
+  --drama:#E77A94; --drama-soft:#3A1F28; --ted:#5CC2B8; --ted-soft:#15322F; color-scheme:dark}
+
+body{background:var(--bg);color:var(--ink);font:17px/1.62 var(--body);}
+.wrap{max-width:46rem;margin:0 auto;padding-inline:20px;padding-block:0 64px}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:46rem;margin:0 auto;padding-inline:20px;padding-block:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.bar-name{font:600 14px/1.2 var(--display);letter-spacing:.02em;color:var(--muted)}
+.lang{display:inline-flex;border:2px solid var(--ink);border-radius:999px;padding:3px;gap:3px;background:var(--surface)}
+.lang button{font:700 15px/1 var(--display);letter-spacing:.06em;border:0;border-radius:999px;padding:9px 18px;background:transparent;color:var(--ink);cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.lang button:focus-visible,a:focus-visible{outline:3px solid var(--ted);outline-offset:2px}
+
+.notice{margin-block:24px;padding:14px 16px;border:1px solid var(--line);border-left:4px solid var(--drama);background:var(--surface);font-size:15px;line-height:1.5;color:var(--muted);border-radius:4px}
+.notice strong{color:var(--ink)}
+header.hero{padding-block:28px 8px}
+.eyebrow{font:600 12px/1 var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--ted)}
+h1{font:700 clamp(30px,6vw,46px)/1.08 var(--display);margin:.35em 0 .4em;text-wrap:balance;letter-spacing:-.01em}
+h2{font:700 26px/1.2 var(--display);margin:2.2em 0 .5em;text-wrap:balance;padding-top:.8em;border-top:1px solid var(--line)}
+h3{font:600 20px/1.3 var(--display);margin:1.8em 0 .4em;text-wrap:balance}
+h3 .role{font:600 12px/1 var(--display);letter-spacing:.1em;text-transform:uppercase;padding:5px 8px;border-radius:4px;vertical-align:3px;margin-left:6px;white-space:nowrap}
+.r-drama{background:var(--drama-soft);color:var(--drama)}
+.r-ted{background:var(--ted-soft);color:var(--ted)}
+p,li{max-width:65ch}
+ul{padding-left:1.2em;margin:.4em 0 1em}
+li{margin:.3em 0}
+li::marker{color:var(--muted)}
+.label{font:600 13px/1.4 var(--display);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:1.2em 0 .2em}
+.sources{display:grid;gap:8px;margin:14px 0 4px}
+.src{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.src a{color:var(--ink);font-weight:600}
+.src .dur{font:500 13px/1 var(--mono);color:var(--muted)}
+a{color:var(--ted);text-underline-offset:3px}
+.tsg{white-space:nowrap;font-size:0}
+.tsg .dash{font:500 13px/1 var(--mono);color:var(--muted);padding:0 2px}
+a.ts{font:500 13px/1 var(--mono);font-variant-numeric:tabular-nums;color:var(--ted);background:var(--ted-soft);padding:3px 6px;border-radius:4px;text-decoration:none;display:inline-block}
+a.ts:hover{background:var(--ted);color:var(--bg)}
+.tldr{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 20px 8px;margin-top:18px}
+.tldr h2{border:0;margin-top:.6em;padding-top:0;font-size:20px}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:15px;line-height:1.45;margin:.6em 0 1.2em;min-width:560px}
+th,td{text-align:left;vertical-align:top;padding:9px 10px;border-bottom:1px solid var(--line)}
+th{font:600 12px/1.3 var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--ink)}
+td strong{font-weight:600}
+td.d{color:var(--drama);font-weight:600}
+td.t{color:var(--ted);font-weight:600}
+.diagram{margin:20px 0 8px}
+.diagram svg{width:100%;min-width:520px;height:auto;display:block}
+.svg-h{font:700 18px var(--display);fill:var(--ink)}
+.svg-role{font:700 17px var(--display)}
+.svg-q{font:italic 400 14px var(--body);fill:var(--muted)}
+.g-drama .tri{fill:var(--drama-soft);stroke:var(--drama);stroke-width:2}
+.g-drama .dot,.g-drama .svg-role{fill:var(--drama)}
+.g-ted .tri{fill:var(--ted-soft);stroke:var(--ted);stroke-width:2}
+.g-ted .dot,.g-ted .svg-role{fill:var(--ted)}
+.g-arrow line,.g-arrow polyline{stroke:var(--muted);stroke-width:2.5;fill:none}
+figcaption{font-size:14px;color:var(--muted)}
+footer{margin-top:48px}
+@media (max-width:480px){body{font-size:16px}.bar-name{display:none}.bar-in{justify-content:flex-end}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<style>
+.related{margin:10px 0 0;padding:10px 14px;background:var(--surface);border:1px solid var(--line);border-radius:6px;font-size:15px}
+.related a{font-weight:600}
+.cycle text{font:600 15px var(--display);fill:var(--ink)}
+.cycle .sub{font:italic 400 13px var(--body);fill:var(--muted)}
+.cycle .node{fill:var(--drama-soft);stroke:var(--drama);stroke-width:2}
+.cycle .arc{stroke:var(--drama);stroke-width:2.5;fill:none}
+.cycle .head{fill:var(--drama)}
+.cycle .mid{font:700 14px var(--display);fill:var(--ted)}
+.cycle .midbox{fill:var(--ted-soft);stroke:var(--ted);stroke-width:1.5;stroke-dasharray:5 4}
+ol.bounds{padding-left:1.3em}
+ol.bounds li{margin:.45em 0}
+ol.bounds li::marker{font:700 16px var(--display);color:var(--ted)}
+.say{margin:.6em 0 1em;padding:10px 14px;border-left:3px solid var(--ted);background:var(--ted-soft);border-radius:0 6px 6px 0;font-style:italic}
+</style>
+
+<div class="bar"><div class="bar-in">
+  <span class="bar-name" data-l="ru">Конспект · The Avoidant Code</span>
+  <span class="bar-name" data-l="en" hidden>Notes · The Avoidant Code</span>
+  <div class="lang" role="group" aria-label="Language / Язык">
+    <button type="button" id="btn-ru" data-set="ru" aria-pressed="true">RU</button>
+    <button type="button" id="btn-en" data-set="en" aria-pressed="false">EN</button>
+  </div>
+</div></div>
+
+<main class="wrap">
+
+<!-- ==================== RU ==================== -->
+<article data-l="ru" lang="ru">
+<div class="notice"><strong>Все права на исходный материал принадлежат автору видео, каналу The Avoidant Code.</strong> Это неофициальный конспект, пересказанный своими словами для личного изучения. Он не заменяет оригинал и не связан с автором. Полная версия есть только в самом видео по ссылке ниже.</div>
+
+<header class="hero">
+  <div class="eyebrow">Конспект · одно видео</div>
+  <h1>Четыре границы с избегающим партнёром</h1>
+  <div class="sources">
+    <div class="src"><a href="https://www.youtube.com/watch?v=bVsClFIuNF4" target="_blank" rel="noopener">The More You PUSH This BOUNDARY, the More AVOIDANT FALLS in LOVE</a><span class="dur">28 мин</span></div>
+  </div>
+  <p class="related">Соседний конспект: <a href="https://gapgtn-bg.github.io/w8c/drama-triangle.html">Типы привязанности и треугольник Карпмана</a></p>
+  <p style="color:var(--muted);font-size:15px">Канал - <a href="https://www.youtube.com/@TheAvoidantCode-t9v1m" target="_blank" rel="noopener">The Avoidant Code</a>, видео от 25.09.2026. Каждая метка времени открывает видео с нужного места.</p>
+</header>
+
+<figure class="diagram cycle"><div class="scroll"><svg viewBox="0 0 740 380" role="img" aria-label="Дистанция → Тревога → Погоня → Давление"><path class="arc" d="M455,82 Q590,95 612,152"/><path class="arc" d="M612,228 Q590,295 455,300"/><path class="arc" d="M285,300 Q150,295 128,228"/><path class="arc" d="M128,152 Q150,95 285,82"/><polygon class="head" points="606,144 618,160 600,158"/><polygon class="head" points="463,293 449,301 462,308"/><polygon class="head" points="134,236 122,220 140,222"/><polygon class="head" points="277,75 291,82 278,89"/><rect class="node" x="290" y="40" width="160" height="60" rx="30"/><text x="370" y="67" text-anchor="middle">Дистанция</text><text class="sub" x="370" y="87" text-anchor="middle">он отходит</text><rect class="node" x="540" y="160" width="160" height="60" rx="30"/><text x="620" y="187" text-anchor="middle">Тревога</text><text class="sub" x="620" y="207" text-anchor="middle">«что не так?»</text><rect class="node" x="290" y="280" width="160" height="60" rx="30"/><text x="370" y="307" text-anchor="middle">Погоня</text><text class="sub" x="370" y="327" text-anchor="middle">ещё сообщение</text><rect class="node" x="40" y="160" width="160" height="60" rx="30"/><text x="120" y="187" text-anchor="middle">Давление</text><text class="sub" x="120" y="207" text-anchor="middle">ему тесно</text><rect class="midbox" x="260" y="160" width="220" height="60" rx="8"/><text class="mid" x="370" y="186" text-anchor="middle">Граница рвёт круг</text><text class="sub" x="370" y="206" text-anchor="middle">не догонять · своя жизнь</text></svg></div></figure>
+
+<section class="tldr">
+  <h2>Коротко</h2>
+  <ul>
+    <li>Чем сильнее давить на избегающего, тем дальше он отходит. Кнопка «написать ещё раз» тут работает в обратную сторону.</li>
+    <li>Название видео кликбейтное, но сам автор прямо говорит: это <strong>не техника манипуляции</strong>. Никаких исчезновений назло, ревности и холодности напоказ.</li>
+    <li>Четыре границы: <strong>не догонять</strong>, <strong>сохранять свою жизнь</strong>, <strong>не жить на крошках внимания</strong>, <strong>не пытаться управлять тем, когда тебя полюбят</strong>.</li>
+    <li>Смысл - снять давление и посмотреть, выберет ли человек близость сам, без принуждения. И оставить себе право уйти, если не выбирает.</li>
+  </ul>
+</section>
+
+<h2>Почему давление отталкивает</h2>
+
+<h3>Хочет близости и боится её <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=0s" target="_blank" rel="noopener">0:00</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=100s" target="_blank" rel="noopener">1:40</a></span></h3>
+<ul>
+  <li>У человека с выраженной <a href="https://en.wikipedia.org/wiki/Attachment_in_adults" target="_blank" rel="noopener">избегающей привязанностью</a> близость вызывает внутренний конфликт: тепло нужно, но когда его становится много, включается защита свободы. Поэтому он может скучать и при этом просить пространства.</li>
+  <li>Типичная ошибка партнёра: заметив отдаление, подойти ещё ближе. Больше вопросов, сообщений, просьб объясниться. Для того, кто уже чувствует давление, это лишний повод отойти.</li>
+</ul>
+
+<h3>Деактивация <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=100s" target="_blank" rel="noopener">1:40</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=180s" target="_blank" rel="noopener">3:00</a></span></h3>
+<ul>
+  <li>Психологи называют это <strong>деактивацией</strong>: человек мысленно обесценивает привязанность. Внезапно видит в тебе одни недостатки, цепляется к мелочам, решает, что отношения - это сложно, уходит в дела, убеждает себя, что одному лучше.</li>
+  <li>Снаружи это выглядит как равнодушие, но чувства под этим могут никуда не деваться.</li>
+  <li>Для избегающего близость часто означает угрозу: потерять свободу, зависеть, показать уязвимость, раствориться в другом.</li>
+</ul>
+
+<h3>Замкнутый круг <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=180s" target="_blank" rel="noopener">3:00</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=210s" target="_blank" rel="noopener">3:30</a></span></h3>
+<p>Ты подходишь, он отходит. Его дистанция ранит, ты просишь подтверждений. Просьбы для него - новое давление, и он отходит дальше. Никто этот круг не планировал, но оба в нём крутятся.</p>
+
+<h3>Граница, а не игра <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=200s" target="_blank" rel="noopener">3:20</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=350s" target="_blank" rel="noopener">5:50</a></span></h3>
+<ul>
+  <li>Граница - это не холодность, не игнор и не «сделаю вид, что мне всё равно». Её суть примерно такая:</li>
+</ul>
+<p class="say">Ты мне дорог, но держаться за тебя ценой себя я не буду.</p>
+<ul>
+  <li>Можно быть тёплым и при этом не требовать мгновенного ответа. Уважать чужую потребность в пространстве и не закрываться самому. Говорить о своих нуждах, не превращая каждый разговор в экзамен.</li>
+  <li>Одна из границ, по словам автора, помогает понять главное: человек правда движется к тебе или просто пользуется твоим вниманием и доступностью <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=310s" target="_blank" rel="noopener">5:10</a></span>.</li>
+</ul>
+
+<h2>Четыре границы</h2>
+
+<h3>1. Не догонять, когда отдаляется <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=350s" target="_blank" rel="noopener">5:50</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=620s" target="_blank" rel="noopener">10:20</a></span></h3>
+<ul>
+  <li><strong>Здоровое пространство</strong> - уважать его шаг назад и продолжать жить своей жизнью. <strong>Отчаянное ожидание</strong> - когда настроение зависит от того, написал он или нет, был ли в сети, тёплый ли ответ.</li>
+  <li>Так и запускается цикл «преследователь - дистанцирующийся» <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=440s" target="_blank" rel="noopener">7:20</a></span>: один тревожится и догоняет, другой чувствует давление и отступает. Оба при этом уверены, что чинят отношения.</li>
+  <li>Выход - научиться выдерживать паузу и не заполнять её сразу <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=490s" target="_blank" rel="noopener">8:10</a></span>. Но молчание - <strong>не наказание</strong>: не пропадать на несколько дней, чтобы напугать, не вызывать ревность.</li>
+  <li>Формула границы: мне не всё равно, но базовый контакт я выпрашивать не буду. Пусть его поведение само покажет то, чего не говорят слова.</li>
+  <li>Когда давления нет, у человека появляется место заметить собственные чувства <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=540s" target="_blank" rel="noopener">9:00</a></span>. Это не гарантия, что он вернётся. И своё отсутствие нельзя превращать в стратегию <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=600s" target="_blank" rel="noopener">10:00</a></span>.</li>
+</ul>
+
+<h3>2. Сохранять свою жизнь <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=620s" target="_blank" rel="noopener">10:20</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=900s" target="_blank" rel="noopener">15:00</a></span></h3>
+<ul>
+  <li><strong>Независимость - не безразличие</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=660s" target="_blank" rel="noopener">11:00</a></span>. Безразличие: «мне всё равно, есть ты или нет». Независимость: «я хочу, чтобы ты был рядом, но я цельный человек и без тебя».</li>
+  <li>Если сделать отношения центром всей жизни <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=710s" target="_blank" rel="noopener">11:50</a></span>, то есть отменять планы, забросить друзей и цели, жить от сообщения до сообщения, то избегающий воспринимает это как растущую ответственность и давление.</li>
+  <li>В психологии отношений есть понятие поддержки автономии <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=750s" target="_blank" rel="noopener">12:30</a></span> (из <a href="https://en.wikipedia.org/wiki/Self-determination_theory" target="_blank" rel="noopener">теории самодетерминации</a>): люди лучше откликаются, когда чувствуют, что их свободу уважают.</li>
+  <li>Практика <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=790s" target="_blank" rel="noopener">13:10</a></span>: рутина, друзья, цели, свои интересы и обязанности. Отношения - важная часть жизни, а не фундамент всей личности.</li>
+  <li>Бонус: появляется устойчивость, ты меньше реагируешь, чужое отсутствие перестаёт рушить мир. А для избегающего это шанс увидеть, что близость не обязательно отнимает свободу и что её можно выбрать, а не отрабатывать <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=860s" target="_blank" rel="noopener">14:20</a></span>.</li>
+  <li>Оговорка <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=890s" target="_blank" rel="noopener">14:50</a></span>: независимость не значит терпеть что угодно. Можно уважать потребность в пространстве и всё равно ждать последовательности и уважения.</li>
+</ul>
+
+<h3>3. Не жить на крошках внимания <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=900s" target="_blank" rel="noopener">15:00</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1230s" target="_blank" rel="noopener">20:30</a></span></h3>
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Breadcrumbing" target="_blank" rel="noopener">Breadcrumbing</a> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=950s" target="_blank" rel="noopener">15:50</a></span> - мелкие дозы тепла, которые держат тебя на крючке, но не дают стабильности. Милое сообщение после нескольких дней тишины, один глубокий разговор и снова исчезновение, появление только тогда, когда ему одиноко.</li>
+  <li>Ловушка <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1020s" target="_blank" rel="noopener">17:00</a></span>: ты даёшь максимум доступа в ответ на минимум усилий. Один тёплый вечер стирает недели непоследовательности. В итоге он учится, что малого достаточно, а ты учишься жить на малом.</li>
+  <li><strong>Объяснение - не оправдание</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1070s" target="_blank" rel="noopener">17:50</a></span>. Тип привязанности объясняет поведение, но не обязывает терпеть бесконечную неопределённость. Можно дать время и всё равно ждать честности, последовательности и взаимных усилий.</li>
+  <li>Формула: я открыт к близости, но нужны последовательность и усилия с обеих сторон. Вопрос меняется с «что мне сделать, чтобы он остался» на «а эти отношения вообще закрывают мои потребности?».</li>
+  <li>Граница работает, только если поступки совпадают со словами <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1140s" target="_blank" rel="noopener">19:00</a></span>. Пропадает без объяснений - не делать вид, что ничего не было. Нет серьёзных разговоров - перестать тащить отношения в одиночку. Дистанция по своим стандартам, а не чтобы напугать.</li>
+  <li>Автор ссылается на исследования, где более выраженная избегающая привязанность связана с меньшей удовлетворённостью отношениями <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1190s" target="_blank" rel="noopener">19:50</a></span>. Поэтому без участия обоих надёжных отношений не получится.</li>
+</ul>
+
+<h3>4. Не пытаться управлять тем, когда тебя полюбят <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1240s" target="_blank" rel="noopener">20:40</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1490s" target="_blank" rel="noopener">24:50</a></span></h3>
+<ul>
+  <li>Ловушка - постоянный мониторинг <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1260s" target="_blank" rel="noopener">21:00</a></span>: «ты меня ещё любишь?», «к чему это всё?», «почему так долго отвечал?». Каждая пауза - тревожный знак, каждый тёплый момент - доказательство. Отношения превращаются из переживания в экзамен.</li>
+  <li>Альтернатива <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1320s" target="_blank" rel="noopener">22:00</a></span>: говорить о чувствах и нуждах, не требуя немедленного результата, и дать другому ответить по-своему. Эмоциональную готовность нельзя ни вытребовать, ни выспорить.</li>
+  <li>Смотреть на поступки <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1340s" target="_blank" rel="noopener">22:20</a></span>: прилагает ли усилия, возвращается ли стабильно, уважает ли твои границы, освобождает ли тебе место в своей жизни, сходятся ли слова с делами.</li>
+  <li><strong>У терпения есть предел</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1370s" target="_blank" rel="noopener">22:50</a></span>. Терпение - дать разумное время привыкнуть к близости. Ждать вечно - положить свои потребности на полку.</li>
+  <li>Образ из видео <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1400s" target="_blank" rel="noopener">23:20</a></span>: дверь оставлена открытой, но ты не стоишь возле неё всю жизнь. Тогда близость становится добровольной.</li>
+  <li>Никаких трюков <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1430s" target="_blank" rel="noopener">23:50</a></span>: не вызывать ревность, не исчезать в «правильный момент». Надёжное поведение проще: честность, устойчивость, ясность, уважение к его автономии и защита своей.</li>
+</ul>
+
+<h2>Итог <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1490s" target="_blank" rel="noopener">24:50</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1660s" target="_blank" rel="noopener">27:40</a></span></h2>
+<ul>
+  <li>Заставить избегающего полюбить нельзя: ни погоней, ни давлением, ни «психологическими стратегиями». Зато можно изменить своё участие в отношениях.</li>
+  <li>Тип привязанности объясняет поведение, но не предсказывает исход <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1580s" target="_blank" rel="noopener">26:20</a></span>. Он не гарантирует, что человек вернётся, и не повод оставаться там, где раз за разом больно.</li>
+  <li>Самая сильная граница, по словам автора <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1620s" target="_blank" rel="noopener">27:00</a></span>: ты свободен подойти ближе, а я свободен уйти от того, что мне не подходит. Это не угроза, а самоуважение.</li>
+</ul>
+
+<h2>Шпаргалка</h2>
+<div class="scroll"><table>
+  <thead><tr><th>Граница</th><th>Чем она не является</th><th>Как может звучать</th><th>На что смотреть</th></tr></thead>
+  <tbody>
+    <tr><td class="t">Не догонять</td><td>Молчание назло, исчезновение, чтобы напугать</td><td>«Мне не всё равно, но контакт я выпрашивать не буду»</td><td>Подходит ли он сам, когда давления нет</td></tr>
+    <tr><td class="t">Своя жизнь</td><td>Безразличие и холодность</td><td>«Хочу, чтобы ты был рядом, но я цельный и без тебя»</td><td>Своё настроение не зависит от его сообщений</td></tr>
+    <tr><td class="t">Без крошек</td><td>Ультиматумы ради реакции</td><td>«Открыт к близости, но нужны усилия обоих»</td><td>Последовательность, а не редкие яркие моменты</td></tr>
+    <tr><td class="t">Без контроля</td><td>Бесконечное ожидание</td><td>«Дам тебе место подойти ближе, но свои потребности не отложу»</td><td>Поступки, а не разговоры о чувствах</td></tr>
+  </tbody>
+</table></div>
+
+<footer>
+<div class="notice"><strong>Все права на исходный материал принадлежат автору видео, каналу The Avoidant Code.</strong> Конспект - неофициальный пересказ для личного изучения, не заменяет оригинал и не связан с автором. Смотрите полное <a href="https://www.youtube.com/watch?v=bVsClFIuNF4" target="_blank" rel="noopener">видео</a> на канале <a href="https://www.youtube.com/@TheAvoidantCode-t9v1m" target="_blank" rel="noopener">The Avoidant Code</a>. Соседний конспект: <a href="https://gapgtn-bg.github.io/w8c/drama-triangle.html">типы привязанности и треугольник Карпмана</a>.</div>
+</footer>
+</article>
+
+<!-- ==================== EN ==================== -->
+<article data-l="en" lang="en" hidden>
+<div class="notice"><strong>All rights to the original material belong to the author of the video, The Avoidant Code channel.</strong> These are unofficial notes, written in my own words for personal study. They do not replace the original and are not affiliated with the author. The full content lives only in the video linked below.</div>
+
+<header class="hero">
+  <div class="eyebrow">Study notes · one video</div>
+  <h1>Four Boundaries with an Avoidant Partner</h1>
+  <div class="sources">
+    <div class="src"><a href="https://www.youtube.com/watch?v=bVsClFIuNF4" target="_blank" rel="noopener">The More You PUSH This BOUNDARY, the More AVOIDANT FALLS in LOVE</a><span class="dur">28 min</span></div>
+  </div>
+  <p class="related">Companion notes: <a href="https://gapgtn-bg.github.io/w8c/drama-triangle.html">Attachment styles and the drama triangle</a></p>
+  <p style="color:var(--muted);font-size:15px">Channel: <a href="https://www.youtube.com/@TheAvoidantCode-t9v1m" target="_blank" rel="noopener">The Avoidant Code</a>, published 25 Sep 2026. Every timestamp opens the video at that point.</p>
+</header>
+
+<figure class="diagram cycle"><div class="scroll"><svg viewBox="0 0 740 380" role="img" aria-label="Distance → Anxiety → Pursuit → Pressure"><path class="arc" d="M455,82 Q590,95 612,152"/><path class="arc" d="M612,228 Q590,295 455,300"/><path class="arc" d="M285,300 Q150,295 128,228"/><path class="arc" d="M128,152 Q150,95 285,82"/><polygon class="head" points="606,144 618,160 600,158"/><polygon class="head" points="463,293 449,301 462,308"/><polygon class="head" points="134,236 122,220 140,222"/><polygon class="head" points="277,75 291,82 278,89"/><rect class="node" x="290" y="40" width="160" height="60" rx="30"/><text x="370" y="67" text-anchor="middle">Distance</text><text class="sub" x="370" y="87" text-anchor="middle">they pull back</text><rect class="node" x="540" y="160" width="160" height="60" rx="30"/><text x="620" y="187" text-anchor="middle">Anxiety</text><text class="sub" x="620" y="207" text-anchor="middle">“what's wrong?”</text><rect class="node" x="290" y="280" width="160" height="60" rx="30"/><text x="370" y="307" text-anchor="middle">Pursuit</text><text class="sub" x="370" y="327" text-anchor="middle">one more text</text><rect class="node" x="40" y="160" width="160" height="60" rx="30"/><text x="120" y="187" text-anchor="middle">Pressure</text><text class="sub" x="120" y="207" text-anchor="middle">it feels tight</text><rect class="midbox" x="260" y="160" width="220" height="60" rx="8"/><text class="mid" x="370" y="186" text-anchor="middle">A boundary breaks the loop</text><text class="sub" x="370" y="206" text-anchor="middle">stop chasing · own life</text></svg></div></figure>
+
+<section class="tldr">
+  <h2>In short</h2>
+  <ul>
+    <li>The harder you push an avoidant person, the further they tend to move away. Sending one more message works in reverse.</li>
+    <li>The title is clickbait, but the video itself is explicit that this is <strong>not a manipulation technique</strong>: no strategic disappearing, no jealousy games, no fake coldness.</li>
+    <li>Four boundaries: <strong>stop chasing</strong>, <strong>keep your own life</strong>, <strong>refuse breadcrumbs</strong>, <strong>stop trying to control when they fall for you</strong>.</li>
+    <li>The point is to remove pressure and see whether the person chooses closeness freely, while keeping your right to walk away if they don't.</li>
+  </ul>
+</section>
+
+<h2>Why pressure backfires</h2>
+
+<h3>Wanting closeness and fearing it <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=0s" target="_blank" rel="noopener">0:00</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=100s" target="_blank" rel="noopener">1:40</a></span></h3>
+<ul>
+  <li>For someone with strong <a href="https://en.wikipedia.org/wiki/Attachment_in_adults" target="_blank" rel="noopener">avoidant attachment</a> patterns, intimacy creates an inner conflict: they want warmth, but too much of it triggers a need to protect their freedom. So they can miss you and still ask for space.</li>
+  <li>The common mistake: noticing the pullback and moving closer. More questions, more messages, more demands for explanations. For someone already feeling pressured, that's another reason to step back.</li>
+</ul>
+
+<h3>Deactivation <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=100s" target="_blank" rel="noopener">1:40</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=180s" target="_blank" rel="noopener">3:00</a></span></h3>
+<ul>
+  <li>Psychologists call this <strong>deactivation</strong>: mentally downplaying the attachment. Suddenly fixating on your flaws or small issues, deciding relationships are too complicated, staying busy, telling themselves they're better off alone.</li>
+  <li>From outside it looks like indifference, but the feelings underneath may still be there.</li>
+  <li>For an avoidant, closeness often reads as a threat: losing freedom, depending on someone, being exposed, losing themselves in the other person.</li>
+</ul>
+
+<h3>The loop <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=180s" target="_blank" rel="noopener">3:00</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=210s" target="_blank" rel="noopener">3:30</a></span></h3>
+<p>You approach, they withdraw. Their distance hurts, so you seek reassurance. That reassurance-seeking feels like more pressure, so they withdraw further. Nobody planned it, but both end up stuck in it.</p>
+
+<h3>A boundary, not a game <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=200s" target="_blank" rel="noopener">3:20</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=350s" target="_blank" rel="noopener">5:50</a></span></h3>
+<ul>
+  <li>A boundary isn't coldness, ignoring someone or pretending not to care. Its core is roughly this:</li>
+</ul>
+<p class="say">You matter to me, but I won't hold on to you at the cost of myself.</p>
+<ul>
+  <li>You can be warm without demanding instant replies, respect their need for space without shutting down yourself, and state your needs without turning every talk into a test.</li>
+  <li>According to the video, one of the boundaries helps reveal the key thing: is this person actually moving toward you, or just enjoying your attention and availability <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=310s" target="_blank" rel="noopener">5:10</a></span>.</li>
+</ul>
+
+<h2>The four boundaries</h2>
+
+<h3>1. Stop chasing when they pull away <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=350s" target="_blank" rel="noopener">5:50</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=620s" target="_blank" rel="noopener">10:20</a></span></h3>
+<ul>
+  <li><strong>Healthy space</strong> means respecting their step back while carrying on with your own life. <strong>Desperate waiting</strong> is when your mood depends on whether they texted, were online, or sounded warm.</li>
+  <li>This is how the pursuer-distancer cycle starts <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=440s" target="_blank" rel="noopener">7:20</a></span>: one person gets anxious and pursues, the other feels pressure and retreats. Both believe they're repairing the relationship.</li>
+  <li>The exit is learning to sit with the gap instead of filling it immediately <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=490s" target="_blank" rel="noopener">8:10</a></span>. But silence is <strong>not punishment</strong>: don't vanish for days to scare them or stir up jealousy.</li>
+  <li>The boundary: I care, but I won't beg for basic contact. Let their behavior show what their words don't.</li>
+  <li>Without pressure, the other person gets room to notice their own feelings <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=540s" target="_blank" rel="noopener">9:00</a></span>. That's no guarantee they'll come back, and your absence must never become a tactic <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=600s" target="_blank" rel="noopener">10:00</a></span>.</li>
+</ul>
+
+<h3>2. Keep your own life <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=620s" target="_blank" rel="noopener">10:20</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=900s" target="_blank" rel="noopener">15:00</a></span></h3>
+<ul>
+  <li><strong>Independence is not indifference</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=660s" target="_blank" rel="noopener">11:00</a></span>. Indifference: "it doesn't matter whether you're here." Independence: "I want you in my life, but I'm a whole person without you."</li>
+  <li>Making the relationship your entire world <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=710s" target="_blank" rel="noopener">11:50</a></span>, by dropping plans, friends and goals and living from message to message, feels to an avoidant like growing responsibility and pressure.</li>
+  <li>Relationship psychology talks about autonomy support <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=750s" target="_blank" rel="noopener">12:30</a></span> (from <a href="https://en.wikipedia.org/wiki/Self-determination_theory" target="_blank" rel="noopener">self-determination theory</a>): people respond better when their freedom is respected.</li>
+  <li>In practice <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=790s" target="_blank" rel="noopener">13:10</a></span>: keep routines, friends, goals, interests and responsibilities. The relationship is one meaningful part of life, not the foundation of your identity.</li>
+  <li>Side effects: more stability, less reactivity, their absence stops wrecking your day. And the avoidant gets a chance to see that closeness doesn't have to cost freedom and can be a choice rather than a duty <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=860s" target="_blank" rel="noopener">14:20</a></span>.</li>
+  <li>Caveat <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=890s" target="_blank" rel="noopener">14:50</a></span>: independence doesn't mean tolerating anything. You can respect their need for space and still expect consistency and respect.</li>
+</ul>
+
+<h3>3. Refuse emotional breadcrumbs <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=900s" target="_blank" rel="noopener">15:00</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1230s" target="_blank" rel="noopener">20:30</a></span></h3>
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Breadcrumbing" target="_blank" rel="noopener">Breadcrumbing</a> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=950s" target="_blank" rel="noopener">15:50</a></span>: small doses of affection that keep you hooked without real consistency. A sweet text after days of silence, one deep conversation followed by withdrawal, showing up only when they're lonely.</li>
+  <li>The trap <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1020s" target="_blank" rel="noopener">17:00</a></span>: you give maximum access for minimum effort, and one warm evening erases weeks of inconsistency. They learn that very little is enough, and you learn to live on very little.</li>
+  <li><strong>An explanation is not an excuse</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1070s" target="_blank" rel="noopener">17:50</a></span>. An attachment style explains behavior but doesn't oblige you to tolerate endless uncertainty. You can give time and still expect honesty, consistency and mutual effort.</li>
+  <li>The boundary: I'm open to connection, but it takes consistency and effort from both of us. The question shifts from "what do I do to make them stay" to "does this relationship actually meet my needs?"</li>
+  <li>A boundary only works if your actions match your words <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1140s" target="_blank" rel="noopener">19:00</a></span>. If they vanish without explanation, don't act as if nothing happened. If they avoid real conversations, stop carrying the relationship alone. Create distance by your own standards, not to scare them.</li>
+  <li>The video points to research linking stronger avoidant tendencies with lower relationship satisfaction <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1190s" target="_blank" rel="noopener">19:50</a></span>. That's why a secure relationship needs both people taking part.</li>
+</ul>
+
+<h3>4. Stop trying to control when they fall for you <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1240s" target="_blank" rel="noopener">20:40</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1490s" target="_blank" rel="noopener">24:50</a></span></h3>
+<ul>
+  <li>The trap is constant monitoring <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1260s" target="_blank" rel="noopener">21:00</a></span>: "do you still love me?", "where is this going?", "why did you take so long to reply?". Every pause is a warning sign, every warm moment is proof. The relationship turns from something you live into something you grade.</li>
+  <li>The alternative <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1320s" target="_blank" rel="noopener">22:00</a></span>: share your feelings and needs without demanding an immediate result, and let the other person respond in their own way. Emotional readiness can't be demanded or argued into existence.</li>
+  <li>Watch actions <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1340s" target="_blank" rel="noopener">22:20</a></span>: do they make an effort, come back consistently, respect your boundaries, make room for you in their life, and do their actions line up with their words?</li>
+  <li><strong>Patience has a limit</strong> <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1370s" target="_blank" rel="noopener">22:50</a></span>. Patience is giving reasonable time to get comfortable with closeness. Waiting forever is shelving your own needs.</li>
+  <li>The image from the video <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1400s" target="_blank" rel="noopener">23:20</a></span>: leave the door open, but don't spend your life standing next to it. That's what makes closeness voluntary.</li>
+  <li>No tricks <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1430s" target="_blank" rel="noopener">23:50</a></span>: no jealousy, no perfectly timed disappearances. Secure behavior is simpler: honesty, groundedness, clarity, respecting their autonomy while protecting yours.</li>
+</ul>
+
+<h2>Wrap-up <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1490s" target="_blank" rel="noopener">24:50</a><span class="dash">-</span><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1660s" target="_blank" rel="noopener">27:40</a></span></h2>
+<ul>
+  <li>You can't make an avoidant person fall in love by chasing, pressure or "psychological strategies". You can change how you take part in the relationship.</li>
+  <li>An attachment style explains behavior but doesn't predict the outcome <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1580s" target="_blank" rel="noopener">26:20</a></span>. It doesn't guarantee they'll return, and it's no reason to stay somewhere that keeps hurting you.</li>
+  <li>The strongest boundary, according to the video <span class="tsg"><a class="ts" href="https://www.youtube.com/watch?v=bVsClFIuNF4&amp;t=1620s" target="_blank" rel="noopener">27:00</a></span>: you're free to come closer, and I'm free to walk away from what doesn't work for me. That's self-respect, not a threat.</li>
+</ul>
+
+<h2>Cheat sheet</h2>
+<div class="scroll"><table>
+  <thead><tr><th>Boundary</th><th>What it is not</th><th>How it can sound</th><th>What to watch</th></tr></thead>
+  <tbody>
+    <tr><td class="t">Stop chasing</td><td>Silent treatment, vanishing to scare them</td><td>"I care, but I won't beg for contact"</td><td>Do they approach on their own once pressure is gone</td></tr>
+    <tr><td class="t">Own life</td><td>Indifference or coldness</td><td>"I want you here, but I'm whole without you"</td><td>Your mood no longer hangs on their messages</td></tr>
+    <tr><td class="t">No breadcrumbs</td><td>Ultimatums for a reaction</td><td>"Open to closeness, but it takes effort from both"</td><td>Consistency, not rare bright moments</td></tr>
+    <tr><td class="t">No control</td><td>Waiting forever</td><td>"I'll leave room for you, but I won't shelve my needs"</td><td>Actions, not talks about feelings</td></tr>
+  </tbody>
+</table></div>
+
+<footer>
+<div class="notice"><strong>All rights to the original material belong to the author of the video, The Avoidant Code channel.</strong> These notes are an unofficial paraphrase for personal study, do not replace the original and are not affiliated with the author. Watch the full <a href="https://www.youtube.com/watch?v=bVsClFIuNF4" target="_blank" rel="noopener">video</a> on the <a href="https://www.youtube.com/@TheAvoidantCode-t9v1m" target="_blank" rel="noopener">The Avoidant Code channel</a>. Companion notes: <a href="https://gapgtn-bg.github.io/w8c/drama-triangle.html">attachment styles and the drama triangle</a>.</div>
+</footer>
+</article>
+</main>
+
+<script>
+(function(){
+  var KEY = 'dt-lang';
+  function setLang(l){
+    document.querySelectorAll('[data-l]').forEach(function(el){ el.hidden = el.getAttribute('data-l') !== l; });
+    document.querySelectorAll('[data-set]').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-set') === l)); });
+    document.documentElement.lang = l;
+    try { localStorage.setItem(KEY, l); } catch(e) {}
+  }
+  document.querySelectorAll('[data-set]').forEach(function(b){
+    b.addEventListener('click', function(){ setLang(b.getAttribute('data-set')); });
+  });
+  var start = 'ru';
+  var h = (location.hash || '').replace('#','');
+  if (h === 'en' || h === 'ru') start = h;
+  else { try { var s = localStorage.getItem(KEY); if (s === 'en' || s === 'ru') start = s; } catch(e) {} }
+  setLang(start);
+})();
+</script>
+
+
+<!-- ================================================================
+     ↓↓↓  ВОТ ЭТОТ БЛОК КОПИРУЕТСЯ В ЛЮБОЙ ОТЧЁТ - ЦЕЛИКОМ  ↓↓↓
+     Ничего снаружи ему не нужно: ни CDN, ни шрифтов, ни библиотек.
+     ================================================================ -->
+<style>
+  #eh-pill{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);right:10px;z-index:2147483000;
+    display:none;align-items:center;gap:6px;padding:7px 12px;border-radius:99px;cursor:pointer;
+    background:#4c8dff;color:#fff;border:0;font:600 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    box-shadow:0 4px 14px rgba(0,0,0,.35)}
+  #eh-bar{position:fixed;left:0;right:0;top:0;z-index:2147483001;display:none;
+    padding:calc(env(safe-area-inset-top,0px) + 12px) 14px 12px;
+    background:#12151c;border-bottom:1px solid #2a3040;color:#e7eaf0;
+    font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+  #eh-bar b{display:block;font-size:14px;margin-bottom:3px}
+  #eh-bar small{display:block;color:#98a2b3;font-size:12.5px;margin-bottom:11px}
+  #eh-bar .eh-row{display:flex;gap:8px;flex-wrap:wrap}
+  #eh-bar button{flex:1 1 auto;min-width:140px;padding:11px 14px;border-radius:9px;border:0;cursor:pointer;
+    font:600 14px/1 inherit;background:#4c8dff;color:#fff}
+  #eh-bar button.ghost{background:transparent;color:#98a2b3;border:1px solid #2a3040;flex:0 0 auto;min-width:0}
+  #eh-steps{margin:10px 0 0;padding-left:18px;color:#c3cad6;font-size:13px}
+  #eh-steps li{margin:3px 0}
+</style>
+
+<button id="eh-pill" type="button">↗&nbsp;В браузере</button>
+
+<div id="eh-bar">
+  <b id="eh-title">Открыть в обычном браузере</b>
+  <small id="eh-sub"></small>
+  <div class="eh-row">
+    <button id="eh-go" type="button">Открыть в браузере</button>
+    <button id="eh-copy" type="button" class="ghost">Скопировать ссылку</button>
+    <button id="eh-close" type="button" class="ghost">✕</button>
+  </div>
+  <ol id="eh-steps" hidden></ol>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var CANON = (window.REPORT_CANONICAL_URL || '').trim();
+  var href  = location.href;
+  var isFile = location.protocol === 'file:' || location.protocol === 'blob:' ||
+               location.protocol === 'content:';
+  // Целевой адрес: онлайн-копия, если она задана и мы открыты из файла.
+  var target = (isFile || !/^https?:$/.test(location.protocol)) ? CANON : href;
+
+  // ---------- 1. Определяем окружение -------------------------------
+  var ua = navigator.userAgent || '';
+  var os =
+    /iPhone|iPad|iPod/i.test(ua) ? 'ios' :
+    /Android/i.test(ua)          ? 'android' :
+    /Macintosh/i.test(ua)        ? 'mac' :
+    /Windows/i.test(ua)          ? 'win' : 'other';
+
+  var app = 'browser';
+  if (window.TelegramWebviewProxy || window.TelegramWebview ||
+      (window.webkit && window.webkit.messageHandlers &&
+       window.webkit.messageHandlers.performAction) || /Telegram/i.test(ua)) {
+    app = 'telegram';
+  } else if (/Teams(Mobile)?[\/ ]/i.test(ua) || /MSTeams/i.test(ua) ||
+             /SkypeSpaces/i.test(ua) || window.microsoftTeams) {
+    app = 'teams';
+  } else if (/FBAN|FBAV|Instagram/i.test(ua))       { app = 'meta'; }
+  else if (/MicroMessenger/i.test(ua))              { app = 'wechat'; }
+  else if (/\bLine\//i.test(ua))                    { app = 'line'; }
+  else if (/LinkedInApp/i.test(ua))                 { app = 'linkedin'; }
+
+  // Общие признаки встроенного вебвью, если по имени приложения не опознали.
+  var embedded =
+    app !== 'browser' ||
+    /;\s*wv\)/i.test(ua) ||                                          // Android WebView
+    (os === 'ios' && /AppleWebKit/i.test(ua) && !/Safari\//i.test(ua)); // WKWebView без Safari-токена
+
+  var isDesktop = (os === 'mac' || os === 'win' || os === 'other');
+
+  // ---------- 2. Способы «выпрыгнуть» --------------------------------
+  function bare(u){ return u.replace(/^https?:\/\//i, ''); }
+
+  function escapeTo(u) {
+    if (!u) return false;
+    try {
+      if (os === 'android') {
+        // Сначала пробуем системный выбор браузера, затем явно Chrome.
+        location.href = 'intent://' + bare(u) +
+          '#Intent;scheme=https;action=android.intent.action.VIEW;' +
+          'S.browser_fallback_url=' + encodeURIComponent(u) + ';end';
+        setTimeout(function () {
+          location.href = 'intent://' + bare(u) +
+            '#Intent;scheme=https;package=com.android.chrome;' +
+            'S.browser_fallback_url=' + encodeURIComponent(u) + ';end';
+        }, 600);
+        return true;
+      }
+      if (os === 'ios') {
+        // Недокументированная, но рабочая схема принудительного Safari.
+        location.href = 'x-safari-' + u;
+        setTimeout(function () { location.href = 'googlechrome' + u.replace(/^http/, ''); }, 700);
+        return true;
+      }
+      window.open(u, '_blank', 'noopener');
+      return true;
+    } catch (e) { return false; }
+  }
+
+  function copy(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).then(function(){return true;},function(){return fallback();});
+    }
+    return Promise.resolve(fallback());
+    function fallback() {
+      try {
+        var t = document.createElement('textarea');
+        t.value = text; t.setAttribute('readonly','');
+        t.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+        document.body.appendChild(t); t.select(); t.setSelectionRange(0, 99999);
+        var ok = document.execCommand('copy'); document.body.removeChild(t); return ok;
+      } catch (e) { return false; }
+    }
+  }
+
+  // ---------- 3. Тексты подсказок ------------------------------------
+  var APPNAME = {telegram:'Telegram', teams:'Microsoft Teams', meta:'Facebook/Instagram',
+                 wechat:'WeChat', line:'LINE', linkedin:'LinkedIn', browser:'встроенном браузере'};
+
+  function manualSteps() {
+    if (app === 'telegram' && os === 'ios')
+      return ['Нажми ⋯ в правом верхнем углу', 'Выбери «Открыть в Safari»'];
+    if (app === 'telegram' && os === 'android')
+      return ['Нажми ⋮ в правом верхнем углу', 'Выбери «Открыть в браузере»'];
+    if (app === 'teams' && os === 'ios')
+      return ['Нажми ⋯ / «Поделиться»', 'Выбери «Открыть в Safari»'];
+    if (app === 'teams' && os === 'android')
+      return ['Нажми ⋮ в правом верхнем углу', 'Выбери «Открыть в браузере»'];
+    return ['Открой меню ⋯ / ⋮ этого окна', 'Выбери «Открыть в браузере»'];
+  }
+
+  function fileSteps() {
+    if (os === 'ios')     return ['Нажми «Поделиться» → «Сохранить в Файлы»',
+                                  'Открой файл из приложения «Файлы» - он откроется в Safari'];
+    if (os === 'android') return ['Сохрани файл (⋮ → «Сохранить»)',
+                                  'Открой его из «Загрузок» и выбери Chrome'];
+    return ['Сохрани файл на диск', 'Открой его двойным кликом - запустится браузер по умолчанию'];
+  }
+
+  // ---------- 4. Рисуем интерфейс -------------------------------------
+  var bar = document.getElementById('eh-bar'),
+      pill = document.getElementById('eh-pill'),
+      steps = document.getElementById('eh-steps'),
+      sub = document.getElementById('eh-sub'),
+      go = document.getElementById('eh-go'),
+      cp = document.getElementById('eh-copy');
+
+  var canEscape = !!target;
+
+  sub.textContent = canEscape
+    ? 'Страница открыта в ' + (APPNAME[app] || 'встроенном браузере') +
+      '. Там ломаются графики, печать и полноэкранный режим.'
+    : 'Файл открыт локально, поэтому кнопкой перебросить нельзя - только вручную.';
+
+  if (!canEscape) {
+    go.hidden = true; cp.hidden = true;
+    fileSteps().forEach(function (s) { var li = document.createElement('li'); li.textContent = s; steps.appendChild(li); });
+    steps.hidden = false;
+  }
+
+  function show(){ bar.style.display = 'block'; pill.style.display = 'none'; }
+  function hide(){ bar.style.display = 'none'; pill.style.display = 'inline-flex'; }
+
+  pill.onclick = show;
+  document.getElementById('eh-close').onclick = hide;
+
+  go.onclick = function () {
+    escapeTo(target);
+    // Если через 1.2 с мы всё ещё здесь - показываем ручную инструкцию.
+    setTimeout(function () {
+      if (steps.childNodes.length) return;
+      manualSteps().forEach(function (s) { var li = document.createElement('li'); li.textContent = s; steps.appendChild(li); });
+      steps.hidden = false;
+      go.textContent = 'Попробовать ещё раз';
+    }, 1200);
+  };
+
+  cp.onclick = function () {
+    Promise.resolve(copy(target)).then(function (ok) {
+      cp.textContent = ok ? 'Скопировано ✓' : 'Не удалось';
+      setTimeout(function () { cp.textContent = 'Скопировать ссылку'; }, 2000);
+    });
+  };
+
+  // Показываем баннер сразу, если это вебвью; иначе - только тихую «пилюлю».
+  if (embedded && !isDesktop) { show(); } else if (embedded) { pill.style.display = 'inline-flex'; }
+
+  // Отдаём диагностику наружу - для тестовой страницы.
+  window.__EH__ = {app:app, os:os, embedded:embedded, isFile:isFile,
+                   target:target || '(не задан)', ua:ua};
+})();
+</script>
+<!-- ================================================================
+     ↑↑↑  КОНЕЦ КОПИРУЕМОГО БЛОКА  ↑↑↑
+     ================================================================ -->
+</body>
+</html>
